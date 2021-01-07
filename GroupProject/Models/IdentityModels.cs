@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
@@ -13,14 +14,15 @@ namespace GroupProject.Models
     public class ApplicationUser : IdentityUser
     {
         [Column(TypeName = "datetime2")]
-        public DateTime Created { get; set; }
+        public DateTime? Created { get; set; }
         [Column(TypeName = "datetime2")]
-        public DateTime LastLog { get; set; }
+        public DateTime? LastLog { get; set; }
         [DisplayName("First Name")]
         public string FirstName { get; set; }
         [DisplayName("Last Name")]
         public string LastName { get; set; }
         public string Address { get; set; }
+        public ICollection<OrderDetails> Order { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
@@ -43,9 +45,11 @@ namespace GroupProject.Models
             return new ApplicationDbContext();
         }
 
-        //public virtual DbSet<Products> Products { get; set; }
-        //public virtual DbSet<ProductCategory> ProductCategories { get; set; }
+        //public DbSet<Products> Products { get; set; }
+        //public DbSet<Category> Categories { get; set; }
+        //public DbSet<Manufactorer> Manufactorers { get; set; }
         //public DbSet<Cart> Carts { get; set; }
         //public DbSet<Order> Orders { get; set; }
+        //public DbSet<OrderDetails> OrdersDetails { get; set; }
     }
 }

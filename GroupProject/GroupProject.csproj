@@ -186,6 +186,10 @@
     <Compile Include="Migrations\202101071833051_loginwithusername.Designer.cs">
       <DependentUpon>202101071833051_loginwithusername.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202101072207181_nullable datetime.cs" />
+    <Compile Include="Migrations\202101072207181_nullable datetime.Designer.cs">
+      <DependentUpon>202101072207181_nullable datetime.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Category.cs" />
@@ -193,6 +197,7 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Manufactorer.cs" />
     <Compile Include="Models\Order.cs" />
+    <Compile Include="Models\OrderDetails.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -280,6 +285,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202101071833051_loginwithusername.resx">
       <DependentUpon>202101071833051_loginwithusername.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101072207181_nullable datetime.resx">
+      <DependentUpon>202101072207181_nullable datetime.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

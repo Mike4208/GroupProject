@@ -11,9 +11,9 @@
     <hr />
     <dl class="dl-horizontal">
 
-        <dt>UserName: </dt>
+        <dt>@Html.DisplayNameFor(model => model.Username): </dt>
         <dd>@Html.DisplayFor(model => model.Username)</dd>
-        <dt>Email: </dt>
+        <dt>@Html.DisplayNameFor(model => model.Email): </dt>
         <dd>@Html.DisplayFor(model => model.Email)</dd>
 
         <dt>Password: </dt>
@@ -31,12 +31,16 @@
             ]
         </dd>
 
-        <dt>First Name: </dt>
+        <dt>@Html.DisplayNameFor(model => model.FirstName): </dt>
         <dd>@Html.DisplayFor(model => model.FirstName)</dd>
-        <dt>Last Name: </dt>
+        <dt>@Html.DisplayNameFor(model => model.LastName): </dt>
         <dd>@Html.DisplayFor(model => model.LastName)</dd>
-        <dt>Address: </dt>
+        <dt>@Html.DisplayNameFor(model => model.Address): </dt>
         <dd>@Html.DisplayFor(model => model.Address)</dd>
+        <dt>@Html.DisplayNameFor(model => model.Created): </dt>
+        <dd>@Html.DisplayFor(model => model.Created)</dd>
+        <dt>@Html.DisplayNameFor(model => model.LastLogin): </dt>
+        <dd>@Html.DisplayFor(model => model.LastLogin)</dd>
 
         @*<dt>External Logins:</dt>
         <dd>

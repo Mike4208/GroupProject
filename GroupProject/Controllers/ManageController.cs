@@ -71,7 +71,8 @@ namespace GroupProject.Controllers
             var userId = User.Identity.GetUserId();
 
             var user = context.Users.Find(userId);
-            //ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
+
+            //ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId()); //OM dont know, i wanna try how this works later
 
             var model = new IndexViewModel
             {
@@ -79,7 +80,9 @@ namespace GroupProject.Controllers
                 Email = user.Email,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
-                Address = user.Address
+                Address = user.Address,
+                Created = user.Created,
+                LastLogin = user.LastLog
 
                 //HasPassword = HasPassword(),
                 //PhoneNumber = await UserManager.GetPhoneNumberAsync(userId),
@@ -189,11 +192,11 @@ namespace GroupProject.Controllers
 
         //                          select new
         //                          {
-        //                              //FirstName = user.FirstName,
-        //                              //LastName = user.LastName,
+        //                              FirstName = user.FirstName,
+        //                              LastName = user.LastName,
         //                              user.Roles,
-        //                              //user.LastLog,
-        //                              //Creation = user.Created,
+        //                              user.LastLog,
+        //                              Creation = user.Created,
         //                              UserId = user.Id,
         //                              Username = user.UserName,
         //                              user.Email,
@@ -219,14 +222,14 @@ namespace GroupProject.Controllers
         //    return View(usersWithRoles);
         //}
 
-        //public ActionResult Users()
-        //{
+        public ActionResult Users()
+        {
 
-        //    ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
+            ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
 
-        //    return View(user);
+            return View(user);
 
-        //}
+        }
 
 
         [HttpGet]

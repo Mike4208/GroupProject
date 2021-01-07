@@ -18,16 +18,19 @@ namespace GroupProject.Models
         // OM for current user manager
 
         //public string UserId { get; set; }
+
         [DisplayName("User Name")]
         public string Username { get; set; }
         public string Email { get; set; }
+
         //[DisplayName("User Roles")]
         //public string UserRoles { get; set; }
 
-        [DisplayName("User Created")]
-        public DateTime Created { get; set; }
+        [DisplayName("Date Created")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+        public DateTime? Created { get; set; }
         [DisplayName("Last Login")]
-        public DateTime LastLogin { get; set; }
+        public DateTime? LastLogin { get; set; }
 
         [DisplayName("First Name")]
         public string FirstName { get; set; }

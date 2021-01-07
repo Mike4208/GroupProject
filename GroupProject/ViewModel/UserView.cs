@@ -16,9 +16,9 @@ namespace GroupProject.ViewModel
         public string UserRoles { get; set; }
 
         [DisplayName("User Created")]
-        public DateTime Created { get; set; }
+        public DateTime? Created { get; set; }
         [DisplayName("Last Login")]
-        public DateTime LastLogin { get; set; }
+        public DateTime? LastLogin { get; set; }
 
         [DisplayName("First Name")]
         public string FirstName { get; set; }
