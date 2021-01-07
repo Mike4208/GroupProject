@@ -12,15 +12,15 @@ namespace GroupProject.Models
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit https://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
     public class ApplicationUser : IdentityUser
     {
-        //[Column(TypeName = "datetime2")]
-        //public DateTime Created { get; set; }
-        //[Column(TypeName = "datetime2")]
-        //public DateTime LastLog { get; set; }
-        //[DisplayName("First Name")]
-        //public string FirstName { get; set; }
-        //[DisplayName("Last Name")]
-        //public string LastName { get; set; }
-        //public string Address { get; set; }
+        [Column(TypeName = "datetime2")]
+        public DateTime Created { get; set; }
+        [Column(TypeName = "datetime2")]
+        public DateTime LastLog { get; set; }
+        [DisplayName("First Name")]
+        public string FirstName { get; set; }
+        [DisplayName("Last Name")]
+        public string LastName { get; set; }
+        public string Address { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
