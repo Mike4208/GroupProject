@@ -5,11 +5,11 @@ using System.Web;
 
 namespace GroupProject.Models
 {
-    public class OrderDetails
+    public class OrderProducts
     {
         public int ID { get; set; }
         public int ProductID { get; set; }
-        public string ApplicationUserID { get; set; }
-        public DateTime OrderDate { get; set; }
+        public int OrderID { get; set; }
+        public int Quantity { get; set; }
     }
 }

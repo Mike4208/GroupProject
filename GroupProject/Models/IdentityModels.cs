@@ -22,7 +22,7 @@ namespace GroupProject.Models
         [DisplayName("Last Name")]
         public string LastName { get; set; }
         public string Address { get; set; }
-        public ICollection<OrderDetails> Order { get; set; }
+        public ICollection<Order> Orders { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
