@@ -20,14 +20,13 @@ namespace GroupProject.Controllers
         {
             context = new ApplicationDbContext();
         }
+
         // GET: Role
+        [Authorize(Roles = "Admin")]
         public ActionResult Index()
         {
-
             if (User.Identity.IsAuthenticated)
             {
-
-
                 if (!isAdminUser())
                 {
                     return RedirectToAction("Index", "Home");
@@ -40,7 +39,6 @@ namespace GroupProject.Controllers
 
             var Roles = context.Roles.ToList();
             return View(Roles);
-
         }
 
         public Boolean isAdminUser()
@@ -62,7 +60,9 @@ namespace GroupProject.Controllers
             }
             return false;
         }
-        [HttpGet]
+
+        // GET
+        [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
             if (User.Identity.IsAuthenticated)
@@ -109,6 +109,7 @@ namespace GroupProject.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(string id)
         {
             var role = context.Roles.Find(id);

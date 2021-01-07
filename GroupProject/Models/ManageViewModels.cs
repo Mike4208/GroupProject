@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNet.Identity;
@@ -8,27 +9,31 @@ namespace GroupProject.Models
 {
     public class IndexViewModel
     {
-        public bool HasPassword { get; set; }
-        public IList<UserLoginInfo> Logins { get; set; }
-        public string PhoneNumber { get; set; }
-        public bool TwoFactor { get; set; }
-        public bool BrowserRemembered { get; set; }
+        //public bool HasPassword { get; set; }
+        //public IList<UserLoginInfo> Logins { get; set; }
+        //public string PhoneNumber { get; set; }
+        //public bool TwoFactor { get; set; }
+        //public bool BrowserRemembered { get; set; }
+
+        // OM for current user manager
+
         //public string UserId { get; set; }
-        //[DisplayName("User Name")]
-        //public string Username { get; set; }
-        //public string Email { get; set; }
+        [DisplayName("User Name")]
+        public string Username { get; set; }
+        public string Email { get; set; }
         //[DisplayName("User Roles")]
         //public string UserRoles { get; set; }
 
-        //[DisplayName("User Created")]
-        //public DateTime Created { get; set; }
-        //[DisplayName("Last Login")]
-        //public DateTime LastLogin { get; set; }
+        [DisplayName("User Created")]
+        public DateTime Created { get; set; }
+        [DisplayName("Last Login")]
+        public DateTime LastLogin { get; set; }
 
-        //[DisplayName("First Name")]
-        //public string FirstName { get; set; }
-        //[DisplayName("Last Name")]
-        //public string LastName { get; set; }
+        [DisplayName("First Name")]
+        public string FirstName { get; set; }
+        [DisplayName("Last Name")]
+        public string LastName { get; set; }
+        public string Address { get; set; }
     }
 
     public class ManageLoginsViewModel
