@@ -24,5 +24,8 @@ namespace GroupProject.ViewModel
         public string FirstName { get; set; }
         [DisplayName("Last Name")]
         public string LastName { get; set; }
+        public string Address { get; set; }
+
+
     }
 }

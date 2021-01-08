@@ -19,11 +19,11 @@ namespace GroupProject.Controllers
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
-        ApplicationDbContext context; // Required for startup created admin account.
+        ApplicationDbContext context; // OM: Required for startup created admin account.
 
         public AccountController()
         {
-            context = new ApplicationDbContext(); // Required for startup created admin account.
+            context = new ApplicationDbContext(); // OM: Required for startup created admin account.
         }
 
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
@@ -61,8 +61,14 @@ namespace GroupProject.Controllers
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
-            ViewBag.ReturnUrl = returnUrl;
-            return View();
+            // OM: Check if user is logged in, and if yes, return error view
+            if (!User.Identity.IsAuthenticated)
+            {
+                ViewBag.ReturnUrl = returnUrl;
+                return View();
+            }
+            else
+                return RedirectToAction("Error");
         }
 
         //
@@ -91,7 +97,7 @@ namespace GroupProject.Controllers
             {
                 case SignInStatus.Success:
 
-                    //OM saves login time to user model
+                    // OM: saves login time to user model
                     ApplicationUser applicationUser = context.Users.SingleOrDefault(u => u.UserName == model.UserName);
                     applicationUser.LastLog = DateTime.Now; 
                     context.Entry(applicationUser).State = EntityState.Modified;
@@ -157,7 +163,11 @@ namespace GroupProject.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
-            return View();
+            // OM: Check i user is logged in, and if yes, return error view
+            if (!User.Identity.IsAuthenticated)
+                return View();
+            else
+                return RedirectToAction("Error", "Home");
         }
 
         //
@@ -181,9 +191,8 @@ namespace GroupProject.Controllers
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-                    //Assign Role to user Here       
+                    // OM: Assign Role to Customer for whoever Registers       
                     await this.UserManager.AddToRoleAsync(user.Id, "Customer");
-                    //Ends Here     
 
                     return RedirectToAction("Index", "Home");
                 }

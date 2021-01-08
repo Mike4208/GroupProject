@@ -190,6 +190,10 @@
     <Compile Include="Migrations\202101072207181_nullable datetime.Designer.cs">
       <DependentUpon>202101072207181_nullable datetime.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202101081439580_models prototyped.cs" />
+    <Compile Include="Migrations\202101081439580_models prototyped.Designer.cs">
+      <DependentUpon>202101081439580_models prototyped.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Category.cs" />
@@ -288,6 +292,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202101072207181_nullable datetime.resx">
       <DependentUpon>202101072207181_nullable datetime.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101081439580_models prototyped.resx">
+      <DependentUpon>202101081439580_models prototyped.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

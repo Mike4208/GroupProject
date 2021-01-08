@@ -45,11 +45,11 @@ namespace GroupProject.Models
             return new ApplicationDbContext();
         }
 
-        //public DbSet<Products> Products { get; set; }
+        //public DbSet<Product> Products { get; set; }
         //public DbSet<Category> Categories { get; set; }
         //public DbSet<Manufactorer> Manufactorers { get; set; }
-        //public DbSet<Cart> Carts { get; set; }
         //public DbSet<Order> Orders { get; set; }
-        //public DbSet<OrderDetails> OrdersDetails { get; set; }
+        //public DbSet<OrderProducts> OrderProducts { get; set; }
+        //public DbSet<Cart> Carts { get; set; }
     }
 }

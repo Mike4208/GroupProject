@@ -12,17 +12,19 @@ using System.Data.Entity.Infrastructure;
 
 namespace GroupProject.Controllers
 {
+    // OM: Commented out all unused scafolded code. todo! Delete all comments after app is done and stable
+
     [Authorize]
     public class ManageController : Controller
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
-        ApplicationDbContext context; // OM added the database for index Action
+        ApplicationDbContext context; // OM: added the database for index Action
 
         public ManageController()
         {
-            context = new ApplicationDbContext(); //OM added the database for index Action
+            context = new ApplicationDbContext(); // OM: added the database for index Action
         }
 
         public ManageController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
@@ -55,11 +57,13 @@ namespace GroupProject.Controllers
             }
         }
 
+        // OM: todo? Change Task<ActionResult> to simple Action?
         //
         // GET: /Manage/Index
         public async Task<ActionResult> Index(ManageMessageId? message) 
         {
-            ViewBag.StatusMessage =
+            // OM: todo! comment out unused messages
+            ViewBag.StatusMessage = 
                 message == ManageMessageId.ChangePasswordSuccess ? "Your password has been changed."
                 : message == ManageMessageId.SetPasswordSuccess ? "Your password has been set."
                 : message == ManageMessageId.SetTwoFactorSuccess ? "Your two-factor authentication provider has been set."
@@ -70,11 +74,14 @@ namespace GroupProject.Controllers
 
             var userId = User.Identity.GetUserId();
 
-            var user = context.Users.Find(userId);
+            // OM: to get user details from user with above id
+            var user = context.Users.Find(userId); 
 
-            //ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId()); //OM dont know, i wanna try how this works later
+            // OM: todo? dont know, i wanna try and see how this works
+            //ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
 
-            var model = new IndexViewModel
+            // OM: changed scaffolded viewmodel to get the things we want to show. Commented out unneeded stuff
+            var model = new IndexViewModel 
             {
                 Username = user.UserName,
                 Email = user.Email,
@@ -182,7 +189,7 @@ namespace GroupProject.Controllers
             base.Dispose(disposing);
         }
 
-        // Custom from here on out
+        // OM: Custom code from here on out. todo! Use code below to make UsersController for admin only
 
         //public ActionResult Users()
         //{
@@ -222,14 +229,14 @@ namespace GroupProject.Controllers
         //    return View(usersWithRoles);
         //}
 
-        public ActionResult Users()
-        {
+        //public ActionResult Users()
+        //{
 
-            ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
+        //    ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
 
-            return View(user);
+        //    return View(user);
 
-        }
+        //}
 
 
         [HttpGet]
