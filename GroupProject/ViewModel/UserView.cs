@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -11,6 +12,7 @@ namespace GroupProject.ViewModel
         public string UserId { get; set; }
         [DisplayName("User Name")]
         public string Username { get; set; }
+        [EmailAddress]
         public string Email { get; set; }
         [DisplayName("User Roles")]
         public string UserRoles { get; set; }

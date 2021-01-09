@@ -15,8 +15,11 @@ namespace GroupProject.Models
     public class ApplicationUser : IdentityUser
     {
         [Column(TypeName = "datetime2")]
+        [DisplayFormat(NullDisplayText = "I am inevitable")]
         public DateTime? Created { get; set; }
         [Column(TypeName = "datetime2")]
+        [DisplayFormat(NullDisplayText = "Never")]
+
         public DateTime? LastLog { get; set; }
         [DisplayName("First Name")]
         [StringLength(50, MinimumLength = 3)]

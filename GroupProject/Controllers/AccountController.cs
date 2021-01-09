@@ -97,7 +97,7 @@ namespace GroupProject.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-                    // OM: saves login time to user model
+                    // OM: saves login date and time to user model
                     ApplicationUser applicationUser = context.Users.SingleOrDefault(u => u.UserName == model.UserName);
                     applicationUser.LastLog = DateTime.Now; 
                     context.Entry(applicationUser).State = EntityState.Modified;

@@ -9,11 +9,15 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Threading.Tasks;
+using Microsoft.AspNet.Identity.Owin;
 
 namespace GroupProject.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
+        private ApplicationUserManager _userManager;
 
         ApplicationDbContext context;
 
@@ -22,20 +26,26 @@ namespace GroupProject.Controllers
             context = new ApplicationDbContext();
         }
 
+        public AdminController(ApplicationUserManager userManager)
+        {
+            UserManager = userManager;
+        }
+
+        public ApplicationUserManager UserManager
+        {
+            get
+            {
+                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
+            private set
+            {
+                _userManager = value;
+            }
+        }
+
         [Authorize(Roles = "Admin")]
         public ActionResult Index()
         {
-            if (User.Identity.IsAuthenticated)
-            {
-                var user = User.Identity;
-                ViewBag.Name = user.Name;
-                ViewBag.displayMenu = "No";
-                if (isAdminUser())
-                    ViewBag.displayMenu = "Yes";
-                return View();
-            }
-            else
-                ViewBag.Name = "Unknown!";
             return View();
         }
 
@@ -53,6 +63,7 @@ namespace GroupProject.Controllers
                                       UserId = user.Id,
                                       Username = user.UserName,
                                       user.Email,
+                                      Address = user.Address,
                                       RoleNames = (from userRole in user.Roles
                                                    join role in context.Roles on userRole.RoleId
                                                    equals role.Id
@@ -66,8 +77,8 @@ namespace GroupProject.Controllers
                                       UserId = p.UserId,
                                       Username = p.Username,
                                       Email = p.Email,
+                                      Address = p.Address,
                                       UserRoles = string.Join(",", p.RoleNames)
-
                                   });
             return View(users);
         }
@@ -86,7 +97,6 @@ namespace GroupProject.Controllers
 
         [Authorize(Roles = "Admin")]
         [HttpPost]
-        [ActionName("DeleteUser")]
         public ActionResult DeleteUser(string id, string user)
         {
             var userid = context.Users.Where(x => x.Id == id).Single();
@@ -95,7 +105,7 @@ namespace GroupProject.Controllers
             return RedirectToAction("UserList");
         }
         
-        // todo! Make admin able to change user role
+        // TODO! Make admin able to change user role
         [Authorize(Roles = "Admin")]
         public ActionResult EditUser(string id)
         {
@@ -105,8 +115,7 @@ namespace GroupProject.Controllers
 
             if (user == null)
                 return HttpNotFound();
-            ViewBag.Name = new SelectList(context.Roles.Where(u => !u.Name.Contains("Admin"))
-                                        .ToList(), "Name", "Name");
+            //ViewBag.Name = new SelectList(context.Roles.Where(u => !u.Name.Contains("Admin")).ToList(), "Name", "Name");
             return View(user);
         }
 
@@ -120,7 +129,7 @@ namespace GroupProject.Controllers
             var userToUpdate = context.Users.Find(id);
             //var userToUpdate = context.Users.SingleOrDefault(u => u.Id == user.Id);
 
-            if (TryUpdateModel(userToUpdate, "", new string[] { "Email", "Username", "FirstName", "LastName" }))
+            if (TryUpdateModel(userToUpdate, "", new string[] { "Email", "Username", "FirstName", "LastName", "Address" }))
             {
                 try
                 {
@@ -133,9 +142,43 @@ namespace GroupProject.Controllers
                     //Log the error (uncomment dex variable name and add a line here to write a log.
                     ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists, see your system administrator.");
                 }
-                ViewBag.Name = new SelectList(context.Roles.Where(u => !u.Name.Contains("Admin")).ToList(), "Name", "Name");
+                //ViewBag.Name = new SelectList(context.Roles.Where(u => !u.Name.Contains("Admin")).ToList(), "Name", "Name");
             }
             return View(userToUpdate);
+        }
+
+        [Authorize(Roles = "Admin")]
+        public ActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Admin")]
+        public async Task<ActionResult> Create(RegisterViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = new ApplicationUser { UserName = model.UserName, Email = model.Email, Created = DateTime.Now, FirstName = model.FirstName, LastName = model.LastName, Address = model.Address };
+                var result = await UserManager.CreateAsync(user, model.Password);
+                if (result.Succeeded)
+                {
+                    await this.UserManager.AddToRoleAsync(user.Id, "Employee");
+                    return RedirectToAction("UserList", "Admin");
+                }
+            }
+            // If we got this far, something failed, redisplay form
+            return View(model);
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && _userManager != null)
+            {
+                _userManager.Dispose();
+                _userManager = null;
+            }
+            base.Dispose(disposing);
         }
 
         //-----------------------------------------Roles Actions----------------------------------
@@ -162,6 +205,22 @@ namespace GroupProject.Controllers
                 var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
                 var s = UserManager.GetRoles(user.GetUserId());
                 if (s[0].ToString() == "Admin")
+                    return true;
+                else
+                    return false;
+            }
+            return false;
+        }
+
+        public Boolean isEmployeeUser()
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                var user = User.Identity;
+                ApplicationDbContext context = new ApplicationDbContext();
+                var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
+                var s = UserManager.GetRoles(user.GetUserId());
+                if (s[0].ToString() == "Employee")
                     return true;
                 else
                     return false;

@@ -25,6 +25,8 @@ namespace GroupProject.Models
         public string Username { get; set; }
         [Required]
         [StringLength(50, MinimumLength = 6)]
+        [EmailAddress]
+
         public string Email { get; set; }
 
         //[DisplayName("User Roles")]

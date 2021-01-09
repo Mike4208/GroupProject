@@ -3,7 +3,6 @@
 
 @{
     ViewBag.Title = "Users With Roles";
-    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <div class="panel panel-primary">
@@ -22,30 +21,34 @@
                     <td><b>LastName</b></td>
                     <td><b>Email</b></td>
                     <td><b>Role</b></td>
+                    <td><b>Address</b></td>
                     <td><b>Creation date</b></td>
                     <td><b>Last login</b></td>
                     <td><b>Edit</b></td>
 
-
                 </tr>
             </thead>
-            @foreach (var user in Model)
-            {
-                <tr>
-                    <td>@user.Username</td>
-                    <td>@user.FirstName</td>
-                    <td>@user.LastName</td>
-                    <td>@user.Email</td>
-                    <td>@user.UserRoles</td>
-                    <td>@user.Created</td>
-                    <td>@user.LastLogin</td>
-                    <td>
-                        @Html.ActionLink("Edit", "EditUser", new { id = user.UserId }) |
-                        @Html.ActionLink("Delete", "DeleteUser", new { id = user.UserId })
-                    </td>
-                </tr>
-}
+            <tbody>
+               @foreach (var user in Model)
+                {
+                    <tr>
+                        <td>@user.Username</td>
+                        <td>@user.FirstName</td>
+                        <td>@user.LastName</td>
+                        <td>@user.Email</td>
+                        <td>@user.UserRoles</td>
+                        <td>@user.Address</td>
+                        <td>@user.Created</td>
+                        <td>@user.LastLogin</td>
+                        <td>
+                            @Html.ActionLink("Edit", "EditUser", new { id = user.UserId }) |
+                            @Html.ActionLink("Delete", "DeleteUser", new { id = user.UserId })
+                        </td>
+                    </tr> 
+                }
+            </tbody>
         </table>
+        @Html.ActionLink("Create new Employee", "Create")
     </div>
 
     <div class="panel-footer">
