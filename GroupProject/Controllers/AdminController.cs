@@ -112,17 +112,24 @@ namespace GroupProject.Controllers
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             var user = context.Users.Find(id);
-
             if (user == null)
                 return HttpNotFound();
+            var model = new IndexViewModel()
+            {
+                Email = user.Email,
+                Username = user.UserName,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Address = user.Address
+            };
             //ViewBag.Name = new SelectList(context.Roles.Where(u => !u.Name.Contains("Admin")).ToList(), "Name", "Name");
-            return View(user);
+            return View(model);
         }
 
         [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult EditUser(string id, ApplicationUser user)
+        public ActionResult EditUser(string id, IndexViewModel user)
         {
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
