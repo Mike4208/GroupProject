@@ -1,0 +1,49 @@
+﻿@model IEnumerable<Microsoft.AspNet.Identity.EntityFramework.IdentityRole>
+@{
+    ViewBag.Title = "Roles";
+}
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h3 class="box-title">
+            <b>Role Editor</b>
+        </h3>
+    </div>
+</div>
+<table class="table table-bordered">
+    <tbody>
+    <thead style="background-color: #eeeeee">
+        <tr>
+            <td>
+                <h4>
+                    <i>Existing User Roles:</i>
+                </h4>
+            </td>
+            <td><h4><i>Delete Role</i></h4></td>
+        </tr>
+    </thead>
+
+    </tbody>
+
+    @foreach (var item in Model)
+    {
+        <tr style="background-color: #eeeeee">
+            <td>
+                @item.Name
+            </td>
+            <td>
+
+                @Html.ActionLink("Delete", "DeleteRole", new { id = item.Id })
+            </td>
+        </tr>
+    }
+
+
+</table>
+<button type="button" class="btn btn-warning" onclick="location.href='@Url.Action("CreateRole", "Admin")'">
+    Create Role
+</button>
+<button type="button" class="btn btn-warning" onclick="location.href='@Url.Action("Index", "Admin")'">
+    Admin Panel
+</button>
+
+

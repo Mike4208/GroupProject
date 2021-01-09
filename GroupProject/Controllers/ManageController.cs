@@ -155,6 +155,24 @@ namespace GroupProject.Controllers
             return View(model);
         }
 
+        public ActionResult Edit()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(IndexViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+
+            return View(model);
+        }
+
         ////
         //// POST: /Manage/LinkLogin
         //[HttpPost]
