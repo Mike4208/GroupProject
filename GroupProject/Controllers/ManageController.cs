@@ -9,10 +9,11 @@ using Microsoft.Owin.Security;
 using GroupProject.Models;
 using System.Net;
 using System.Data.Entity.Infrastructure;
+using System.Data.Entity;
 
 namespace GroupProject.Controllers
 {
-    // OM: Commented out all unused scafolded code. todo! Delete all comments after app is done and stable
+    // OM: Commented out all unused scafolded code. TODO! Delete all comments after app is done and stable
 
     [Authorize]
     public class ManageController : Controller
@@ -60,7 +61,7 @@ namespace GroupProject.Controllers
         // OM: todo? Change Task<ActionResult> to simple Action?
         //
         // GET: /Manage/Index
-        public async Task<ActionResult> Index(ManageMessageId? message) 
+        public ActionResult Index(ManageMessageId? message) 
         {
             // OM: todo! comment out unused messages
             ViewBag.StatusMessage = 
@@ -77,7 +78,7 @@ namespace GroupProject.Controllers
             // OM: to get user details from user with above id
             var user = context.Users.Find(userId); 
 
-            // OM: todo? dont know, i wanna try and see how this works
+            // OM: TODO? dont know, i wanna try and see how this works
             //ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
 
             // OM: changed scaffolded viewmodel to get the things we want to show. Commented out unneeded stuff
@@ -146,30 +147,47 @@ namespace GroupProject.Controllers
             {
                 var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
                 if (user != null)
-                {
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-                }
                 return RedirectToAction("Index", new { Message = ManageMessageId.ChangePasswordSuccess });
             }
             AddErrors(result);
             return View(model);
         }
 
+        // OM: IMPORTANT! Layout doesn't refresh after Edit, so navbar will still show previous name unless user logs off. *Layout apparently reloads after logon/logoff
+        [Authorize]
         public ActionResult Edit()
         {
-            return View();
+            var userId = User.Identity.GetUserId();
+            var user = context.Users.Find(userId);
+            var model = new IndexViewModel
+            {
+                Username = user.UserName,
+                Email = user.Email,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Address = user.Address
+            };
+            return View(model);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(IndexViewModel model)
+        public ActionResult Edit([Bind(Include = "UserName, Email, FirstName, LastName, Address")] IndexViewModel model)
         {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                return View(model);
+                var userId = User.Identity.GetUserId();
+                var user = context.Users.Find(userId);
+                user.UserName = model.Username;
+                user.Email = model.Email;
+                user.FirstName = model.FirstName;
+                user.LastName = model.LastName;
+                user.Address = model.Address;
+                context.Entry(user).State = EntityState.Modified;
+                context.SaveChanges();
+                return RedirectToAction("Index");
             }
-
-
             return View(model);
         }
 
@@ -203,7 +221,6 @@ namespace GroupProject.Controllers
                 _userManager.Dispose();
                 _userManager = null;
             }
-
             base.Dispose(disposing);
         }
 
@@ -257,84 +274,84 @@ namespace GroupProject.Controllers
         //}
 
 
-        [HttpGet]
-        public ActionResult Delete(string id)
-        {
-            ApplicationDbContext context = new ApplicationDbContext();
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            var user = context.Users.Find(id);
-            if (user == null)
-            {
-                return HttpNotFound();
-            }
-            return View(user);
+        //[HttpGet]
+        //public ActionResult Delete(string id)
+        //{
+        //    ApplicationDbContext context = new ApplicationDbContext();
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    var user = context.Users.Find(id);
+        //    if (user == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    return View(user);
 
-        }
-        [HttpPost]
-        [ActionName("Delete")]
-        public ActionResult DeleteConfirmed(string id)
-        {
-            ApplicationDbContext context = new ApplicationDbContext();
-            var userid = context.Users.Where(x => x.Id == id).Single();
-            context.Users.Remove(userid);
-            context.SaveChanges();
-            return RedirectToAction("UsersWithRoles");
-        }
-        [HttpGet]
-        public ActionResult Edit(string id)
-        {
-            ApplicationDbContext context = new ApplicationDbContext();
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            var user = context.Users.Find(id);
+        //}
+        //[HttpPost]
+        //[ActionName("Delete")]
+        //public ActionResult DeleteConfirmed(string id)
+        //{
+        //    ApplicationDbContext context = new ApplicationDbContext();
+        //    var userid = context.Users.Where(x => x.Id == id).Single();
+        //    context.Users.Remove(userid);
+        //    context.SaveChanges();
+        //    return RedirectToAction("UsersWithRoles");
+        //}
+        //[HttpGet]
+        //public ActionResult Edit(string id)
+        //{
+        //    ApplicationDbContext context = new ApplicationDbContext();
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    var user = context.Users.Find(id);
 
-            if (user == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.Name = new SelectList(context.Roles.Where(u => !u.Name.Contains("Admin"))
-                                        .ToList(), "Name", "Name");
-            return View(user);
+        //    if (user == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    ViewBag.Name = new SelectList(context.Roles.Where(u => !u.Name.Contains("Admin"))
+        //                                .ToList(), "Name", "Name");
+        //    return View(user);
 
-        }
-        [HttpPost, ActionName("Edit")]
-        [ValidateAntiForgeryToken]
-        public ActionResult EditPost(string id, ApplicationUser user)
-        {
-            ApplicationDbContext context = new ApplicationDbContext();
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            var userToUpdate = context.Users.Find(id);
-            //var userToUpdate = context.Users.SingleOrDefault(u => u.Id == user.Id);
+        //}
+        //[HttpPost, ActionName("Edit")]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult EditPost(string id, ApplicationUser user)
+        //{
+        //    ApplicationDbContext context = new ApplicationDbContext();
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    var userToUpdate = context.Users.Find(id);
+        //    //var userToUpdate = context.Users.SingleOrDefault(u => u.Id == user.Id);
 
-            if (TryUpdateModel(userToUpdate, "",
-               new string[] { "Email", "Username", "FirstName", "LastName" }))
-            {
-                try
-                {
-                    context.SaveChanges();
+        //    if (TryUpdateModel(userToUpdate, "",
+        //       new string[] { "Email", "Username", "FirstName", "LastName" }))
+        //    {
+        //        try
+        //        {
+        //            context.SaveChanges();
 
-                    return RedirectToAction("UsersWithRoles");
-                }
-                catch (RetryLimitExceededException /* dex */)
-                {
-                    //Log the error (uncomment dex variable name and add a line here to write a log.
-                    ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists, see your system administrator.");
-                }
-                ViewBag.Name = new SelectList(context.Roles.Where(u => !u.Name.Contains("Admin"))
-                                         .ToList(), "Name", "Name");
+        //            return RedirectToAction("UsersWithRoles");
+        //        }
+        //        catch (RetryLimitExceededException /* dex */)
+        //        {
+        //            //Log the error (uncomment dex variable name and add a line here to write a log.
+        //            ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists, see your system administrator.");
+        //        }
+        //        ViewBag.Name = new SelectList(context.Roles.Where(u => !u.Name.Contains("Admin"))
+        //                                 .ToList(), "Name", "Name");
 
-            }
+        //    }
 
-            return View(userToUpdate);
-        }
+        //    return View(userToUpdate);
+        //}
 
         #region Helpers
         // Used for XSRF protection when adding external logins

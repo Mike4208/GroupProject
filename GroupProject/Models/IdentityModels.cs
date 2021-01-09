@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 using System.Security.Claims;
@@ -18,9 +19,12 @@ namespace GroupProject.Models
         [Column(TypeName = "datetime2")]
         public DateTime? LastLog { get; set; }
         [DisplayName("First Name")]
+        [StringLength(50, MinimumLength = 3)]
         public string FirstName { get; set; }
         [DisplayName("Last Name")]
+        [StringLength(50, MinimumLength = 3)]
         public string LastName { get; set; }
+        [StringLength(50, MinimumLength = 5)]
         public string Address { get; set; }
         public ICollection<Order> Orders { get; set; }
 
@@ -45,11 +49,10 @@ namespace GroupProject.Models
             return new ApplicationDbContext();
         }
 
-        //public DbSet<Product> Products { get; set; }
-        //public DbSet<Category> Categories { get; set; }
-        //public DbSet<Manufactorer> Manufactorers { get; set; }
-        //public DbSet<Order> Orders { get; set; }
-        //public DbSet<OrderProducts> OrderProducts { get; set; }
-        //public DbSet<Cart> Carts { get; set; }
+        public DbSet<Product> Products { get; set; }
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<Manufactorer> Manufactorers { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderProducts> OrderProducts { get; set; }
     }
 }

@@ -68,7 +68,7 @@ namespace GroupProject.Controllers
                 return View();
             }
             else
-                return RedirectToAction("Error");
+                return RedirectToAction("Error", "Home");
         }
 
         //
@@ -86,17 +86,17 @@ namespace GroupProject.Controllers
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
 
-            //var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false); //OM default result
+            //var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false); //OM scaffolded
 
             //var user = context.Users.Where(u => u.Email.Equals(model.Email)).Single(); // where context is ApplicationDbContext instance. OM Required for startup created admin account with email.
             //var result = await SignInManager.PasswordSignInAsync(user.UserName, model.Password, model.RememberMe, shouldLockout: false);
 
+            // OM: todo! Remove RememberMe
             var result = await SignInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, shouldLockout: false);
 
             switch (result)
             {
                 case SignInStatus.Success:
-
                     // OM: saves login time to user model
                     ApplicationUser applicationUser = context.Users.SingleOrDefault(u => u.UserName == model.UserName);
                     applicationUser.LastLog = DateTime.Now; 
@@ -104,6 +104,7 @@ namespace GroupProject.Controllers
                     context.SaveChanges();
 
                     return RedirectToLocal(returnUrl);
+                    // OM: todo! comment out these 2
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
@@ -179,7 +180,7 @@ namespace GroupProject.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.UserName, Email = model.Email, Created = DateTime.Now, FirstName = model.FirstName, LastName = model.LastName, Address = model.Address }; //OM it was UserName = model.Email
+                var user = new ApplicationUser { UserName = model.UserName, Email = model.Email, Created = DateTime.Now, LastLog = DateTime.Now, FirstName = model.FirstName, LastName = model.LastName, Address = model.Address }; // OM it was UserName = model.Email
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -198,7 +199,6 @@ namespace GroupProject.Controllers
                 }
                 AddErrors(result);
             }
-
             // If we got this far, something failed, redisplay form
             return View(model);
         }

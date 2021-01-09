@@ -94,7 +94,8 @@ namespace GroupProject.Controllers
             context.SaveChanges();
             return RedirectToAction("UserList");
         }
-
+        
+        // todo! Make admin able to change user role
         [Authorize(Roles = "Admin")]
         public ActionResult EditUser(string id)
         {

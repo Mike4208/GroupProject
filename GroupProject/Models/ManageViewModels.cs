@@ -19,8 +19,12 @@ namespace GroupProject.Models
 
         //public string UserId { get; set; }
 
+        [Required]
         [DisplayName("User Name")]
+        [StringLength(50, MinimumLength = 3)]
         public string Username { get; set; }
+        [Required]
+        [StringLength(50, MinimumLength = 6)]
         public string Email { get; set; }
 
         //[DisplayName("User Roles")]
@@ -31,11 +35,16 @@ namespace GroupProject.Models
         public DateTime? Created { get; set; }
         [DisplayName("Last Login")]
         public DateTime? LastLogin { get; set; }
-
+        [Required]
         [DisplayName("First Name")]
+        [StringLength(50, MinimumLength = 3)]
         public string FirstName { get; set; }
+        [Required]
         [DisplayName("Last Name")]
+        [StringLength(50, MinimumLength = 3)]
         public string LastName { get; set; }
+        [Required]
+        [StringLength(50, MinimumLength = 5)]
         public string Address { get; set; }
     }
 

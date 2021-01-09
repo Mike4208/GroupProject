@@ -69,7 +69,7 @@ namespace GroupProject.Models
         public bool RememberMe { get; set; }
     }
 
-    public class RegisterViewModel //OM added extra properties(username,first name, last name, address)
+    public class RegisterViewModel // OM: added extra properties(username,first name, last name, address)
     {
         [Required]
         [EmailAddress]

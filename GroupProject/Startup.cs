@@ -12,7 +12,7 @@ namespace GroupProject
         public void Configuration(IAppBuilder app)
         {
             ConfigureAuth(app);
-            createRolesandUsers();
+            createRolesandUsers(); // OM: new method to create roles and admin user
         }
 
         // In this method we will create default User roles and Admin user for login    
@@ -27,7 +27,7 @@ namespace GroupProject
             // In Startup iam creating first Admin Role and creating a default Admin User     
             if (!roleManager.RoleExists("Admin"))
             {
-                // first we create Admin rool    
+                // first we create Admin rool 
                 var role = new Microsoft.AspNet.Identity.EntityFramework.IdentityRole();
                 role.Name = "Admin";
                 roleManager.Create(role);
@@ -37,8 +37,11 @@ namespace GroupProject
                 var user = new ApplicationUser();
                 user.UserName = "admin";
                 user.Email = "admin@admin.com";
+                user.FirstName = "Uperoxos";
+                user.LastName = "Glukoulhs";
+                user.Address = "Spiti mou";
 
-                string userPWD = "Admin123@"; // Needs to be more than 6 characters. Check account controller for additions need on scafolding for this to work.
+                string userPWD = "admin123"; // Needs to be more than 6 characters. Check account controller for additions need on scafolding for this to work.
 
                 var chkUser = UserManager.Create(user, userPWD);
 
