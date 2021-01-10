@@ -210,7 +210,7 @@
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="ViewModel\ManageViewModels.cs" />
-    <Compile Include="Models\Manufactorer.cs" />
+    <Compile Include="Models\Manufacturer.cs" />
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\OrderProducts.cs" />
     <Compile Include="Models\Product.cs" />

@@ -17,7 +17,7 @@ namespace GroupProject.Controllers
         // GET: Products
         public ActionResult Index()
         {
-            var products = db.Products.Include(p => p.Category).Include(p => p.Manufactorer);
+            var products = db.Products.Include(p => p.Category).Include(p => p.Manufacturer);
             ViewBag.IsAdminOrEmployee = User.IsInRole("Admin") || User.IsInRole("Employee");
             return View(products.ToList());
         }
@@ -61,7 +61,7 @@ namespace GroupProject.Controllers
             }
 
             ViewBag.CategoryID = new SelectList(db.Categories, "ID", "Name", product.CategoryID);
-            ViewBag.ManufactorerID = new SelectList(db.Manufactorers, "ID", "Name", product.ManufactorerID);
+            ViewBag.ManufactorerID = new SelectList(db.Manufactorers, "ID", "Name", product.ManufacturerID);
             return View(product);
         }
 
@@ -79,7 +79,7 @@ namespace GroupProject.Controllers
                 return HttpNotFound();
             }
             ViewBag.CategoryID = new SelectList(db.Categories, "ID", "Name", product.CategoryID);
-            ViewBag.ManufactorerID = new SelectList(db.Manufactorers, "ID", "Name", product.ManufactorerID);
+            ViewBag.ManufactorerID = new SelectList(db.Manufactorers, "ID", "Name", product.ManufacturerID);
             return View(product);
         }
 
@@ -97,7 +97,7 @@ namespace GroupProject.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.CategoryID = new SelectList(db.Categories, "ID", "Name", product.CategoryID);
-            ViewBag.ManufactorerID = new SelectList(db.Manufactorers, "ID", "Name", product.ManufactorerID);
+            ViewBag.ManufactorerID = new SelectList(db.Manufactorers, "ID", "Name", product.ManufacturerID);
             return View(product);
         }
 

@@ -28,7 +28,7 @@ namespace GroupProject.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Manufactorer manufactorer = db.Manufactorers.Find(id);
+            Manufacturer manufactorer = db.Manufactorers.Find(id);
             if (manufactorer == null)
             {
                 return HttpNotFound();
@@ -47,7 +47,7 @@ namespace GroupProject.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Name")] Manufactorer manufactorer)
+        public ActionResult Create([Bind(Include = "ID,Name")] Manufacturer manufactorer)
         {
             if (ModelState.IsValid)
             {
@@ -66,7 +66,7 @@ namespace GroupProject.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Manufactorer manufactorer = db.Manufactorers.Find(id);
+            Manufacturer manufactorer = db.Manufactorers.Find(id);
             if (manufactorer == null)
             {
                 return HttpNotFound();
@@ -79,7 +79,7 @@ namespace GroupProject.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Name")] Manufactorer manufactorer)
+        public ActionResult Edit([Bind(Include = "ID,Name")] Manufacturer manufactorer)
         {
             if (ModelState.IsValid)
             {
@@ -97,7 +97,7 @@ namespace GroupProject.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Manufactorer manufactorer = db.Manufactorers.Find(id);
+            Manufacturer manufactorer = db.Manufactorers.Find(id);
             if (manufactorer == null)
             {
                 return HttpNotFound();
@@ -110,7 +110,7 @@ namespace GroupProject.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Manufactorer manufactorer = db.Manufactorers.Find(id);
+            Manufacturer manufactorer = db.Manufactorers.Find(id);
             db.Manufactorers.Remove(manufactorer);
             db.SaveChanges();
             return RedirectToAction("Index");
