@@ -15,8 +15,8 @@ namespace GroupProject.Models
         public string ProductImage { get; set; }
         public decimal Price { get; set; }
         public int CategoryID { get; set; }
-        public Category Category { get; set; }
+        public virtual Category Category { get; set; }
         public int ManufactorerID { get; set; }
-        public Manufactorer Manufactorer {get;set;}
+        public virtual Manufactorer Manufactorer {get;set;}
     }
 }
