@@ -163,6 +163,7 @@ namespace GroupProject.Controllers
 
         [HttpPost]
         [Authorize(Roles = "Admin")]
+        [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(RegisterViewModel model)
         {
             if (ModelState.IsValid)

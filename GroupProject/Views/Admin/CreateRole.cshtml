@@ -12,8 +12,14 @@
 
 @using (Html.BeginForm())
 {
+    @Html.AntiForgeryToken()
+
     <p> Enter User Role Name:</p>
 
     @Html.EditorFor(m => m.Name)
-    <input type="submit" value="Create Role" />
+
+    <div class="form-actions no-color">
+    <input type="submit" value="Create Role" class="btn btn-default" />
+    @Html.ActionLink("Back to List", "IndexRole")
+    </div>
 }

@@ -48,7 +48,12 @@
                 }
             </tbody>
         </table>
-        @Html.ActionLink("Create new Employee", "Create")
+        <button type="button" class="btn btn-warning" onclick="location.href='@Url.Action("Create", "Admin")'">
+            Create New Employee
+        </button>
+        <button type="button" class="btn btn-warning" onclick="location.href='@Url.Action("Index", "Admin")'">
+            Admin Panel
+        </button>
     </div>
 
     <div class="panel-footer">
