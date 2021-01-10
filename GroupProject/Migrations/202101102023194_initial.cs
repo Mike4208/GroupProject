@@ -3,10 +3,73 @@ namespace GroupProject.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class InitialCreate : DbMigration
+    public partial class initial : DbMigration
     {
         public override void Up()
         {
+            CreateTable(
+                "dbo.Categories",
+                c => new
+                    {
+                        ID = c.Int(nullable: false, identity: true),
+                        Name = c.String(),
+                    })
+                .PrimaryKey(t => t.ID);
+            
+            CreateTable(
+                "dbo.Products",
+                c => new
+                    {
+                        ID = c.Int(nullable: false, identity: true),
+                        Name = c.String(),
+                        Description = c.String(),
+                        ProductImage = c.String(maxLength: 1024),
+                        Price = c.Decimal(nullable: false, precision: 18, scale: 2),
+                        CategoryID = c.Int(nullable: false),
+                        ManufacturerID = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.ID)
+                .ForeignKey("dbo.Categories", t => t.CategoryID, cascadeDelete: true)
+                .ForeignKey("dbo.Manufacturers", t => t.ManufacturerID, cascadeDelete: true)
+                .Index(t => t.CategoryID)
+                .Index(t => t.ManufacturerID);
+            
+            CreateTable(
+                "dbo.Manufacturers",
+                c => new
+                    {
+                        ID = c.Int(nullable: false, identity: true),
+                        Name = c.String(),
+                    })
+                .PrimaryKey(t => t.ID);
+            
+            CreateTable(
+                "dbo.OrderProducts",
+                c => new
+                    {
+                        ID = c.Int(nullable: false, identity: true),
+                        ProductID = c.Int(nullable: false),
+                        OrderID = c.Int(nullable: false),
+                        Quantity = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.ID)
+                .ForeignKey("dbo.Orders", t => t.OrderID, cascadeDelete: true)
+                .Index(t => t.OrderID);
+            
+            CreateTable(
+                "dbo.Orders",
+                c => new
+                    {
+                        ID = c.Int(nullable: false, identity: true),
+                        ApplicationUserID = c.Int(nullable: false),
+                        Price = c.Decimal(nullable: false, precision: 18, scale: 2),
+                        OrderDate = c.DateTime(nullable: false),
+                        ApplicationUser_Id = c.String(maxLength: 128),
+                    })
+                .PrimaryKey(t => t.ID)
+                .ForeignKey("dbo.AspNetUsers", t => t.ApplicationUser_Id)
+                .Index(t => t.ApplicationUser_Id);
+            
             CreateTable(
                 "dbo.AspNetRoles",
                 c => new
@@ -35,6 +98,11 @@ namespace GroupProject.Migrations
                 c => new
                     {
                         Id = c.String(nullable: false, maxLength: 128),
+                        Created = c.DateTime(precision: 7, storeType: "datetime2"),
+                        LastLog = c.DateTime(precision: 7, storeType: "datetime2"),
+                        FirstName = c.String(maxLength: 50),
+                        LastName = c.String(maxLength: 50),
+                        Address = c.String(maxLength: 50),
                         Email = c.String(maxLength: 256),
                         EmailConfirmed = c.Boolean(nullable: false),
                         PasswordHash = c.String(),
@@ -80,20 +148,33 @@ namespace GroupProject.Migrations
         public override void Down()
         {
             DropForeignKey("dbo.AspNetUserRoles", "UserId", "dbo.AspNetUsers");
+            DropForeignKey("dbo.Orders", "ApplicationUser_Id", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
+            DropForeignKey("dbo.OrderProducts", "OrderID", "dbo.Orders");
+            DropForeignKey("dbo.Products", "ManufacturerID", "dbo.Manufacturers");
+            DropForeignKey("dbo.Products", "CategoryID", "dbo.Categories");
             DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
             DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
             DropIndex("dbo.AspNetUsers", "UserNameIndex");
             DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
             DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
             DropIndex("dbo.AspNetRoles", "RoleNameIndex");
+            DropIndex("dbo.Orders", new[] { "ApplicationUser_Id" });
+            DropIndex("dbo.OrderProducts", new[] { "OrderID" });
+            DropIndex("dbo.Products", new[] { "ManufacturerID" });
+            DropIndex("dbo.Products", new[] { "CategoryID" });
             DropTable("dbo.AspNetUserLogins");
             DropTable("dbo.AspNetUserClaims");
             DropTable("dbo.AspNetUsers");
             DropTable("dbo.AspNetUserRoles");
             DropTable("dbo.AspNetRoles");
+            DropTable("dbo.Orders");
+            DropTable("dbo.OrderProducts");
+            DropTable("dbo.Manufacturers");
+            DropTable("dbo.Products");
+            DropTable("dbo.Categories");
         }
     }
 }

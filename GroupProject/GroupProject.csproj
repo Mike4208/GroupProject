@@ -172,38 +172,14 @@
     <Compile Include="Controllers\CategoriesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="Controllers\ManufactorersController.cs" />
+    <Compile Include="Controllers\ManufacturersController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202101061838272_InitialCreate.cs" />
-    <Compile Include="Migrations\202101061838272_InitialCreate.Designer.cs">
-      <DependentUpon>202101061838272_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202101071659026_registerviewmodel.cs" />
-    <Compile Include="Migrations\202101071659026_registerviewmodel.Designer.cs">
-      <DependentUpon>202101071659026_registerviewmodel.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202101071833051_loginwithusername.cs" />
-    <Compile Include="Migrations\202101071833051_loginwithusername.Designer.cs">
-      <DependentUpon>202101071833051_loginwithusername.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202101072207181_nullable datetime.cs" />
-    <Compile Include="Migrations\202101072207181_nullable datetime.Designer.cs">
-      <DependentUpon>202101072207181_nullable datetime.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202101081439580_models prototyped.cs" />
-    <Compile Include="Migrations\202101081439580_models prototyped.Designer.cs">
-      <DependentUpon>202101081439580_models prototyped.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202101091930470_add tables.cs" />
-    <Compile Include="Migrations\202101091930470_add tables.Designer.cs">
-      <DependentUpon>202101091930470_add tables.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202101092034365_stringminimumlength.cs" />
-    <Compile Include="Migrations\202101092034365_stringminimumlength.Designer.cs">
-      <DependentUpon>202101092034365_stringminimumlength.cs</DependentUpon>
+    <Compile Include="Migrations\202101102023194_initial.cs" />
+    <Compile Include="Migrations\202101102023194_initial.Designer.cs">
+      <DependentUpon>202101102023194_initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="ViewModel\AccountViewModels.cs" />
@@ -270,11 +246,11 @@
     <Content Include="Views\Manage\Index.cshtml" />
     <Content Include="Views\Home\Error.cshtml" />
     <Content Include="Views\Admin\Create.cshtml" />
-    <Content Include="Views\Manufactorers\Create.cshtml" />
-    <Content Include="Views\Manufactorers\Delete.cshtml" />
-    <Content Include="Views\Manufactorers\Details.cshtml" />
-    <Content Include="Views\Manufactorers\Edit.cshtml" />
-    <Content Include="Views\Manufactorers\Index.cshtml" />
+    <Content Include="Views\Manufacturers\Create.cshtml" />
+    <Content Include="Views\Manufacturers\Delete.cshtml" />
+    <Content Include="Views\Manufacturers\Details.cshtml" />
+    <Content Include="Views\Manufacturers\Edit.cshtml" />
+    <Content Include="Views\Manufacturers\Index.cshtml" />
     <Content Include="Views\Categories\Create.cshtml" />
     <Content Include="Views\Categories\Delete.cshtml" />
     <Content Include="Views\Categories\Details.cshtml" />
@@ -303,26 +279,8 @@
     <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202101061838272_InitialCreate.resx">
-      <DependentUpon>202101061838272_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202101071659026_registerviewmodel.resx">
-      <DependentUpon>202101071659026_registerviewmodel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202101071833051_loginwithusername.resx">
-      <DependentUpon>202101071833051_loginwithusername.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202101072207181_nullable datetime.resx">
-      <DependentUpon>202101072207181_nullable datetime.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202101081439580_models prototyped.resx">
-      <DependentUpon>202101081439580_models prototyped.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202101091930470_add tables.resx">
-      <DependentUpon>202101091930470_add tables.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202101092034365_stringminimumlength.resx">
-      <DependentUpon>202101092034365_stringminimumlength.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202101102023194_initial.resx">
+      <DependentUpon>202101102023194_initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

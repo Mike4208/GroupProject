@@ -42,7 +42,7 @@ namespace GroupProject.Controllers
         public ActionResult Create()
         {
             ViewBag.CategoryID = new SelectList(db.Categories, "ID", "Name");
-            ViewBag.ManufactorerID = new SelectList(db.Manufactorers, "ID", "Name");
+            ViewBag.ManufacturerID = new SelectList(db.Manufacturers, "ID", "Name");
             return View();
         }
 
@@ -51,7 +51,7 @@ namespace GroupProject.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Name,Description,ProductImage,Price,CategoryID,ManufactorerID")] Product product)
+        public ActionResult Create([Bind(Include = "ID, Name, Description, ProductImage, Price, CategoryID, ManufacturerID")] Product product)
         {
             if (ModelState.IsValid)
             {
@@ -61,7 +61,7 @@ namespace GroupProject.Controllers
             }
 
             ViewBag.CategoryID = new SelectList(db.Categories, "ID", "Name", product.CategoryID);
-            ViewBag.ManufactorerID = new SelectList(db.Manufactorers, "ID", "Name", product.ManufacturerID);
+            ViewBag.ManufacturerID = new SelectList(db.Manufacturers, "ID", "Name", product.ManufacturerID);
             return View(product);
         }
 
@@ -79,7 +79,7 @@ namespace GroupProject.Controllers
                 return HttpNotFound();
             }
             ViewBag.CategoryID = new SelectList(db.Categories, "ID", "Name", product.CategoryID);
-            ViewBag.ManufactorerID = new SelectList(db.Manufactorers, "ID", "Name", product.ManufacturerID);
+            ViewBag.ManufacturerID = new SelectList(db.Manufacturers, "ID", "Name", product.ManufacturerID);
             return View(product);
         }
 
@@ -88,7 +88,7 @@ namespace GroupProject.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Name,Description,ProductImage,Price,CategoryID,ManufactorerID")] Product product)
+        public ActionResult Edit([Bind(Include = "ID, Name, Description, ProductImage, Price, CategoryID, ManufacturerID")] Product product)
         {
             if (ModelState.IsValid)
             {
@@ -97,7 +97,7 @@ namespace GroupProject.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.CategoryID = new SelectList(db.Categories, "ID", "Name", product.CategoryID);
-            ViewBag.ManufactorerID = new SelectList(db.Manufactorers, "ID", "Name", product.ManufacturerID);
+            ViewBag.ManufacturerID = new SelectList(db.Manufacturers, "ID", "Name", product.ManufacturerID);
             return View(product);
         }
 

@@ -17,10 +17,6 @@ namespace GroupProject.Migrations
 
         protected override void Seed(GroupProject.Models.ApplicationDbContext context)
         {
-            //  This method will be called after migrating to the latest version.
-
-            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
-            //  to avoid creating duplicate seed data.
 
             var categories = new List<Category>
             {
@@ -45,23 +41,21 @@ namespace GroupProject.Migrations
                 new Manufacturer { Name = "Cubot" },
                 new Manufacturer { Name = "Xiaomi" }
             };
-            manufacturers.ForEach(s => context.Manufactorers.AddOrUpdate(p => p.Name, s));
+            manufacturers.ForEach(s => context.Manufacturers.AddOrUpdate(p => p.Name, s));
             context.SaveChanges();
 
             new List<Product>
             {
-                new Product { Name = "64gb", CategoryID = categories.SingleOrDefault(g => g.Name == "Mobiles").ID,
+                new Product { Name = "mobile1", CategoryID = categories.SingleOrDefault(g => g.Name == "Mobile").ID,
                     Price = 8.99M, ManufacturerID = manufacturers.Single(a => a.Name == "Apple").ID, ProductImage = "Images/iphone12.png" },
-                new Product { Name = "64gb", CategoryID = categories.SingleOrDefault(g => g.Name == "Mobiles").ID,
+                new Product { Name = "mobile2", CategoryID = categories.SingleOrDefault(g => g.Name == "Mobile").ID,
                     Price = 8.99M, ManufacturerID = manufacturers.Single(a => a.Name == "Apple").ID, ProductImage = "Images/iphone12.png" },
-                new Product { Name = "128gb", CategoryID = categories.SingleOrDefault(g => g.Name == "Mobiles").ID,
+                new Product { Name = "mobile3", CategoryID = categories.SingleOrDefault(g => g.Name == "Mobile").ID,
                     Price = 8.99M, ManufacturerID = manufacturers.Single(a => a.Name == "Apple").ID, ProductImage = "Images/iphone12.png" },
-                new Product { Name = "FA506IU-HN156T", CategoryID = categories.SingleOrDefault(g => g.Name == "Laptops").ID,
+                new Product { Name = "FA506IU-HN156T", CategoryID = categories.SingleOrDefault(g => g.Name == "Laptop").ID,
                     Price = 8.99M, ManufacturerID = manufacturers.Single(a => a.Name == "Asus").ID, ProductImage = "Images/asus.jpg" },
-                new Product { Name = "FA706IU-H7006T", CategoryID = categories.SingleOrDefault(g => g.Name == "Laptops").ID,
+                new Product { Name = "FA706IU-H7006T", CategoryID = categories.SingleOrDefault(g => g.Name == "Laptop").ID,
                     Price = 8.99M, ManufacturerID = manufacturers.Single(a => a.Name == "Asus").ID, ProductImage = "Images/asus.jpg" },
-                new Product { Name = "21-b0003nv AiO", CategoryID = categories.SingleOrDefault(g => g.Name == "Pc").ID,
-                    Price = 8.99M, ManufacturerID = manufacturers.Single(a => a.Name == "Hp").ID, ProductImage = "Images/hp.jpg" }
             }.ForEach(a => context.Products.AddOrUpdate(a));
         }
     }

@@ -11,107 +11,107 @@ using GroupProject.Models;
 namespace GroupProject.Controllers
 {
     [Authorize(Roles = "Admin, Employee")]
-    public class ManufactorersController : Controller
+    public class ManufacturersController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: Manufactorers
+        // GET: Manufacturers
         public ActionResult Index()
         {
-            return View(db.Manufactorers.ToList());
+            return View(db.Manufacturers.ToList());
         }
 
-        // GET: Manufactorers/Details/5
+        // GET: Manufacturers/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Manufacturer manufactorer = db.Manufactorers.Find(id);
-            if (manufactorer == null)
+            Manufacturer manufacturer = db.Manufacturers.Find(id);
+            if (manufacturer == null)
             {
                 return HttpNotFound();
             }
-            return View(manufactorer);
+            return View(manufacturer);
         }
 
-        // GET: Manufactorers/Create
+        // GET: Manufacturers/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Manufactorers/Create
+        // POST: Manufacturers/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Name")] Manufacturer manufactorer)
+        public ActionResult Create([Bind(Include = "ID,Name")] Manufacturer manufacturer)
         {
             if (ModelState.IsValid)
             {
-                db.Manufactorers.Add(manufactorer);
+                db.Manufacturers.Add(manufacturer);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(manufactorer);
+            return View(manufacturer);
         }
 
-        // GET: Manufactorers/Edit/5
+        // GET: Manufacturers/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Manufacturer manufactorer = db.Manufactorers.Find(id);
-            if (manufactorer == null)
+            Manufacturer manufacturer = db.Manufacturers.Find(id);
+            if (manufacturer == null)
             {
                 return HttpNotFound();
             }
-            return View(manufactorer);
+            return View(manufacturer);
         }
 
-        // POST: Manufactorers/Edit/5
+        // POST: Manufacturers/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Name")] Manufacturer manufactorer)
+        public ActionResult Edit([Bind(Include = "ID,Name")] Manufacturer manufacturer)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(manufactorer).State = EntityState.Modified;
+                db.Entry(manufacturer).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(manufactorer);
+            return View(manufacturer);
         }
 
-        // GET: Manufactorers/Delete/5
+        // GET: Manufacturers/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Manufacturer manufactorer = db.Manufactorers.Find(id);
-            if (manufactorer == null)
+            Manufacturer manufacturer = db.Manufacturers.Find(id);
+            if (manufacturer == null)
             {
                 return HttpNotFound();
             }
-            return View(manufactorer);
+            return View(manufacturer);
         }
 
-        // POST: Manufactorers/Delete/5
+        // POST: Manufacturers/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Manufacturer manufactorer = db.Manufactorers.Find(id);
-            db.Manufactorers.Remove(manufactorer);
+            Manufacturer manufacturer = db.Manufacturers.Find(id);
+            db.Manufacturers.Remove(manufacturer);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
