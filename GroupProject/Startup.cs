@@ -61,10 +61,10 @@ namespace GroupProject
             }
 
             // creating Customer role
-            if (!roleManager.RoleExists("Customer"))
+            if (!roleManager.RoleExists("User"))
             {
                 var role = new Microsoft.AspNet.Identity.EntityFramework.IdentityRole();
-                role.Name = "Customer";
+                role.Name = "User";
                 roleManager.Create(role);
             }
         }

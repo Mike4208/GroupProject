@@ -80,6 +80,7 @@ namespace GroupProject.Controllers
                                       Address = p.Address,
                                       UserRoles = string.Join(",", p.RoleNames)
                                   });
+            users = users.OrderBy(x => x.UserRoles);
             return View(users);
         }
 

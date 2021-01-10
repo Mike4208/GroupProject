@@ -152,7 +152,7 @@ namespace GroupProject.Controllers
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
                     // OM: Assign Role to Customer for whoever Registers       
-                    await this.UserManager.AddToRoleAsync(user.Id, "Customer");
+                    await this.UserManager.AddToRoleAsync(user.Id, "User");
 
                     return RedirectToAction("Index", "Home");
                 }
