@@ -181,6 +181,10 @@
     <Compile Include="Migrations\202101102023194_initial.Designer.cs">
       <DependentUpon>202101102023194_initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202101102226045_add productfk to orderprodducts.cs" />
+    <Compile Include="Migrations\202101102226045_add productfk to orderprodducts.Designer.cs">
+      <DependentUpon>202101102226045_add productfk to orderprodducts.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="ViewModel\AccountViewModels.cs" />
     <Compile Include="Models\Category.cs" />
@@ -281,6 +285,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202101102023194_initial.resx">
       <DependentUpon>202101102023194_initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101102226045_add productfk to orderprodducts.resx">
+      <DependentUpon>202101102226045_add productfk to orderprodducts.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
