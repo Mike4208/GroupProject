@@ -18,8 +18,7 @@ namespace GroupProject.Controllers
     public class AdminController : Controller
     {
         private ApplicationUserManager _userManager;
-
-        ApplicationDbContext context;
+        readonly ApplicationDbContext context;
 
         public AdminController()
         {

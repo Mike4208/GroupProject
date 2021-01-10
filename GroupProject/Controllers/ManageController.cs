@@ -19,8 +19,7 @@ namespace GroupProject.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
-
-        ApplicationDbContext context; // OM: added the database for index Action
+        readonly ApplicationDbContext context; // OM: added the database for index Action
 
         public ManageController()
         {
