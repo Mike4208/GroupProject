@@ -14,7 +14,7 @@
         <dt>@Html.DisplayNameFor(model => model.Username): </dt>
         <dd>@Html.DisplayFor(model => model.Username)</dd>
         <dt>@Html.DisplayNameFor(model => model.Email): </dt>
-        <dd>@Html.DisplayFor(model => model.Email)</dd>
+        <dd>@Model.Email</dd> @*OM: DisplayFor makes this appear as a hyperlink for some reason*@
         <dt>Password: </dt>
         <dd>[ @Html.ActionLink("Change password", "ChangePassword") ]</dd>
         <dt>@Html.DisplayNameFor(model => model.FirstName): </dt>
