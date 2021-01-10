@@ -54,15 +54,15 @@ namespace GroupProject.Controllers
             var users = (from user in context.Users
                                   select new
                                   {
-                                      FirstName = user.FirstName,
-                                      LastName = user.LastName,
+                                      user.FirstName,
+                                      user.LastName,
                                       user.Roles,
                                       user.LastLog,
-                                      Creation = user.Created,
-                                      UserId = user.Id,
-                                      Username = user.UserName,
+                                      user.Created,
+                                      user.Id,
+                                      user.UserName,
                                       user.Email,
-                                      Address = user.Address,
+                                      user.Address,
                                       RoleNames = (from userRole in user.Roles
                                                    join role in context.Roles on userRole.RoleId
                                                    equals role.Id
@@ -72,9 +72,9 @@ namespace GroupProject.Controllers
                                       FirstName = p.FirstName,
                                       LastName = p.LastName,
                                       LastLogin = p.LastLog,
-                                      Created = p.Creation,
-                                      UserId = p.UserId,
-                                      Username = p.Username,
+                                      Created = p.Created,
+                                      UserId = p.Id,
+                                      Username = p.UserName,
                                       Email = p.Email,
                                       Address = p.Address,
                                       UserRoles = string.Join(",", p.RoleNames)
@@ -97,7 +97,8 @@ namespace GroupProject.Controllers
 
         [Authorize(Roles = "Admin")]
         [HttpPost]
-        public ActionResult DeleteUser(string id, string user)
+        [ActionName("DeleteUser")]
+        public ActionResult DeleteUserConfirmed(string id)
         {
             var userid = context.Users.Where(x => x.Id == id).Single();
             context.Users.Remove(userid);
@@ -129,7 +130,8 @@ namespace GroupProject.Controllers
         [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult EditUser(string id, IndexViewModel user)
+        [ActionName("EditUser")]
+        public ActionResult EditUserConfirmed(string id)
         {
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -195,7 +197,7 @@ namespace GroupProject.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                if (!isAdminUser())
+                if (!IsAdminUser())
                     return RedirectToAction("Index", "Home");
             }
             else
@@ -204,7 +206,7 @@ namespace GroupProject.Controllers
             return View(Roles);
         }
 
-        public Boolean isAdminUser()
+        public Boolean IsAdminUser()
         {
             if (User.Identity.IsAuthenticated)
             {
@@ -220,7 +222,7 @@ namespace GroupProject.Controllers
             return false;
         }
 
-        public Boolean isEmployeeUser()
+        public Boolean IsEmployeeUser()
         {
             if (User.Identity.IsAuthenticated)
             {
@@ -242,7 +244,7 @@ namespace GroupProject.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                if (!isAdminUser())
+                if (!IsAdminUser())
                     return RedirectToAction("Index", "Home");
             }
             else
@@ -262,7 +264,7 @@ namespace GroupProject.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                if (!isAdminUser())
+                if (!IsAdminUser())
                     return RedirectToAction("Index", "Home");
             }
             else
@@ -283,7 +285,7 @@ namespace GroupProject.Controllers
         [Authorize(Roles = "Admin")]
         [HttpPost]
         [ActionName("DeleteRole")]
-        public ActionResult DeleteRole(string id, string role)
+        public ActionResult DeleteRoleConfirmed(string id)
         {
             var roled = context.Roles.Where(x => x.Id == id).Single();
             context.Roles.Remove(roled);
