@@ -95,9 +95,10 @@ namespace GroupProject.Controllers
             return View(user);
         }
 
-        [Authorize(Roles = "Admin")]
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         [ActionName("DeleteUser")]
+        [ValidateAntiForgeryToken]
         public ActionResult DeleteUserConfirmed(string id)
         {
             var userid = context.Users.Where(x => x.Id == id).Single();
@@ -106,7 +107,6 @@ namespace GroupProject.Controllers
             return RedirectToAction("UserList");
         }
         
-        // TODO! Make admin able to change user role
         [Authorize(Roles = "Admin")]
         public ActionResult EditUser(string id)
         {
@@ -123,7 +123,6 @@ namespace GroupProject.Controllers
                 LastName = user.LastName,
                 Address = user.Address
             };
-            //ViewBag.Name = new SelectList(context.Roles.Where(u => !u.Name.Contains("Admin")).ToList(), "Name", "Name");
             return View(model);
         }
 
@@ -136,7 +135,6 @@ namespace GroupProject.Controllers
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             var userToUpdate = context.Users.Find(id);
-            //var userToUpdate = context.Users.SingleOrDefault(u => u.Id == user.Id);
 
             if (TryUpdateModel(userToUpdate, "", new string[] { "Email", "Username", "FirstName", "LastName", "Address" }))
             {
@@ -151,7 +149,6 @@ namespace GroupProject.Controllers
                     //Log the error (uncomment dex variable name and add a line here to write a log.
                     ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists, see your system administrator.");
                 }
-                //ViewBag.Name = new SelectList(context.Roles.Where(u => !u.Name.Contains("Admin")).ToList(), "Name", "Name");
             }
             return View(userToUpdate);
         }
@@ -238,17 +235,9 @@ namespace GroupProject.Controllers
             return false;
         }
 
-        [HttpGet]
         [Authorize(Roles = "Admin")]
         public ActionResult CreateRole()
         {
-            if (User.Identity.IsAuthenticated)
-            {
-                if (!IsAdminUser())
-                    return RedirectToAction("Index", "Home");
-            }
-            else
-                return RedirectToAction("Index", "Home");
             var Role = new IdentityRole();
             return View(Role);
         }
@@ -260,21 +249,14 @@ namespace GroupProject.Controllers
         /// <returns></returns>
         [HttpPost]
         [Authorize(Roles = "Admin")]
+        [ValidateAntiForgeryToken]
         public ActionResult CreateRole(IdentityRole Role)
         {
-            if (User.Identity.IsAuthenticated)
-            {
-                if (!IsAdminUser())
-                    return RedirectToAction("Index", "Home");
-            }
-            else
-                return RedirectToAction("Index", "Home");
             context.Roles.Add(Role);
             context.SaveChanges();
             return RedirectToAction("IndexRole");
         }
 
-        [HttpGet]
         [Authorize(Roles = "Admin")]
         public ActionResult DeleteRole(string id)
         {
@@ -282,9 +264,10 @@ namespace GroupProject.Controllers
             return View(role);
         }
 
-        [Authorize(Roles = "Admin")]
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         [ActionName("DeleteRole")]
+        [ValidateAntiForgeryToken]
         public ActionResult DeleteRoleConfirmed(string id)
         {
             var roled = context.Roles.Where(x => x.Id == id).Single();
