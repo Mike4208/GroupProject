@@ -12,12 +12,13 @@
         <hr />
     </div>
 
+    <div class="container-fluid mx-auto text-center">
     @if (ViewBag.IsAdminOrEmployee)
     {
         <p>
-            @Html.ActionLink("Edit Product Categories", "Index", "Categories")  |
-            @Html.ActionLink("Edit Product Manufacturers", "Index", "Manufacturers")  |
-            @Html.ActionLink("Create New Product", "Create")
+            @Html.ActionLink("Edit Product Categories", "Index", "Categories", "", new { @class = "btn btn-warning" })  |
+            @Html.ActionLink("Edit Product Manufacturers", "Index", "Manufacturers", "", new { @class = "btn btn-warning" })  |
+            @Html.ActionLink("Create New Product", "Create", "Products", "", new { @class = "btn btn-warning" }) 
         </p>
     }
 
@@ -27,9 +28,10 @@
             Find by name: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
             Category: @Html.DropDownList("SelectedCategory", "All")
             Manufacturer: @Html.DropDownList("SelectedManufacturer", "All")
-            <input type="submit" value="Search" />
+            <input type="submit" value="Search" class="btn btn-info btn-sm" />
         </p>
     }
+    </div>
 
     @*@using (Html.BeginForm("Index", "Trainers", FormMethod.Get))
     {
@@ -70,17 +72,22 @@
                         <li>@Html.DisplayFor(modelItem => item.Category.Name)</li>
                         <li>@Html.DisplayFor(modelItem => item.Name)</li>
                         <li>
-                            @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                            @Html.ActionLink("Details", "Details", new { id = item.ID })
                             @if (ViewBag.IsAdminOrEmployee)
                             {
-                                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) @: |
-                                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                                @Html.ActionLink("Edit", "Edit", "Products", new { id = item.ID }, new { @class = "btn btn-warning" } )
+                                @Html.ActionLink("Delete", "Delete", "Products", new { id = item.ID }, new { @class = "btn btn-warning" } )
                             }
                         </li>
                     </ul>
-                    <a href='@Url.Action("AddToCart", "ShoppingCart", new { id = item.ID })'>
+                    @*<a href='@Url.Action("AddToCart", "ShoppingCart", new { id = item.ID })'>
                         <img src="https://www.pngkey.com/png/detail/291-2912063_yellow-add-to-cart-button-png-image-background.png" width="120" height="40" style="position:center;" />
-                    </a>
+                    </a>*@
+                    <p>
+                        <a href="#" class="btn btn-info btn-sm">
+                            Add to <span class="glyphicon glyphicon-shopping-cart"></span>
+                        </a>
+                    </p>
                     <hr />
                 </div>
             </div>

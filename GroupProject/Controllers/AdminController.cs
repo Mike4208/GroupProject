@@ -45,12 +45,14 @@ namespace GroupProject.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult Index()
         {
+            ViewBag.PageName = "Admin";
             return View();
         }
 
         [Authorize(Roles = "Admin")]
         public ActionResult UserList()
         {
+            ViewBag.PageName = "Admin";
             var users = (from user in context.Users
                                   select new
                                   {
@@ -87,6 +89,7 @@ namespace GroupProject.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult DeleteUser(string id)
         {
+            ViewBag.PageName = "Admin";
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             var user = context.Users.Find(id);
@@ -110,6 +113,7 @@ namespace GroupProject.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult EditUser(string id)
         {
+            ViewBag.PageName = "Admin";
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             var user = context.Users.Find(id);
@@ -156,6 +160,7 @@ namespace GroupProject.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
+            ViewBag.PageName = "Admin";
             return View();
         }
 
@@ -175,6 +180,8 @@ namespace GroupProject.Controllers
                 }
             }
             // If we got this far, something failed, redisplay form
+            ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists, see your system administrator.");
+
             return View(model);
         }
 
@@ -192,6 +199,7 @@ namespace GroupProject.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult IndexRole()
         {
+            ViewBag.PageName = "Admin";
             if (User.Identity.IsAuthenticated)
             {
                 if (!IsAdminUser())
@@ -222,6 +230,7 @@ namespace GroupProject.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult CreateRole()
         {
+            ViewBag.PageName = "Admin";
             var Role = new IdentityRole();
             return View(Role);
         }
@@ -244,6 +253,7 @@ namespace GroupProject.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult DeleteRole(string id)
         {
+            ViewBag.PageName = "Admin";
             var role = context.Roles.Find(id);
             return View(role);
         }

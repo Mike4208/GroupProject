@@ -21,10 +21,10 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Products", "Index", "Products")</li>
+                    <li class="@(ViewBag.PageName == "Products" ? "active" : "")">@Html.ActionLink("Products", "Index", "Products")</li>
                     @if (User.IsInRole("Admin"))
                     {
-                        <li>@Html.ActionLink("Admin Panel", "Index", "Admin")</li>
+                        <li class="@(ViewBag.PageName == "Admin" ? "active" : "")">@Html.ActionLink("Admin Panel", "Index", "Admin")</li>
                     }
                 </ul>
                 @Html.Partial("_LoginPartial")
