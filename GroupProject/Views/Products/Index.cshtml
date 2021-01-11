@@ -1,73 +1,162 @@
-﻿@model IEnumerable<GroupProject.Models.Product>
-
+﻿@model PagedList.IPagedList<GroupProject.Models.Product>
+@using PagedList.Mvc;
 @{
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/pricing/">
 
-@if (ViewBag.IsAdminOrEmployee)
-{
-    <p>
-        @Html.ActionLink("Create New", "Create")
-    </p>
-}
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Category.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Manufacturer.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Description)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ProductImage)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Category.Name)
-        </th>
-        <th></th>
-    </tr>
+<main class="container">
+    <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+        <h1 class="display-4">Products</h1>
+        <hr />
+    </div>
 
-    @foreach (var item in Model)
+    @if (ViewBag.IsAdminOrEmployee)
     {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Category.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Manufacturer.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ProductImage)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Price)
-            </td>
-            <td>
-                @if (ViewBag.IsAdminOrEmployee)
-                {
-                    @Html.ActionLink("Edit", "Edit", new { id = item.ID })
-                }
-                @Html.ActionLink("Details", "Details", new { id = item.ID })
-                @if (ViewBag.IsAdminOrEmployee)
-                {
-                    @Html.ActionLink("Delete", "Delete", new { id = item.ID })
-                }
-            </td>
-        </tr>
+        <p>
+            @Html.ActionLink("Edit Product Categories", "Index", "Categories")  |
+            @Html.ActionLink("Edit Product Manufacturers", "Index", "Manufacturers")  |
+            @Html.ActionLink("Create New Product", "Create")
+        </p>
     }
 
-</table>
+    @using (Html.BeginForm("Index", "Products", FormMethod.Get))
+    {
+        <p>
+            Find by name: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+            Category: @Html.DropDownList("SelectedCategory", "All")
+            Manufacturer: @Html.DropDownList("SelectedManufacturer", "All")
+            <input type="submit" value="Search" />
+        </p>
+    }
+
+    @*@using (Html.BeginForm("Index", "Trainers", FormMethod.Get))
+    {
+        <p>
+            Category: @Html.DropDownList("SelectedCategory", "All")
+            Manufacturer: @Html.DropDownList("SelectedManufacturer", "All")
+            <input type="submit" value="Filter" />
+        </p>
+    }*@
+    <p>
+        @Html.ActionLink("Sort by Price", "Index", new { 
+            sortOrder = ViewBag.SortParam, 
+            searchString = ViewBag.CurrentFilter, 
+            selectedCategory = ViewBag.CurrentCategory, 
+            selectedManufacturer = ViewBag.CurrentManufacturer 
+        })
+        @if (ViewBag.Descending)
+        {
+            @:(Currently Descending)
+        }
+        else
+        {
+            @:(Currently Ascending)
+        }
+    </p>
+
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="card col-md-4 shadow-sm">
+                <div class="card-header">
+                    <img src="@Url.Content(item.ProductImage)" alt="" width="200" height="200" />
+                </div>
+                <div class="card-body">
+                    <h1 class="card-title pricing-card-title">@Html.DisplayFor(modelItem => item.Price)<small class="text-muted">€</small></h1>
+                    <ul class="list-unstyled mt-3 mb-4">
+                        <li>@Html.DisplayFor(modelItem => item.Manufacturer.Name)</li>
+                        <li>@Html.DisplayFor(modelItem => item.Category.Name)</li>
+                        <li>@Html.DisplayFor(modelItem => item.Name)</li>
+                        <li>
+                            @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                            @if (ViewBag.IsAdminOrEmployee)
+                            {
+                                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) @: |
+                                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                            }
+                        </li>
+                    </ul>
+                    <a href='@Url.Action("AddToCart", "ShoppingCart", new { id = item.ID })'>
+                        <img src="https://www.pngkey.com/png/detail/291-2912063_yellow-add-to-cart-button-png-image-background.png" width="120" height="40" style="position:center;" />
+                    </a>
+                    <hr />
+                </div>
+            </div>
+        }
+    </div>
+
+    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+    @Html.PagedListPager(Model, page => Url.Action("Index",
+        new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+</main>
+
+@*<h2>Index</h2>
+
+    @if (ViewBag.IsAdminOrEmployee)
+    {
+        <p>
+            @Html.ActionLink("Create New", "Create")
+        </p>
+    }
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Category.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Manufacturer.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductImage)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Category.Name)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Category.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Manufacturer.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductImage)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @if (ViewBag.IsAdminOrEmployee)
+                    {
+                        @Html.ActionLink("Edit", "Edit", new { id = item.ID })
+                    }
+                    @Html.ActionLink("Details", "Details", new { id = item.ID })
+                    @if (ViewBag.IsAdminOrEmployee)
+                    {
+                        @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                    }
+                </td>
+            </tr>
+        }
+
+    </table>*@

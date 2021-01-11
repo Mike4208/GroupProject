@@ -56,7 +56,7 @@ namespace GroupProject.Migrations
                     Price = 8.99M, ManufacturerID = manufacturers.Single(a => a.Name == "Asus").ID, ProductImage = "Images/asus.jpg" },
                 new Product { Name = "FA706IU-H7006T", CategoryID = categories.SingleOrDefault(g => g.Name == "Laptop").ID,
                     Price = 8.99M, ManufacturerID = manufacturers.Single(a => a.Name == "Asus").ID, ProductImage = "Images/asus.jpg" },
-            }.ForEach(a => context.Products.AddOrUpdate(a));
+            }.ForEach(s => context.Products.AddOrUpdate(a => a.Name, s));
         }
     }
 }

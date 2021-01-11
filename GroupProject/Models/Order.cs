@@ -10,8 +10,12 @@ namespace GroupProject.Models
     {
         public int ID { get; set; }
         public int ApplicationUserID { get; set; }
+        public ApplicationUser ApplicationUser { get; set; }
         public virtual ICollection<OrderProducts> OrderProducts { get; set; }
         public decimal Price { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Address { get; set; }
         [DisplayName("Order Date")]
         public DateTime OrderDate { get; set; }
     }

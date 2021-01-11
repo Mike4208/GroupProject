@@ -7,6 +7,8 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using GroupProject.Models;
+using PagedList;
+using PagedList.Mvc;
 
 namespace GroupProject.Controllers
 {
@@ -15,11 +17,63 @@ namespace GroupProject.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Products
-        public ActionResult Index()
+        public ActionResult Index(string sortOrder, string currentFilter, string searchString, string selectedCategory, string selectedManufacturer, int? page)
         {
-            var products = db.Products.Include(p => p.Category).Include(p => p.Manufacturer);
-            ViewBag.IsAdminOrEmployee = User.IsInRole("Admin") || User.IsInRole("Employee");
-            return View(products.ToList());
+            var products = db.Products.Include(p => p.Category).Include(p => p.Manufacturer); //OM: get all products
+            ViewBag.IsAdminOrEmployee = User.IsInRole("Admin") || User.IsInRole("Employee"); //OM: Used to check what to hide in View depending on role
+
+            products = products.OrderBy(x => x.Name); // OM: initial order, pagedlist must have been ordered at least once
+
+            // OM: Searchbar
+            if (searchString != null)
+                page = 1;
+            else
+                searchString = currentFilter;
+            ViewBag.CurrentFilter = searchString; // OM: to keep searchstring in different pages
+            
+            // OM: filter by category
+            var categories = (from c in db.Categories select c.Name).Distinct();
+            ViewBag.SelectedCategory = new SelectList(categories);
+            ViewBag.CurrentCategory = selectedCategory;
+
+            // OM: filter by manufacturer
+            var manufacturers = (from c in db.Manufacturers select c.Name).Distinct();
+            ViewBag.SelectedManufacturer = new SelectList(manufacturers);
+            ViewBag.CurrentManufacturer = selectedManufacturer;
+
+            // OM: actually do the filtering according to the above
+            if (!string.IsNullOrEmpty(selectedManufacturer) && !string.IsNullOrEmpty(selectedCategory) && !string.IsNullOrEmpty(searchString))
+                products = db.Products.Where(x => x.Category.Name == selectedCategory).Where(y => y.Manufacturer.Name == selectedManufacturer).Where(s => s.Name.Contains(searchString));
+            else if ((!string.IsNullOrEmpty(selectedManufacturer) && !string.IsNullOrEmpty(searchString)))
+                products = db.Products.Where(y => y.Manufacturer.Name == selectedManufacturer).Where(s => s.Name.Contains(searchString));
+            else if ((!string.IsNullOrEmpty(selectedCategory) && !string.IsNullOrEmpty(searchString)))
+                products = db.Products.Where(x => x.Category.Name == selectedCategory).Where(s => s.Name.Contains(searchString));
+            else if (!string.IsNullOrEmpty(selectedManufacturer) && !string.IsNullOrEmpty(selectedCategory))
+                products = db.Products.Where(x => x.Category.Name == selectedCategory).Where(y => y.Manufacturer.Name == selectedManufacturer);
+            else if (!string.IsNullOrEmpty(selectedCategory))
+                products = db.Products.Where(x => x.Category.Name == selectedCategory);
+            else if (!string.IsNullOrEmpty(selectedManufacturer))
+                products = db.Products.Where(x => x.Manufacturer.Name == selectedManufacturer);
+
+            // OM: sort by price
+            ViewBag.sortParam = string.IsNullOrEmpty(sortOrder) ? "price_desc" : ""; // OM: default sort is price ascending
+            ViewBag.CurrentSort = sortOrder; // OM: to keep sortorder in different pages
+            if (string.IsNullOrEmpty(sortOrder) ? false : sortOrder.Equals("price_desc"))
+            {
+                products = products.OrderByDescending(x => x.Price);
+                ViewBag.Descending = true; // OM: to check in View and prin it
+            }
+            else
+            {
+                products = products.OrderBy(x => x.Price);
+                ViewBag.Descending = false; // OM: to check in View and prin it
+            }
+
+            // OM: pages
+            int pageSize = 12;
+            int pageNumber = (page ?? 1);
+
+            return View(products.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: Products/Details/5
