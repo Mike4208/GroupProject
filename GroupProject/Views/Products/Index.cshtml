@@ -90,7 +90,7 @@
     Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
 
     @Html.PagedListPager(Model, page => Url.Action("Index",
-        new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+        new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter, selectedCategory = ViewBag.CurrentCategory, selectedManufacturer = ViewBag.CurrentManufacturer}))
 </main>
 
 @*<h2>Index</h2>

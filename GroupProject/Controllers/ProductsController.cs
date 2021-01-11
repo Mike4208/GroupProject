@@ -70,7 +70,7 @@ namespace GroupProject.Controllers
             }
 
             // OM: pages
-            int pageSize = 12;
+            int pageSize = 1;
             int pageNumber = (page ?? 1);
 
             return View(products.ToPagedList(pageNumber, pageSize));
