@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using GroupProject.Data;
 using GroupProject.Models;
 using PagedList;
 using PagedList.Mvc;
@@ -55,23 +56,25 @@ namespace GroupProject.Controllers
                 products = db.Products.Where(x => x.Category.Name == selectedCategory);
             else if (!string.IsNullOrEmpty(selectedManufacturer))
                 products = db.Products.Where(x => x.Manufacturer.Name == selectedManufacturer);
+            else if (!string.IsNullOrEmpty(searchString))
+                products = db.Products.Where(x => x.Name.Contains(searchString));
 
             // OM: sort by price
-            ViewBag.sortParam = string.IsNullOrEmpty(sortOrder) ? "price_desc" : ""; // OM: default sort is price ascending
+            ViewBag.sortParam = string.IsNullOrEmpty(sortOrder) ? "price_asc" : ""; // OM: default sort is price ascending
             ViewBag.CurrentSort = sortOrder; // OM: to keep sortorder in different pages
-            if (string.IsNullOrEmpty(sortOrder) ? false : sortOrder.Equals("price_desc"))
+            if (string.IsNullOrEmpty(sortOrder) ? false : sortOrder.Equals("price_asc")) // OM: !sortOrder == "price_asc"
             {
                 products = products.OrderByDescending(x => x.Price);
-                ViewBag.Descending = true; // OM: to check in View and prin it
+                ViewBag.Descending = true; // OM: to check in View and print it
             }
             else
             {
                 products = products.OrderBy(x => x.Price);
-                ViewBag.Descending = false; // OM: to check in View and prin it
+                ViewBag.Descending = false; // OM: to check in View and print it
             }
 
             // OM: pages
-            int pageSize = 12;
+            int pageSize = 1;
             int pageNumber = (page ?? 1);
 
             return View(products.ToPagedList(pageNumber, pageSize));

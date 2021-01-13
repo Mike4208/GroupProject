@@ -40,22 +40,22 @@ namespace GroupProject.Models
         }
     }
 
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
-    {
-        public ApplicationDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
-        {
-        }
+    //public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+    //{
+    //    public ApplicationDbContext()
+    //        : base("DefaultConnection", throwIfV1Schema: false)
+    //    {
+    //    }
 
-        public static ApplicationDbContext Create()
-        {
-            return new ApplicationDbContext();
-        }
+    //    public static ApplicationDbContext Create()
+    //    {
+    //        return new ApplicationDbContext();
+    //    }
 
-        public DbSet<Product> Products { get; set; }
-        public DbSet<Category> Categories { get; set; }
-        public DbSet<Manufacturer> Manufacturers { get; set; }
-        public DbSet<Order> Orders { get; set; }
-        public DbSet<OrderProducts> OrderProducts { get; set; }
-    }
+    //    public DbSet<Product> Products { get; set; }
+    //    public DbSet<Category> Categories { get; set; }
+    //    public DbSet<Manufacturer> Manufacturers { get; set; }
+    //    public DbSet<Order> Orders { get; set; }
+    //    public DbSet<OrderDetails> OrderProducts { get; set; }
+    //}
 }

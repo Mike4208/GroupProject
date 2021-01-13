@@ -11,6 +11,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity.Owin;
+using GroupProject.Data;
 
 namespace GroupProject.Controllers
 {
@@ -42,14 +43,12 @@ namespace GroupProject.Controllers
             }
         }
 
-        [Authorize(Roles = "Admin")]
         public ActionResult Index()
         {
             ViewBag.PageName = "Admin";
             return View();
         }
 
-        [Authorize(Roles = "Admin")]
         public ActionResult UserList()
         {
             ViewBag.PageName = "Admin";
@@ -86,7 +85,6 @@ namespace GroupProject.Controllers
         }
 
         //-----------------------------------------User Actions----------------------------------
-        [Authorize(Roles = "Admin")]
         public ActionResult DeleteUser(string id)
         {
             ViewBag.PageName = "Admin";
@@ -99,7 +97,6 @@ namespace GroupProject.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "Admin")]
         [ActionName("DeleteUser")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteUserConfirmed(string id)
@@ -110,7 +107,6 @@ namespace GroupProject.Controllers
             return RedirectToAction("UserList");
         }
         
-        [Authorize(Roles = "Admin")]
         public ActionResult EditUser(string id)
         {
             ViewBag.PageName = "Admin";
@@ -130,7 +126,6 @@ namespace GroupProject.Controllers
             return View(model);
         }
 
-        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         [ActionName("EditUser")]
@@ -157,7 +152,6 @@ namespace GroupProject.Controllers
             return View(userToUpdate);
         }
 
-        [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
             ViewBag.PageName = "Admin";
@@ -165,7 +159,6 @@ namespace GroupProject.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(RegisterViewModel model)
         {
@@ -196,7 +189,6 @@ namespace GroupProject.Controllers
         }
 
         //-----------------------------------------Roles Actions----------------------------------
-        [Authorize(Roles = "Admin")]
         public ActionResult IndexRole()
         {
             ViewBag.PageName = "Admin";
@@ -227,7 +219,6 @@ namespace GroupProject.Controllers
             return false;
         }
 
-        [Authorize(Roles = "Admin")]
         public ActionResult CreateRole()
         {
             ViewBag.PageName = "Admin";
@@ -241,7 +232,6 @@ namespace GroupProject.Controllers
         /// <param name="Role"></param>
         /// <returns></returns>
         [HttpPost]
-        [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
         public ActionResult CreateRole(IdentityRole Role)
         {
@@ -250,7 +240,6 @@ namespace GroupProject.Controllers
             return RedirectToAction("IndexRole");
         }
 
-        [Authorize(Roles = "Admin")]
         public ActionResult DeleteRole(string id)
         {
             ViewBag.PageName = "Admin";
@@ -259,7 +248,6 @@ namespace GroupProject.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "Admin")]
         [ActionName("DeleteRole")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteRoleConfirmed(string id)

@@ -10,6 +10,7 @@ using GroupProject.Models;
 using System.Net;
 using System.Data.Entity.Infrastructure;
 using System.Data.Entity;
+using GroupProject.Data;
 
 namespace GroupProject.Controllers
 {

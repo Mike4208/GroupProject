@@ -1,13 +1,14 @@
 namespace GroupProject.Migrations
 {
     using GroupProject.Models;
+    using GroupProject.Data;
     using System;
     using System.Collections.Generic;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<GroupProject.Models.ApplicationDbContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<ApplicationDbContext>
     {
         public Configuration()
         {
@@ -15,7 +16,7 @@ namespace GroupProject.Migrations
             ContextKey = "GroupProject.Models.ApplicationDbContext";
         }
 
-        protected override void Seed(GroupProject.Models.ApplicationDbContext context)
+        protected override void Seed(ApplicationDbContext context)
         {
 
             var categories = new List<Category>

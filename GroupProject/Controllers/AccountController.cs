@@ -10,6 +10,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using GroupProject.Models;
 using System.Data.Entity;
+using GroupProject.Data;
 
 namespace GroupProject.Controllers
 {
@@ -100,6 +101,7 @@ namespace GroupProject.Controllers
             {
                 case SignInStatus.Success:
                     // OM: saves login date and time to user model
+                    // OM: Useless for users, since it saves the current login, not the last (previous) one.
                     ApplicationUser applicationUser = context.Users.SingleOrDefault(u => u.UserName == model.UserName);
                     applicationUser.LastLog = DateTime.Now; 
                     context.Entry(applicationUser).State = EntityState.Modified;

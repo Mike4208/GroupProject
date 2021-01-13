@@ -1,4 +1,5 @@
-﻿using GroupProject.Models;
+﻿using GroupProject.Data;
+using GroupProject.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin;
@@ -12,11 +13,11 @@ namespace GroupProject
         public void Configuration(IAppBuilder app)
         {
             ConfigureAuth(app);
-            createRolesandUsers(); // OM: new method to create roles and admin user
+            CreateRolesandUsers(); // OM: new method to create roles and admin user
         }
 
         // In this method we will create default User roles and Admin user for login    
-        private void createRolesandUsers()
+        private void CreateRolesandUsers()
         {
             ApplicationDbContext context = new ApplicationDbContext();
 
@@ -28,7 +29,7 @@ namespace GroupProject
             if (!roleManager.RoleExists("Admin"))
             {
                 // first we create Admin rool 
-                var role = new Microsoft.AspNet.Identity.EntityFramework.IdentityRole();
+                var role = new IdentityRole();
                 role.Name = "Admin";
                 roleManager.Create(role);
 
@@ -55,7 +56,7 @@ namespace GroupProject
             // creating Employee role     
             if (!roleManager.RoleExists("Employee"))
             {
-                var role = new Microsoft.AspNet.Identity.EntityFramework.IdentityRole();
+                var role = new IdentityRole();
                 role.Name = "Employee";
                 roleManager.Create(role);
             }
@@ -63,7 +64,7 @@ namespace GroupProject
             // creating Customer role
             if (!roleManager.RoleExists("User"))
             {
-                var role = new Microsoft.AspNet.Identity.EntityFramework.IdentityRole();
+                var role = new IdentityRole();
                 role.Name = "User";
                 roleManager.Create(role);
             }
