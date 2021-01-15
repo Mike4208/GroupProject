@@ -60,6 +60,11 @@ namespace GroupProject.Models
             return GetCart(controller.HttpContext);
         }
 
+        public static void LeaveCart(HttpContextBase context)
+        {
+            context.Session[CartSessionKey] = null;
+        }
+
         public void AddToCart(Product products)
         {
             // Get the matching cart and product instances
@@ -175,6 +180,7 @@ namespace GroupProject.Models
         }
 
         // We're using HttpContextBase to allow access to cookies.
+        // OM: Anonymus cart is not used but implemented
         public string GetCartId(HttpContextBase context)
         {
             if (context.Session[CartSessionKey] == null)
@@ -183,29 +189,28 @@ namespace GroupProject.Models
                 {
                     context.Session[CartSessionKey] = context.User.Identity.Name;
                 }
-                //else
-                //{
-                //    // Generate a new random GUID using System.Guid class
-                //    Guid tempCartId = Guid.NewGuid();
+                else
+                {
+                    // Generate a new random GUID using System.Guid class
+                    Guid tempCartId = Guid.NewGuid();
 
-                //    // Send tempCartId back to client as a cookie
-                //    context.Session[CartSessionKey] = tempCartId.ToString();
-                //}
+                    // Send tempCartId back to client as a cookie
+                    context.Session[CartSessionKey] = tempCartId.ToString();
+                }
             }
             return context.Session[CartSessionKey].ToString();
         }
 
-        // When a user has logged in, migrate their shopping cart to
-        // be associated with their username
-        //public void MigrateCart(string userName)
-        //{
-        //    var shoppingCart = context.Carts.Where(c => c.CartID == ShoppingCartId);
-
-        //    foreach (Cart item in shoppingCart)
-        //    {
-        //        item.CartID = userName;
-        //    }
-        //    context.SaveChanges();
-        //}
+        //When a user has logged in, migrate their shopping cart to
+        //be associated with their username
+        public void MigrateCart(string userName)
+        {
+            var shoppingCart = context.Carts.Where(c => c.CartID == ShoppingCartId);
+            foreach (Cart item in shoppingCart)
+            {
+                item.CartID = userName;
+            }
+            context.SaveChanges();
+        }
     }
 }

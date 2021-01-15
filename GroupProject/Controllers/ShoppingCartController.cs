@@ -12,8 +12,10 @@ namespace GroupProject.Controllers
     [Authorize]
     public class ShoppingCartController : Controller
     {
-        // GET: /ShoppingCart/
         ApplicationDbContext context = new ApplicationDbContext();
+
+        //
+        // GET: /ShoppingCart/
         public ActionResult Index()
         {
             var cart = ShoppingCart.GetCart(this.HttpContext);
@@ -44,18 +46,15 @@ namespace GroupProject.Controllers
         {
             // Remove the item from the cart
             var cart = ShoppingCart.GetCart(this.HttpContext);
-
             // Get the name of the album to display confirmation
-            string albumName = context.Carts
+            string productName = context.Carts
                 .Single(item => item.ID == id).Product.Name;
-
             // Remove from cart
             int itemCount = cart.RemoveFromCart(id);
-
             // Display the confirmation message
             var results = new ShoppingCartRemoveViewModel
             {
-                Message = Server.HtmlEncode(albumName) +
+                Message = Server.HtmlEncode(productName) +
                     " has been removed from your shopping cart.",
                 CartTotal = cart.GetTotal(),
                 CartCount = cart.GetCount(),
@@ -71,9 +70,7 @@ namespace GroupProject.Controllers
         public ActionResult CartSummary()
         {
             var cart = ShoppingCart.GetCart(this.HttpContext);
-
             ViewBag.CartCount = cart.GetCount();
-
             return PartialView("CartSummary");
         }
     }

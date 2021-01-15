@@ -85,10 +85,7 @@ namespace GroupProject.Controllers
 
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
-
-            // OM: TODO? Remove RememberMe
             var result = await SignInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, shouldLockout: false);
-
             switch (result)
             {
                 case SignInStatus.Success:
@@ -97,7 +94,8 @@ namespace GroupProject.Controllers
                     user.LastLog = user.CurrentLog;
                     user.CurrentLog = DateTime.Now;
                     await UserManager.UpdateAsync(user);
-
+                    //if (UserManager.)
+                        //MigrateShoppingCart(user.UserName);
                     return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
@@ -143,9 +141,9 @@ namespace GroupProject.Controllers
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-                    // OM: Assign Role to Customer for whoever Registers       
+                    // OM: Assign Role to User for whoever Registers       
                     await this.UserManager.AddToRoleAsync(user.Id, "User");
-
+                    MigrateShoppingCart(user.UserName);
                     return RedirectToAction("Index", "Home");
                 }
                 AddErrors(result);
@@ -161,16 +159,16 @@ namespace GroupProject.Controllers
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+            ShoppingCart.LeaveCart(this.HttpContext);
             return RedirectToAction("Index", "Home");
         }
 
-        private void MigrateShoppingCart(string UserName)
+        private void MigrateShoppingCart(string userName)
         {
             // Associate shopping cart items with logged-in user
             var cart = ShoppingCart.GetCart(this.HttpContext);
-
-            cart.MigrateCart(UserName);
-            Session[ShoppingCart.CartSessionKey] = UserName;
+            cart.MigrateCart(userName);
+            Session[ShoppingCart.CartSessionKey] = userName;
         }
 
         protected override void Dispose(bool disposing)
