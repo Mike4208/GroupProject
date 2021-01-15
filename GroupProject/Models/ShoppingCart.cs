@@ -66,7 +66,6 @@ namespace GroupProject.Models
             var cartItem = context.Carts.SingleOrDefault(
                            c => c.CartID == ShoppingCartId
                            && c.ProductID == products.ID);
-
             if (cartItem == null)
             {
                 // Create a new cart item if no cart item exists
@@ -77,7 +76,6 @@ namespace GroupProject.Models
                     Quantity = 1,
                     DateCreated = DateTime.Now
                 };
-
                 context.Carts.Add(cartItem);
             }
             else
@@ -85,8 +83,6 @@ namespace GroupProject.Models
                 // If the item does exist in the cart, then add one to the quantity
                 cartItem.Quantity++;
             }
-
-            // Save changes
             context.SaveChanges();
         }
 
@@ -96,9 +92,7 @@ namespace GroupProject.Models
             var cartItem = context.Carts.Single(
             cart => cart.CartID == ShoppingCartId
             && cart.ID == id);
-
             int itemCount = 0;
-
             if (cartItem != null)
             {
                 if (cartItem.Quantity > 1)
@@ -110,24 +104,18 @@ namespace GroupProject.Models
                 {
                     context.Carts.Remove(cartItem);
                 }
-
-                // Save changes
                 context.SaveChanges();
             }
-
             return itemCount;
         }
 
         public void EmptyCart()
         {
             var cartItems = context.Carts.Where(cart => cart.CartID == ShoppingCartId);
-
             foreach (var cartItem in cartItems)
             {
                 context.Carts.Remove(cartItem);
             }
-
-            // Save changes
             context.SaveChanges();
         }
 
@@ -142,16 +130,15 @@ namespace GroupProject.Models
             int? count = (from cartItems in context.Carts
                           where cartItems.CartID == ShoppingCartId
                           select (int?)cartItems.Quantity).Sum();
-
             // Return 0 if all entries are null
             return count ?? 0;
         }
 
         public decimal GetTotal()
         {
-            // Multiply album price by count of that album to get 
-            // the current price for each of those albums in the cart
-            // sum all album price totals to get the cart total
+            // Multiply product price by count of that product to get 
+            // the current price for each of those products in the cart
+            // sum all product price totals to get the cart total
             decimal? total = (from cartItems in context.Carts
                               where cartItems.CartID == ShoppingCartId
                               select (int?)cartItems.Quantity * cartItems.Product.Price).Sum();
@@ -161,9 +148,7 @@ namespace GroupProject.Models
         public int CreateOrder(Order order)
         {
             decimal orderTotal = 0;
-
             var cartItems = GetCartItems();
-
             // Iterate over the items in the cart, adding the order details for each
             foreach (var item in cartItems)
             {
@@ -177,20 +162,14 @@ namespace GroupProject.Models
 
                 // Set the order total of the shopping cart
                 orderTotal += (item.Quantity * item.Product.Price);
-
                 context.OrderDetails.Add(orderDetail);
-
             }
-
             // Set the order's total to the orderTotal count
             order.TotalPrice = orderTotal;
-
             // Save the order
             context.SaveChanges();
-
             // Empty the shopping cart
             EmptyCart();
-
             // Return the OrderId as the confirmation number
             return order.ID;
         }
@@ -204,30 +183,29 @@ namespace GroupProject.Models
                 {
                     context.Session[CartSessionKey] = context.User.Identity.Name;
                 }
-                else
-                {
-                    // Generate a new random GUID using System.Guid class
-                    Guid tempCartId = Guid.NewGuid();
+                //else
+                //{
+                //    // Generate a new random GUID using System.Guid class
+                //    Guid tempCartId = Guid.NewGuid();
 
-                    // Send tempCartId back to client as a cookie
-                    context.Session[CartSessionKey] = tempCartId.ToString();
-                }
+                //    // Send tempCartId back to client as a cookie
+                //    context.Session[CartSessionKey] = tempCartId.ToString();
+                //}
             }
-
             return context.Session[CartSessionKey].ToString();
         }
 
         // When a user has logged in, migrate their shopping cart to
         // be associated with their username
-        public void MigrateCart(string userName)
-        {
-            var shoppingCart = context.Carts.Where(c => c.CartID == ShoppingCartId);
+        //public void MigrateCart(string userName)
+        //{
+        //    var shoppingCart = context.Carts.Where(c => c.CartID == ShoppingCartId);
 
-            foreach (Cart item in shoppingCart)
-            {
-                item.CartID = userName;
-            }
-            context.SaveChanges();
-        }
+        //    foreach (Cart item in shoppingCart)
+        //    {
+        //        item.CartID = userName;
+        //    }
+        //    context.SaveChanges();
+        //}
     }
 }

@@ -48,15 +48,15 @@ namespace GroupProject.Migrations
             new List<Product>
             {
                 new Product { Name = "mobile1", CategoryID = categories.SingleOrDefault(g => g.Name == "Mobile").ID,
-                    Price = 8.99M, ManufacturerID = manufacturers.Single(a => a.Name == "Apple").ID, ProductImage = "Images/iphone12.png" },
+                    Price = 8.99M, ManufacturerID = manufacturers.Single(a => a.Name == "Apple").ID, ProductImage = "~/Images/iphone12.png" },
                 new Product { Name = "mobile2", CategoryID = categories.SingleOrDefault(g => g.Name == "Mobile").ID,
-                    Price = 8.99M, ManufacturerID = manufacturers.Single(a => a.Name == "Apple").ID, ProductImage = "Images/iphone12.png" },
+                    Price = 8.99M, ManufacturerID = manufacturers.Single(a => a.Name == "Apple").ID, ProductImage = "~/Images/iphone12.png" },
                 new Product { Name = "mobile3", CategoryID = categories.SingleOrDefault(g => g.Name == "Mobile").ID,
-                    Price = 8.99M, ManufacturerID = manufacturers.Single(a => a.Name == "Apple").ID, ProductImage = "Images/iphone12.png" },
+                    Price = 8.99M, ManufacturerID = manufacturers.Single(a => a.Name == "Apple").ID, ProductImage = "~/Images/iphone12.png" },
                 new Product { Name = "FA506IU-HN156T", CategoryID = categories.SingleOrDefault(g => g.Name == "Laptop").ID,
-                    Price = 8.99M, ManufacturerID = manufacturers.Single(a => a.Name == "Asus").ID, ProductImage = "Images/asus.jpg" },
+                    Price = 8.99M, ManufacturerID = manufacturers.Single(a => a.Name == "Asus").ID, ProductImage = "~/Images/asus.jpg" },
                 new Product { Name = "FA706IU-H7006T", CategoryID = categories.SingleOrDefault(g => g.Name == "Laptop").ID,
-                    Price = 8.99M, ManufacturerID = manufacturers.Single(a => a.Name == "Asus").ID, ProductImage = "Images/asus.jpg" },
+                    Price = 8.99M, ManufacturerID = manufacturers.Single(a => a.Name == "Asus").ID, ProductImage = "~/Images/asus.jpg" },
             }.ForEach(s => context.Products.AddOrUpdate(a => a.Name, s));
         }
     }
