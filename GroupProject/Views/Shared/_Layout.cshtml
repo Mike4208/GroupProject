@@ -21,10 +21,14 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li class="@(ViewBag.PageName == "Products" ? "active" : "")">@Html.ActionLink("Products", "Index", "Products")</li>
+                    <li class="@(ViewBag.PageName == "Browse" ? "active" : "")">@Html.ActionLink("Products", "Index", "Products")</li>
                     @if (User.IsInRole("Admin"))
                     {
-                        <li class="@(ViewBag.PageName == "Admin" ? "active" : "")">@Html.ActionLink("Admin Panel", "Index", "Admin")</li>
+                        <li class="@(ViewBag.PageName == "Admin Panel" ? "active" : "")">@Html.ActionLink("Admin Panel", "Index", "Admin")</li>
+                    }
+                    @if ((!User.IsInRole("Admin") && !User.IsInRole("Employee")) && User.Identity.IsAuthenticated)
+                    {
+                        <li>@{Html.RenderAction("CartSummary", "ShoppingCart");}</li>
                     }
                 </ul>
                 @Html.Partial("_LoginPartial")

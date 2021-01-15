@@ -15,12 +15,12 @@ namespace GroupProject.Models
         public int ID { get; set; }
         public string CartID { get; set; }
         //public string ApplicationUserID { get; set; }
-        public int ProductId { get; set; }
+        public int ProductID { get; set; }
         //[NotMapped]
         //public decimal Price { get; set; }
         [Range(1, 100, ErrorMessage = "Invalid Quantity selected")]
         public int Quantity { get; set; }
-        public System.DateTime DateCreated { get; set; }
+        public DateTime DateCreated { get; set; }
         //public virtual ApplicationUser ApplicationUser { get; set; }
         public virtual Product Product { get; set; }
     }
@@ -45,7 +45,7 @@ namespace GroupProject.Models
 
         string ShoppingCartId { get; set; }
 
-        public const string CartSessionKey = "CartId";
+        public const string CartSessionKey = "CartID";
 
         public static ShoppingCart GetCart(HttpContextBase context)
         {
@@ -62,17 +62,17 @@ namespace GroupProject.Models
 
         public void AddToCart(Product products)
         {
-            // Get the matching cart and album instances
+            // Get the matching cart and product instances
             var cartItem = context.Carts.SingleOrDefault(
-            c => c.CartID == ShoppingCartId
-            && c.ProductId == products.ID);
+                           c => c.CartID == ShoppingCartId
+                           && c.ProductID == products.ID);
 
             if (cartItem == null)
             {
                 // Create a new cart item if no cart item exists
                 cartItem = new Cart
                 {
-                    ProductId = products.ID,
+                    ProductID = products.ID,
                     CartID = ShoppingCartId,
                     Quantity = 1,
                     DateCreated = DateTime.Now
@@ -169,7 +169,7 @@ namespace GroupProject.Models
             {
                 var orderDetail = new OrderDetails
                 {
-                    ProductID = item.ProductId,
+                    ProductID = item.ProductID,
                     OrderID = order.ID,
                     Price = item.Product.Price,
                     Quantity = item.Quantity

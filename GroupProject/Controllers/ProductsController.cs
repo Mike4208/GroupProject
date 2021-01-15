@@ -73,8 +73,10 @@ namespace GroupProject.Controllers
                 ViewBag.Descending = false; // OM: to check in View and print it
             }
 
+            ViewBag.ItemCount = products.Count();
+
             // OM: pages
-            int pageSize = 1;
+            int pageSize = 12;
             int pageNumber = (page ?? 1);
 
             return View(products.ToPagedList(pageNumber, pageSize));

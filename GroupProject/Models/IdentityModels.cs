@@ -19,8 +19,10 @@ namespace GroupProject.Models
         public DateTime? Created { get; set; }
         [Column(TypeName = "datetime2")]
         [DisplayFormat(NullDisplayText = "Never")]
-
         public DateTime? LastLog { get; set; }
+        [Column(TypeName = "datetime2")]
+        [DisplayFormat(NullDisplayText = "Never")]
+        public DateTime? CurrentLog { get; set; }
         [DisplayName("First Name")]
         [StringLength(50, MinimumLength = 3)]
         public string FirstName { get; set; }

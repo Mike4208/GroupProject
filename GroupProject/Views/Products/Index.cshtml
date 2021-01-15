@@ -50,6 +50,8 @@
         }
     </p>
 
+    <p>Showing @ViewBag.ItemCount items</p>
+
     <div class="row">
         @foreach (var item in Model)
         {
@@ -73,9 +75,13 @@
                         </li>
                     </ul>
                     <p>
-                        <a href="#" class="btn btn-info btn-sm">
+                        @*<a href="#" class="btn btn-info btn-sm">
+                            Add to <span class="glyphicon glyphicon-shopping-cart"></span>
+                        </a>*@
+                        <a href='@Url.Action("AddToCart", "ShoppingCart", new { id = item.ID })' class="btn btn-info btn-sm">
                             Add to <span class="glyphicon glyphicon-shopping-cart"></span>
                         </a>
+
                     </p>
                     <hr />
                 </div>

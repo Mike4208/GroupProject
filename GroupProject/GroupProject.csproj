@@ -180,6 +180,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ManufacturersController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
+    <Compile Include="Controllers\ShoppingCartController.cs" />
     <Compile Include="Data\ApplicationDbContext.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -208,7 +209,20 @@
     <Compile Include="Migrations\202101122110575_changedsomeshit.Designer.cs">
       <DependentUpon>202101122110575_changedsomeshit.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202101131319370_trying for cart.cs" />
+    <Compile Include="Migrations\202101131319370_trying for cart.Designer.cs">
+      <DependentUpon>202101131319370_trying for cart.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101150824276_cart-rating.cs" />
+    <Compile Include="Migrations\202101150824276_cart-rating.Designer.cs">
+      <DependentUpon>202101150824276_cart-rating.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101151354475_currntlogin.cs" />
+    <Compile Include="Migrations\202101151354475_currntlogin.Designer.cs">
+      <DependentUpon>202101151354475_currntlogin.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Rating.cs" />
     <Compile Include="Models\ShoppingCart.cs" />
     <Compile Include="ViewModel\AccountViewModels.cs" />
     <Compile Include="Models\Category.cs" />
@@ -220,6 +234,9 @@
     <Compile Include="Models\Product.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModel\RatingViewModel.cs" />
+    <Compile Include="ViewModel\ShoppingCartRemoveViewModel.cs" />
+    <Compile Include="ViewModel\ShoppingCartViewModel.cs" />
     <Compile Include="ViewModel\UserView.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -288,6 +305,8 @@
     <Content Include="Views\Products\Details.cshtml" />
     <Content Include="Views\Products\Edit.cshtml" />
     <Content Include="Views\Products\Index.cshtml" />
+    <Content Include="Views\ShoppingCart\CartSummary.cshtml" />
+    <Content Include="Views\ShoppingCart\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -323,6 +342,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202101122110575_changedsomeshit.resx">
       <DependentUpon>202101122110575_changedsomeshit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101131319370_trying for cart.resx">
+      <DependentUpon>202101131319370_trying for cart.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101150824276_cart-rating.resx">
+      <DependentUpon>202101150824276_cart-rating.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101151354475_currntlogin.resx">
+      <DependentUpon>202101151354475_currntlogin.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

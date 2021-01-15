@@ -58,7 +58,7 @@ namespace GroupProject.Controllers
                                       user.FirstName,
                                       user.LastName,
                                       user.Roles,
-                                      user.LastLog,
+                                      user.CurrentLog,
                                       user.Created,
                                       user.Id,
                                       user.UserName,
@@ -72,7 +72,7 @@ namespace GroupProject.Controllers
                                   {
                                       FirstName = p.FirstName,
                                       LastName = p.LastName,
-                                      LastLogin = p.LastLog,
+                                      LastLogin = p.CurrentLog,
                                       Created = p.Created,
                                       UserId = p.Id,
                                       Username = p.UserName,

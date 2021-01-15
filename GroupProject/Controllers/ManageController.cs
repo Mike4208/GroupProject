@@ -20,11 +20,9 @@ namespace GroupProject.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
-        readonly ApplicationDbContext context; // OM: added the database for index Action
 
         public ManageController()
         {
-            context = new ApplicationDbContext(); // OM: added the database for index Action
         }
 
         public ManageController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
@@ -39,9 +37,9 @@ namespace GroupProject.Controllers
             {
                 return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
             }
-            private set 
-            { 
-                _signInManager = value; 
+            private set
+            {
+                _signInManager = value;
             }
         }
 
@@ -59,17 +57,16 @@ namespace GroupProject.Controllers
 
         //
         // GET: /Manage/Index
-        public ActionResult Index(ManageMessageId? message) 
+        public ActionResult Index(ManageMessageId? message)
         {
-            ViewBag.StatusMessage = 
+            ViewBag.StatusMessage =
                 message == ManageMessageId.ChangePasswordSuccess ? "Your password has been changed."
+                : message == ManageMessageId.ChangeAccountDetailsSuccess ? "Profile updated successfully."
                 : message == ManageMessageId.Error ? "An error has occurred."
                 : "";
             var userId = User.Identity.GetUserId();
-            var user = context.Users.Find(userId); 
-            // OM: TODO? dont know, i wanna try and see how this works
-            //ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
-            var model = new IndexViewModel 
+            var user = UserManager.FindById(userId);
+            var model = new IndexViewModel
             {
                 Username = user.UserName,
                 Email = user.Email,
@@ -109,13 +106,11 @@ namespace GroupProject.Controllers
             return View(model);
         }
 
-        // OM: IMPORTANT! Layout doesn't refresh after Edit, so navbar will still show previous name unless user logs off. 
-        // *Layout apparently reloads after logon/logoff
         [Authorize]
         public ActionResult Edit()
         {
             var userId = User.Identity.GetUserId();
-            var user = context.Users.Find(userId);
+            var user = UserManager.FindById(userId);
             var model = new IndexViewModel
             {
                 Username = user.UserName,
@@ -129,21 +124,26 @@ namespace GroupProject.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "UserName, Email, FirstName, LastName, Address")] IndexViewModel model)
+        public async Task<ActionResult> Edit([Bind(Include = "UserName, Email, FirstName, LastName, Address")] IndexViewModel model)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
+                return View(model);
+            var userId = User.Identity.GetUserId();
+            var user = UserManager.FindById(userId);
+            user.UserName = model.Username;
+            user.Email = model.Email;
+            user.FirstName = model.FirstName;
+            user.LastName = model.LastName;
+            user.Address = model.Address;
+
+            var result = await UserManager.UpdateAsync(user);
+            if (result.Succeeded)
             {
-                var userId = User.Identity.GetUserId();
-                var user = context.Users.Find(userId);
-                user.UserName = model.Username;
-                user.Email = model.Email;
-                user.FirstName = model.FirstName;
-                user.LastName = model.LastName;
-                user.Address = model.Address;
-                context.Entry(user).State = EntityState.Modified;
-                context.SaveChanges();
-                return RedirectToAction("Index");
+                await SignInManager.SignInAsync(user, true, true);
+                return RedirectToAction("Index", new { Message = ManageMessageId.ChangeAccountDetailsSuccess });
             }
+
+            AddErrors(result);
             return View(model);
         }
 
@@ -156,10 +156,6 @@ namespace GroupProject.Controllers
             }
             base.Dispose(disposing);
         }
-
-        #region Helpers
-        // Used for XSRF protection when adding external logins
-        private const string XsrfKey = "XsrfId";
 
         private IAuthenticationManager AuthenticationManager
         {
@@ -180,9 +176,8 @@ namespace GroupProject.Controllers
         public enum ManageMessageId
         {
             ChangePasswordSuccess,
+            ChangeAccountDetailsSuccess,
             Error
         }
-
-#endregion
     }
 }
