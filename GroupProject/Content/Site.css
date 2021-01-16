@@ -22,3 +22,22 @@ select,
 textarea {
     max-width: 280px;
 }
+
+
+/* Custom from here on out */
+body {
+    padding-top: 0%;
+    background-color: gainsboro;
+}
+
+nav{
+    background-color: black;
+}
+
+ul li a .active{
+    background-color: black;
+}
+
+ul li a .hover {
+    background-color: black;
+}

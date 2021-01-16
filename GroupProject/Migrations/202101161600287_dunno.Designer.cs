@@ -7,13 +7,13 @@ namespace GroupProject.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class changedbfolder : IMigrationMetadata
+    public sealed partial class dunno : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(changedbfolder));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(dunno));
         
         string IMigrationMetadata.Id
         {
-            get { return "202101120907074_change db folder"; }
+            get { return "202101161600287_dunno"; }
         }
         
         string IMigrationMetadata.Source

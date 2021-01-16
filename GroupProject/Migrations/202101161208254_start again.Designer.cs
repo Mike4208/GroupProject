@@ -7,13 +7,13 @@ namespace GroupProject.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class addproductfktoorderprodducts : IMigrationMetadata
+    public sealed partial class startagain : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(addproductfktoorderprodducts));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(startagain));
         
         string IMigrationMetadata.Id
         {
-            get { return "202101102226045_add productfk to orderprodducts"; }
+            get { return "202101161208254_start again"; }
         }
         
         string IMigrationMetadata.Source

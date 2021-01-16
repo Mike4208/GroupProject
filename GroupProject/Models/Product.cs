@@ -9,10 +9,13 @@ namespace GroupProject.Models
     public class Product
     {
         public int ID { get; set; }
+        [Required]
         public string Name { get; set; }
         public string Description { get; set; }
+        [Required]
         [StringLength(1024)]
         public string ProductImage { get; set; }
+        [Required]
         public decimal Price { get; set; }
         public int CategoryID { get; set; }
         public virtual Category Category { get; set; }

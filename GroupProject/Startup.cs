@@ -29,18 +29,18 @@ namespace GroupProject
             if (!roleManager.RoleExists("Admin"))
             {
                 // first we create Admin rool 
-                var role = new IdentityRole();
-                role.Name = "Admin";
+                var role = new IdentityRole() { Name = "Admin" };
+                //role.Name = "Admin";
                 roleManager.Create(role);
 
                 //Here we create a Admin super user who will maintain the website                   
 
-                var user = new ApplicationUser();
-                user.UserName = "admin";
-                user.Email = "admin@admin.com";
-                user.FirstName = "Uperoxos";
-                user.LastName = "Glukoulhs";
-                user.Address = "Spiti mou";
+                var user = new ApplicationUser() { UserName = "admin", Email = "admin@admin.com", FirstName = "Uperoxos", LastName = "Glukoulhs" };
+                //user.UserName = "admin";
+                //user.Email = "admin@admin.com";
+                //user.FirstName = "Uperoxos";
+                //user.LastName = "Glukoulhs";
+                //user.Address = "Spiti mou";
 
                 string userPWD = "admin123"; // Needs to be more than 6 characters. Check account controller for additions need on scafolding for this to work.
 
@@ -49,23 +49,23 @@ namespace GroupProject
                 //Add default User to Role Admin    
                 if (chkUser.Succeeded)
                 {
-                    var result1 = UserManager.AddToRole(user.Id, "Admin");
+                    UserManager.AddToRole(user.Id, "Admin"); //var result1 = 
                 }
             }
 
             // creating Employee role     
             if (!roleManager.RoleExists("Employee"))
             {
-                var role = new IdentityRole();
-                role.Name = "Employee";
+                var role = new IdentityRole() { Name = "Employee" };
+                //role.Name = "Employee";
                 roleManager.Create(role);
             }
 
             // creating Customer role
             if (!roleManager.RoleExists("User"))
             {
-                var role = new IdentityRole();
-                role.Name = "User";
+                var role = new IdentityRole() { Name = "User" };
+                //role.Name = "User";
                 roleManager.Create(role);
             }
         }

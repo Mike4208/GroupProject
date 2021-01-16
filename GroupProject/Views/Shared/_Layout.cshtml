@@ -9,32 +9,29 @@
 
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
+    <nav class="navbar navbar-top navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("E-buy", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li class="@(ViewBag.PageName == "Browse" ? "active" : "")">@Html.ActionLink("Products", "Index", "Products")</li>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            @Html.ActionLink("E-buy", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            <div class="navbar-collapse collapse" id="navbarNavDropdown">
+                <ul class="nav navbar-nav mr-auto">
+                    <li class="nav-item @(ViewBag.PageName == "Products" ? "active" : "")">@Html.ActionLink("Browse", "Index", "Products", null, new { @class = "nav-link" })</li>
                     @if (User.IsInRole("Admin"))
                     {
-                        <li class="@(ViewBag.PageName == "Admin Panel" ? "active" : "")">@Html.ActionLink("Admin Panel", "Index", "Admin")</li>
+                        <li class="nav-item @(ViewBag.PageName == "Admin" ? "active" : "")">@Html.ActionLink("Admin Panel", "Index", "Admin", null, new { @class = "nav-link" })</li>
                     }
                     @if ((!User.IsInRole("Admin") && !User.IsInRole("Employee")) && User.Identity.IsAuthenticated)
                     {
-                        <li>@{Html.RenderAction("CartSummary", "ShoppingCart");}</li>
+                        <li class="nav-item @(ViewBag.PageName == "Cart" ? "active" : "")">@{Html.RenderAction("CartSummary", "ShoppingCart");}</li>
                     }
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
         </div>
-    </div>
+    </nav>
+
     <div class="container body-content">
         @RenderBody()
         <hr />

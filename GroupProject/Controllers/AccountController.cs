@@ -68,7 +68,8 @@ namespace GroupProject.Controllers
                 return View();
             }
             else
-                return RedirectToAction("Error", "Home");
+                return View("Error");
+                //return RedirectToAction("Error", "Home");
         }
 
         //
@@ -117,7 +118,8 @@ namespace GroupProject.Controllers
             if (!User.Identity.IsAuthenticated)
                 return View();
             else
-                return RedirectToAction("Error", "Home");
+                //return RedirectToAction("Error", "Home");
+                return View("Error");
         }
 
         //
@@ -143,7 +145,7 @@ namespace GroupProject.Controllers
 
                     // OM: Assign Role to User for whoever Registers       
                     await this.UserManager.AddToRoleAsync(user.Id, "User");
-                    MigrateShoppingCart(user.UserName);
+                    //MigrateShoppingCart(user.UserName);
                     return RedirectToAction("Index", "Home");
                 }
                 AddErrors(result);
@@ -159,17 +161,17 @@ namespace GroupProject.Controllers
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-            ShoppingCart.LeaveCart(this.HttpContext);
+            ShoppingCart.LeaveCart(this.HttpContext); // OM: Dispose of user cart on logoff
             return RedirectToAction("Index", "Home");
         }
 
-        private void MigrateShoppingCart(string userName)
-        {
-            // Associate shopping cart items with logged-in user
-            var cart = ShoppingCart.GetCart(this.HttpContext);
-            cart.MigrateCart(userName);
-            Session[ShoppingCart.CartSessionKey] = userName;
-        }
+        //private void MigrateShoppingCart(string userName)
+        //{
+        //    // Associate shopping cart items with logged-in user
+        //    var cart = ShoppingCart.GetCart(this.HttpContext);
+        //    cart.MigrateCart(userName);
+        //    Session[ShoppingCart.CartSessionKey] = userName;
+        //}
 
         protected override void Dispose(bool disposing)
         {

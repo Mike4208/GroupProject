@@ -37,17 +37,20 @@ namespace GroupProject.Models
         public DateTime? Created { get; set; }
         [DisplayName("Last Login")]
         public DateTime? LastLogin { get; set; }
-        [Required]
+        //[Required]
         [DisplayName("First Name")]
         [StringLength(50, MinimumLength = 3)]
         public string FirstName { get; set; }
-        [Required]
+        //[Required]
         [DisplayName("Last Name")]
         [StringLength(50, MinimumLength = 3)]
         public string LastName { get; set; }
-        [Required]
         [StringLength(50, MinimumLength = 5)]
         public string Address { get; set; }
+        //[StringLength(50, MinimumLength = 3, ErrorMessage = "City must have more than 3 letters")]
+        public string City { get; set; }
+        //[StringLength(5, MinimumLength = 5, ErrorMessage = "Invalid Postal Code")]
+        public string PostalCode { get; set; }
     }
 
     public class ManageLoginsViewModel

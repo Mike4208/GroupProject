@@ -18,6 +18,7 @@ namespace GroupProject.Controllers
         // GET: /ShoppingCart/
         public ActionResult Index()
         {
+            ViewBag.PageName = "Cart"; 
             var cart = ShoppingCart.GetCart(this.HttpContext);
             var viewModel = new ShoppingCartViewModel
             {

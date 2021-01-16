@@ -203,14 +203,14 @@ namespace GroupProject.Models
 
         //When a user has logged in, migrate their shopping cart to
         //be associated with their username
-        public void MigrateCart(string userName)
-        {
-            var shoppingCart = context.Carts.Where(c => c.CartID == ShoppingCartId);
-            foreach (Cart item in shoppingCart)
-            {
-                item.CartID = userName;
-            }
-            context.SaveChanges();
-        }
+        //public void MigrateCart(string userName)
+        //{
+        //    var shoppingCart = context.Carts.Where(c => c.CartID == ShoppingCartId);
+        //    foreach (Cart item in shoppingCart)
+        //    {
+        //        item.CartID = userName;
+        //    }
+        //    context.SaveChanges();
+        //}
     }
 }

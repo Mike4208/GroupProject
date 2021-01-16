@@ -124,10 +124,22 @@ namespace GroupProject.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "UserName, Email, FirstName, LastName, Address")] IndexViewModel model)
+        public async Task<ActionResult> Edit([Bind(Include = "Username, Email, FirstName, LastName, Address")] IndexViewModel model)
         {
             if (!ModelState.IsValid)
                 return View(model);
+            
+            if (UserManager.FindByEmail(model.Email) != null)
+            {
+                ModelState.AddModelError("Email", "Email already exists");
+                return View(model);
+            }
+            if (UserManager.FindByName(model.Username) != null)
+            {
+                ModelState.AddModelError("Username", "Username already exists");
+                return View(model);
+            }
+
             var userId = User.Identity.GetUserId();
             var user = UserManager.FindById(userId);
             user.UserName = model.Username;
@@ -145,6 +157,14 @@ namespace GroupProject.Controllers
 
             AddErrors(result);
             return View(model);
+        }
+
+        //
+        // GET:
+        [Authorize(Roles = "User")]
+        public ActionResult Orders()
+        {
+            return View();
         }
 
         protected override void Dispose(bool disposing)

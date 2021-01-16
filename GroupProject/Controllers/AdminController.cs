@@ -129,8 +129,21 @@ namespace GroupProject.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [ActionName("EditUser")]
-        public ActionResult EditUserConfirmed(string id)
+        public ActionResult EditUserConfirmed(string id, IndexViewModel model)
         {
+            if (!ModelState.IsValid)
+                return View(model);
+            if (context.Users.Any(x => x.Email == model.Email))
+            {
+                ModelState.AddModelError("Email", "Email already exists");
+                return View(model);
+            }
+            if (context.Users.Any(x => x.UserName == model.Username))
+            {
+                ModelState.AddModelError("Username", "Username already exists");
+                return View(model);
+            }
+
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             var userToUpdate = context.Users.Find(id);
