@@ -11,7 +11,6 @@ using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace GroupProject.Models
 {
-    // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit https://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
     public class ApplicationUser : IdentityUser
     {
         [Column(TypeName = "datetime2")]
@@ -23,19 +22,18 @@ namespace GroupProject.Models
         [Column(TypeName = "datetime2")]
         [DisplayFormat(NullDisplayText = "Never")]
         public DateTime? CurrentLog { get; set; }
-        //[Required]
         [DisplayName("First Name")]
         [StringLength(50, MinimumLength = 3, ErrorMessage = "Name must have more than 3 letters")]
         public string FirstName { get; set; }
-        //[Required]
         [DisplayName("Last Name")]
         [StringLength(50, MinimumLength = 3, ErrorMessage = "Name must have more than 3 letters")]
         public string LastName { get; set; }
-        //[StringLength(50, MinimumLength = 5, ErrorMessage = "Address must have more than 5 letters")]
+        [StringLength(50, MinimumLength = 5, ErrorMessage = "Address must have more than 5 letters")]
         public string Address { get; set; }
-        //[StringLength(50, MinimumLength = 3, ErrorMessage = "City must have more than 3 letters")]
+        [StringLength(50, MinimumLength = 3, ErrorMessage = "City must have more than 3 letters")]
         public string City { get; set; }
-        //[StringLength(5, MinimumLength = 5, ErrorMessage = "Invalid Postal Code")]
+        [Display(Name = "Postal Code")]
+        [StringLength(5, MinimumLength = 5, ErrorMessage = "Invalid Postal Code")]
         public string PostalCode { get; set; }
         public ICollection<Order> Orders { get; set; }
 
@@ -47,23 +45,4 @@ namespace GroupProject.Models
             return userIdentity;
         }
     }
-
-    //public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
-    //{
-    //    public ApplicationDbContext()
-    //        : base("DefaultConnection", throwIfV1Schema: false)
-    //    {
-    //    }
-
-    //    public static ApplicationDbContext Create()
-    //    {
-    //        return new ApplicationDbContext();
-    //    }
-
-    //    public DbSet<Product> Products { get; set; }
-    //    public DbSet<Category> Categories { get; set; }
-    //    public DbSet<Manufacturer> Manufacturers { get; set; }
-    //    public DbSet<Order> Orders { get; set; }
-    //    public DbSet<OrderDetails> OrderProducts { get; set; }
-    //}
 }

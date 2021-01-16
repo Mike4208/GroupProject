@@ -69,11 +69,8 @@ namespace GroupProject.Controllers
             }
             else
                 return View("Error");
-                //return RedirectToAction("Error", "Home");
         }
 
-        //
-        // POST: /Account/Login
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -90,18 +87,14 @@ namespace GroupProject.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-                    // OM: saves login date and time to user model
+                    // OM: saves login date and time to user model and shows last login date
                     var user = UserManager.FindByName(model.UserName);
                     user.LastLog = user.CurrentLog;
                     user.CurrentLog = DateTime.Now;
                     await UserManager.UpdateAsync(user);
-                    //if (UserManager.)
-                        //MigrateShoppingCart(user.UserName);
                     return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
-                //case SignInStatus.RequiresVerification:
-                //    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
                 case SignInStatus.Failure:
                 default:
                     ModelState.AddModelError("", "Invalid login attempt.");
@@ -114,11 +107,9 @@ namespace GroupProject.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
-            // OM: Check i user is logged in, and if yes, return error view
             if (!User.Identity.IsAuthenticated)
                 return View();
             else
-                //return RedirectToAction("Error", "Home");
                 return View("Error");
         }
 
@@ -135,17 +126,10 @@ namespace GroupProject.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-
-                    // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
-                    // Send an email with this link
-                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
-
-                    // OM: Assign Role to User for whoever Registers       
+                    // OM: Assign Role to User for whoever Registers
+                    // OM: Finish registration and role assigning and then sign user in to get proper user functionalities tp work correctly (Authorization, cart)
                     await this.UserManager.AddToRoleAsync(user.Id, "User");
-                    //MigrateShoppingCart(user.UserName);
+                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     return RedirectToAction("Index", "Home");
                 }
                 AddErrors(result);
@@ -164,14 +148,6 @@ namespace GroupProject.Controllers
             ShoppingCart.LeaveCart(this.HttpContext); // OM: Dispose of user cart on logoff
             return RedirectToAction("Index", "Home");
         }
-
-        //private void MigrateShoppingCart(string userName)
-        //{
-        //    // Associate shopping cart items with logged-in user
-        //    var cart = ShoppingCart.GetCart(this.HttpContext);
-        //    cart.MigrateCart(userName);
-        //    Session[ShoppingCart.CartSessionKey] = userName;
-        //}
 
         protected override void Dispose(bool disposing)
         {
@@ -192,6 +168,8 @@ namespace GroupProject.Controllers
 
             base.Dispose(disposing);
         }
+
+
 
         #region Helpers
         // Used for XSRF protection when adding external logins

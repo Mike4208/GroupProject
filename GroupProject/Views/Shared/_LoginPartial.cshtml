@@ -6,7 +6,7 @@
         @Html.AntiForgeryToken()
 
         <ul class="nav navbar-nav ml-auto">
-            <li class="nav-item">
+            <li class="nav-item @(ViewBag.PageName == "Manage" ? "active" : "")">
                 @Html.ActionLink(User.Identity.GetUserName(), "Index", "Manage", routeValues: null, htmlAttributes: new { @class = "nav-link", title = "Manage" })
             </li>
 

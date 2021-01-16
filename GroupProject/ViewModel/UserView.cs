@@ -24,19 +24,18 @@ namespace GroupProject.ViewModel
         public DateTime? Created { get; set; }
         [DisplayName("Last Login")]
         public DateTime? LastLogin { get; set; }
-        //[Required]
         [DisplayName("First Name")]
         [StringLength(50, MinimumLength = 3, ErrorMessage = "Name must have more than 3 letters")]
         public string FirstName { get; set; }
-        //[Required]
         [DisplayName("Last Name")]
         [StringLength(50, MinimumLength = 3, ErrorMessage = "Name must have more than 3 letters")]
         public string LastName { get; set; }
-        //[StringLength(50, MinimumLength = 5, ErrorMessage = "Address must have more than 5 letters")]
+        [StringLength(50, MinimumLength = 5, ErrorMessage = "Address must have more than 5 letters")]
         public string Address { get; set; }
-        //[StringLength(50, MinimumLength = 3, ErrorMessage = "City must have more than 3 letters")]
+        [StringLength(50, MinimumLength = 3, ErrorMessage = "City must have more than 3 letters")]
         public string City { get; set; }
-        //[StringLength(5, MinimumLength = 5, ErrorMessage = "Invalid Postal Code")]
+        [Display(Name = "Postal Code")]
+        [StringLength(5, MinimumLength = 5, ErrorMessage = "Invalid Postal Code")]
         public string PostalCode { get; set; }
     }
 }

@@ -24,6 +24,7 @@ namespace GroupProject.ViewModel
         [StringLength(50, MinimumLength = 3, ErrorMessage = "City must have more than 3 letters")]
         public string City { get; set; }
         [Required]
+        [Display(Name = "Postal Code")]
         [StringLength(5, MinimumLength = 5, ErrorMessage = "Invalid Postal Code")]
         public string PostalCode { get; set; }
     }

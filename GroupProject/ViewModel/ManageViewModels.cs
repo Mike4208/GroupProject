@@ -9,16 +9,6 @@ namespace GroupProject.Models
 {
     public class IndexViewModel
     {
-        //public bool HasPassword { get; set; }
-        //public IList<UserLoginInfo> Logins { get; set; }
-        //public string PhoneNumber { get; set; }
-        //public bool TwoFactor { get; set; }
-        //public bool BrowserRemembered { get; set; }
-
-        // OM for current user manager
-
-        //public string UserId { get; set; }
-
         [Required]
         [DisplayName("User Name")]
         [StringLength(50, MinimumLength = 3)]
@@ -26,30 +16,25 @@ namespace GroupProject.Models
         [Required]
         [StringLength(50, MinimumLength = 6)]
         [EmailAddress]
-
         public string Email { get; set; }
-
-        //[DisplayName("User Roles")]
-        //public string UserRoles { get; set; }
-
         [DisplayName("Date Created")]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime? Created { get; set; }
         [DisplayName("Last Login")]
+        [DisplayFormat(NullDisplayText = "Never")]
         public DateTime? LastLogin { get; set; }
-        //[Required]
         [DisplayName("First Name")]
-        [StringLength(50, MinimumLength = 3)]
+        [StringLength(50, MinimumLength = 3, ErrorMessage = "Name must have more than 3 letters")]
         public string FirstName { get; set; }
-        //[Required]
         [DisplayName("Last Name")]
-        [StringLength(50, MinimumLength = 3)]
+        [StringLength(50, MinimumLength = 3, ErrorMessage = "Name must have more than 3 letters")]
         public string LastName { get; set; }
-        [StringLength(50, MinimumLength = 5)]
+        [StringLength(50, MinimumLength = 5, ErrorMessage = "Address must have more than 5 letters")]
         public string Address { get; set; }
-        //[StringLength(50, MinimumLength = 3, ErrorMessage = "City must have more than 3 letters")]
+        [StringLength(50, MinimumLength = 3, ErrorMessage = "City must have more than 3 letters")]
         public string City { get; set; }
-        //[StringLength(5, MinimumLength = 5, ErrorMessage = "Invalid Postal Code")]
+        [Display(Name = "Postal Code")]
+        [StringLength(5, MinimumLength = 5, ErrorMessage = "Invalid Postal Code")]
         public string PostalCode { get; set; }
     }
 

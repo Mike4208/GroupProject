@@ -20,9 +20,12 @@ namespace GroupProject.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        ApplicationDbContext context;
+
 
         public ManageController()
         {
+            context = new ApplicationDbContext();
         }
 
         public ManageController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
@@ -59,6 +62,7 @@ namespace GroupProject.Controllers
         // GET: /Manage/Index
         public ActionResult Index(ManageMessageId? message)
         {
+            ViewBag.PageName = "Manage";
             ViewBag.StatusMessage =
                 message == ManageMessageId.ChangePasswordSuccess ? "Your password has been changed."
                 : message == ManageMessageId.ChangeAccountDetailsSuccess ? "Profile updated successfully."
@@ -76,6 +80,11 @@ namespace GroupProject.Controllers
                 Created = user.Created,
                 LastLogin = user.LastLog
             };
+            var s = UserManager.GetRoles(userId);
+            if (s[0].ToString().Equals("User"))
+                ViewBag.IsUser = true;
+            else
+                ViewBag.IsUser = false;
             return View(model);
         }
 
@@ -83,6 +92,7 @@ namespace GroupProject.Controllers
         // GET: /Manage/ChangePassword
         public ActionResult ChangePassword()
         {
+            ViewBag.PageName = "Manage";
             return View();
         }
 
@@ -106,9 +116,12 @@ namespace GroupProject.Controllers
             return View(model);
         }
 
+        //
+        // GET: /Manage/Edit
         [Authorize]
         public ActionResult Edit()
         {
+            ViewBag.PageName = "Manage";
             var userId = User.Identity.GetUserId();
             var user = UserManager.FindById(userId);
             var model = new IndexViewModel
@@ -122,21 +135,20 @@ namespace GroupProject.Controllers
             return View(model);
         }
 
+        //
+        // POST: /Manage/Index
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "Username, Email, FirstName, LastName, Address")] IndexViewModel model)
+        public async Task<ActionResult> Edit([Bind(Include = "Username, Email, FirstName, LastName, Address, City, PostalCode")] IndexViewModel model)
         {
             if (!ModelState.IsValid)
                 return View(model);
-            
+
             if (UserManager.FindByEmail(model.Email) != null)
             {
                 ModelState.AddModelError("Email", "Email already exists");
-                return View(model);
-            }
-            if (UserManager.FindByName(model.Username) != null)
-            {
-                ModelState.AddModelError("Username", "Username already exists");
+                if (UserManager.FindByName(model.Username) != null)
+                    ModelState.AddModelError("Username", "Username already exists");
                 return View(model);
             }
 
@@ -147,6 +159,8 @@ namespace GroupProject.Controllers
             user.FirstName = model.FirstName;
             user.LastName = model.LastName;
             user.Address = model.Address;
+            user.City = model.City;
+            user.PostalCode = model.PostalCode;
 
             var result = await UserManager.UpdateAsync(user);
             if (result.Succeeded)
@@ -160,11 +174,16 @@ namespace GroupProject.Controllers
         }
 
         //
-        // GET:
+        // GET: /Manage/Orders
         [Authorize(Roles = "User")]
         public ActionResult Orders()
         {
-            return View();
+            ViewBag.PageName = "Manage";
+            var id = User.Identity.GetUserId();
+            var user = UserManager.FindById(id);
+            user.Orders = context.Orders.Where(x => x.ApplicationUserID == id).ToList();
+            var model = user.Orders;
+            return View(model);
         }
 
         protected override void Dispose(bool disposing)

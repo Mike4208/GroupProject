@@ -14,33 +14,15 @@ namespace GroupProject.Models
         [Key]
         public int ID { get; set; }
         public string CartID { get; set; }
-        //public string ApplicationUserID { get; set; }
         public int ProductID { get; set; }
-        //[NotMapped]
-        //public decimal Price { get; set; }
         [Range(1, 100, ErrorMessage = "Invalid Quantity selected")]
         public int Quantity { get; set; }
         public DateTime DateCreated { get; set; }
-        //public virtual ApplicationUser ApplicationUser { get; set; }
         public virtual Product Product { get; set; }
     }
 
     public class ShoppingCart
     {
-        //public int ID { get; set; }
-        //public string ApplicationUserID { get; set;}
-        //public int ProductId { get; set; }
-        //[NotMapped]
-        //public decimal Price { get; set; }
-        //[Range(1, 100, ErrorMessage = "Invalid Quantity selected")]
-        //public int Quantity { get; set; }
-        //public virtual ApplicationUser ApplicationUser { get; set; }
-        //public virtual Product Product { get; set; }
-
-
-
-        // COPY PASTED SHOPPING CART(paul)
-
         ApplicationDbContext context = new ApplicationDbContext();
 
         string ShoppingCartId { get; set; }

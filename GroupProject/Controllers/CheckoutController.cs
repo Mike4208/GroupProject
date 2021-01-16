@@ -19,6 +19,14 @@ namespace GroupProject.Controllers
         [Authorize(Roles = "User")]
         public ActionResult Index()
         {
+            var cart = ShoppingCart.GetCart(this.HttpContext);
+            ViewBag.NoOrders = false;
+            if (cart.GetCartItems().Count == 0) 
+            {
+                ViewBag.NoOrders = true;
+                return View();
+            }
+
             var user = context.Users.Single(x => x.UserName == User.Identity.Name);
             OrderViewModel model = new OrderViewModel()
             {
@@ -28,6 +36,7 @@ namespace GroupProject.Controllers
                 City = user.City,
                 PostalCode = user.PostalCode
             };
+
             return View(model);
         }
 
@@ -38,6 +47,7 @@ namespace GroupProject.Controllers
         {
             if (!ModelState.IsValid)
             {
+                ViewBag.NoOrders = false;
                 return View(model);
             }
             var order = new Order();
@@ -46,16 +56,18 @@ namespace GroupProject.Controllers
             {
                 order.ApplicationUserID = context.Users.Single(x => x.UserName == User.Identity.Name).Id;
                 order.OrderDate = DateTime.Now;
+                var cart = ShoppingCart.GetCart(this.HttpContext);
+                order.TotalPrice = cart.GetTotal();
                 //Save Order
                 context.Orders.Add(order);
                 context.SaveChanges();
                 //Process the order
-                var cart = ShoppingCart.GetCart(this.HttpContext);
-                cart.CreateOrder(order); //order.ID = 
+                order.ID = cart.CreateOrder(order);
                 return RedirectToAction("Complete", new { id = order.ID });
             }
             catch
             {
+                ViewBag.NoOrders = false;
                 return View(model);
             }
         }

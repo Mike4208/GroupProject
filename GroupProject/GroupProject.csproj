@@ -200,6 +200,14 @@
     <Compile Include="Migrations\202101161643550_more.Designer.cs">
       <DependentUpon>202101161643550_more.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202101161937392_more1.cs" />
+    <Compile Include="Migrations\202101161937392_more1.Designer.cs">
+      <DependentUpon>202101161937392_more1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101162008288_more2.cs" />
+    <Compile Include="Migrations\202101162008288_more2.Designer.cs">
+      <DependentUpon>202101162008288_more2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Rating.cs" />
     <Compile Include="Models\ShoppingCart.cs" />
@@ -364,12 +372,10 @@
     <Content Include="Views\Admin\Create.cshtml" />
     <Content Include="Views\Manufacturers\Create.cshtml" />
     <Content Include="Views\Manufacturers\Delete.cshtml" />
-    <Content Include="Views\Manufacturers\Details.cshtml" />
     <Content Include="Views\Manufacturers\Edit.cshtml" />
     <Content Include="Views\Manufacturers\Index.cshtml" />
     <Content Include="Views\Categories\Create.cshtml" />
     <Content Include="Views\Categories\Delete.cshtml" />
-    <Content Include="Views\Categories\Details.cshtml" />
     <Content Include="Views\Categories\Edit.cshtml" />
     <Content Include="Views\Categories\Index.cshtml" />
     <Content Include="Views\Products\Create.cshtml" />
@@ -391,6 +397,7 @@
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\Checkout\Index.cshtml" />
     <Content Include="Views\Checkout\Complete.cshtml" />
+    <Content Include="Views\Manage\Orders.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -415,6 +422,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202101161643550_more.resx">
       <DependentUpon>202101161643550_more.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101161937392_more1.resx">
+      <DependentUpon>202101161937392_more1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101162008288_more2.resx">
+      <DependentUpon>202101162008288_more2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

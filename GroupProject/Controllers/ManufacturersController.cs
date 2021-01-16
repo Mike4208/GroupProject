@@ -22,21 +22,6 @@ namespace GroupProject.Controllers
             return View(db.Manufacturers.ToList());
         }
 
-        // GET: Manufacturers/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Manufacturer manufacturer = db.Manufacturers.Find(id);
-            if (manufacturer == null)
-            {
-                return HttpNotFound();
-            }
-            return View(manufacturer);
-        }
-
         // GET: Manufacturers/Create
         public ActionResult Create()
         {

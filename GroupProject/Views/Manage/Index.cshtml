@@ -1,6 +1,6 @@
 ﻿@model GroupProject.Models.IndexViewModel
 @{
-    ViewBag.Title = "Manage";
+    ViewBag.Title = "Manage Account";
 }
 
 <script></script>
@@ -31,5 +31,10 @@
         <dd>@Html.DisplayFor(model => model.LastLogin)</dd>
 
     </dl>
-        <p>[ @Html.ActionLink("Edit Profile", "Edit") ]</p>
+    <p>
+    [ @Html.ActionLink("Edit Account", "Edit") ] 
+        @if (ViewBag.IsUser) {
+            @:[ @Html.ActionLink("View previous orders", "Orders") ]
+        }
+    </p>
 </div>
