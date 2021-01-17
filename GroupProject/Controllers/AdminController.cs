@@ -94,7 +94,7 @@ namespace GroupProject.Controllers
         [HttpPost]
         [ActionName("DeleteUser")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteUserConfirmed(string id, Rating rating)
+        public ActionResult DeleteUserConfirmed(string id)
         {
             var userid = context.Users.Where(x => x.Id == id).Single();
             
