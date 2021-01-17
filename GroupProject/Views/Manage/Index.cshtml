@@ -35,6 +35,7 @@
     [ @Html.ActionLink("Edit Account", "Edit") ] 
         @if (ViewBag.IsUser) {
             @:[ @Html.ActionLink("View previous orders", "Orders") ]
+            @:[ @Html.ActionLink("My Cart", "Index", "ShoppingCart") ]
         }
     </p>
 </div>

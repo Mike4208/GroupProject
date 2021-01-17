@@ -49,3 +49,36 @@ body {
 .nav li a:hover {
     background-color: #617971;
 }
+
+.Cart {
+    color: inherit;
+    background-color: inherit;
+    border: hidden;
+    border-radius: 10px;
+}
+
+.Cart .active {
+    /*background-color: #2a3330;*/
+}
+
+.Cart:active {
+    background-color: #4f625c !important;
+}
+
+.Cart:hover {
+    background-color: #617971;
+}
+
+.Cart:focus {
+    outline:none;
+}
+
+.Cart .nav-link{
+    pointer-events: none;
+    cursor: default;
+    text-decoration: none
+}
+
+.modal-content {
+    background-color: gainsboro;
+}

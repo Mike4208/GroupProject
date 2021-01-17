@@ -30,12 +30,5 @@ namespace GroupProject.ViewModel
         [DisplayName("Last Name")]
         [StringLength(50, MinimumLength = 3, ErrorMessage = "Name must have more than 3 letters")]
         public string LastName { get; set; }
-        [StringLength(50, MinimumLength = 5, ErrorMessage = "Address must have more than 5 letters")]
-        public string Address { get; set; }
-        [StringLength(50, MinimumLength = 3, ErrorMessage = "City must have more than 3 letters")]
-        public string City { get; set; }
-        [Display(Name = "Postal Code")]
-        [StringLength(5, MinimumLength = 5, ErrorMessage = "Invalid Postal Code")]
-        public string PostalCode { get; set; }
     }
 }

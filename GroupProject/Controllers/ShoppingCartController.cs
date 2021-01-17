@@ -9,7 +9,7 @@ using System.Web.Mvc;
 
 namespace GroupProject.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "User")]
     public class ShoppingCartController : Controller
     {
         ApplicationDbContext context = new ApplicationDbContext();
@@ -26,6 +26,20 @@ namespace GroupProject.Controllers
                 CartTotal = cart.GetTotal()
             };
             return View(viewModel);
+        }
+
+        //
+        // GET: /ShoppingCart/
+        [ChildActionOnly]
+        public ActionResult Cart()
+        {
+            var cart = ShoppingCart.GetCart(this.HttpContext);
+            var viewModel = new ShoppingCartViewModel
+            {
+                CartItems = cart.GetCartItems(),
+                CartTotal = cart.GetTotal()
+            };
+            return PartialView(viewModel);
         }
 
         //

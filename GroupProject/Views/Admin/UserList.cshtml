@@ -1,6 +1,5 @@
 ﻿@model IEnumerable<GroupProject.ViewModel.UserView>
 
-
 @{
     ViewBag.Title = "Users With Roles";
 }
@@ -16,30 +15,23 @@
         <table class="table table-hover table-bordered table-condensed" id="UsersWithRoles">
             <thead>
                 <tr>
-                    <td><b>Username</b></td>
-                    <td><b>FirstName</b></td>
-                    <td><b>LastName</b></td>
-                    <td><b>Email</b></td>
-                    <td><b>Role</b></td>
-                    <td><b>Address</b></td>
-                    <td><b>Creation date</b></td>
-                    <td><b>Last login</b></td>
+                    <td><b>@Html.DisplayNameFor(model => model.Username)</b></td>
+                    <td><b>@Html.DisplayNameFor(model => model.Email)</b></td>
+                    <td><b>@Html.DisplayNameFor(model => model.UserRoles)</b></td>
+                    <td><b>@Html.DisplayNameFor(model => model.Created)</b></td>
+                    <td><b>@Html.DisplayNameFor(model => model.LastLogin)</b></td>
                     <td><b>Edit</b></td>
-
                 </tr>
             </thead>
             <tbody>
                @foreach (var user in Model)
                 {
                     <tr>
-                        <td>@user.Username</td>
-                        <td>@user.FirstName</td>
-                        <td>@user.LastName</td>
-                        <td>@user.Email</td>
-                        <td><b>@user.UserRoles</b></td>
-                        <td>@user.Address</td>
-                        <td>@user.Created</td>
-                        <td>@user.LastLogin</td>
+                        <td>@Html.DisplayFor(model => user.Username)</td>
+                        <td>@Html.DisplayFor(model => user.Email)</td>
+                        <td><b>@Html.DisplayFor(model => user.UserRoles)</b></td>
+                        <td>@Html.DisplayFor(model => user.Created)</td>
+                        <td>@Html.DisplayFor(model => user.LastLogin)</td>
                         <td>
                             @Html.ActionLink("Edit", "EditUser", new { id = user.UserId }) |
                             @Html.ActionLink("Delete", "DeleteUser", new { id = user.UserId })

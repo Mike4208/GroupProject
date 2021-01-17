@@ -55,29 +55,23 @@ namespace GroupProject.Controllers
             var users = (from user in context.Users
                                   select new
                                   {
-                                      user.FirstName,
-                                      user.LastName,
                                       user.Roles,
                                       user.CurrentLog,
                                       user.Created,
                                       user.Id,
                                       user.UserName,
                                       user.Email,
-                                      user.Address,
                                       RoleNames = (from userRole in user.Roles
                                                    join role in context.Roles on userRole.RoleId
                                                    equals role.Id
                                                    select role.Name).ToList()
                                   }).ToList().Select(p => new UserView()
                                   {
-                                      FirstName = p.FirstName,
-                                      LastName = p.LastName,
                                       LastLogin = p.CurrentLog,
                                       Created = p.Created,
                                       UserId = p.Id,
                                       Username = p.UserName,
                                       Email = p.Email,
-                                      Address = p.Address,
                                       UserRoles = string.Join(",", p.RoleNames)
                                   });
             users = users.OrderBy(x => x.UserRoles);
@@ -115,13 +109,10 @@ namespace GroupProject.Controllers
             var user = context.Users.Find(id);
             if (user == null)
                 return HttpNotFound();
-            var model = new IndexViewModel()
+            var model = new UserView()
             {
                 Email = user.Email,
                 Username = user.UserName,
-                FirstName = user.FirstName,
-                LastName = user.LastName,
-                Address = user.Address
             };
             return View(model);
         }
@@ -129,18 +120,16 @@ namespace GroupProject.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [ActionName("EditUser")]
-        public ActionResult EditUserConfirmed(string id, IndexViewModel model)
+        public ActionResult EditUserConfirmed(string id, UserView model)
         {
             if (!ModelState.IsValid)
                 return View(model);
-            if (context.Users.Any(x => x.Email == model.Email))
+
+            if (UserManager.FindByEmail(model.Email) != null)
             {
                 ModelState.AddModelError("Email", "Email already exists");
-                return View(model);
-            }
-            if (context.Users.Any(x => x.UserName == model.Username))
-            {
-                ModelState.AddModelError("Username", "Username already exists");
+                if (UserManager.FindByName(model.Username) != null)
+                    ModelState.AddModelError("Username", "Username already exists");
                 return View(model);
             }
 
@@ -148,12 +137,11 @@ namespace GroupProject.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             var userToUpdate = context.Users.Find(id);
 
-            if (TryUpdateModel(userToUpdate, "", new string[] { "Email", "Username", "FirstName", "LastName", "Address" }))
+            if (TryUpdateModel(userToUpdate, "", new string[] { "Email", "Username", "FirstName", "LastName" }))
             {
                 try
                 {
                     context.SaveChanges();
-
                     return RedirectToAction("UserList");
                 }
                 catch (RetryLimitExceededException /* dex */)
@@ -177,7 +165,7 @@ namespace GroupProject.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.UserName, Email = model.Email, Created = DateTime.Now, FirstName = model.FirstName, LastName = model.LastName, Address = model.Address };
+                var user = new ApplicationUser { UserName = model.UserName, Email = model.Email, Created = DateTime.Now, FirstName = model.FirstName, LastName = model.LastName };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {

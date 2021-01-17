@@ -22,9 +22,15 @@
                     {
                         <li class="nav-item @(ViewBag.PageName == "Admin" ? "active" : "")">@Html.ActionLink("Admin Panel", "Index", "Admin", null, new { @class = "nav-link" })</li>
                     }
-                    @if ((!User.IsInRole("Admin") && !User.IsInRole("Employee")) && User.Identity.IsAuthenticated)
+                    @*@if ((!User.IsInRole("Admin") && !User.IsInRole("Employee")) && User.Identity.IsAuthenticated)
                     {
                         <li class="nav-item @(ViewBag.PageName == "Cart" ? "active" : "")">@{Html.RenderAction("CartSummary", "ShoppingCart");}</li>
+                    }*@
+                    @if (User.IsInRole("User"))
+                    {
+                        <li class="nav-item">
+                            <button type="button" class="Cart @(ViewBag.PageName == "Cart" ? "active" : "")" data-toggle="modal" data-target="#Cart">@{Html.RenderAction("CartSummary", "ShoppingCart");}</button>
+                        </li>
                     }
                 </ul>
                 @Html.Partial("_LoginPartial")
@@ -34,6 +40,25 @@
 
     <div class="container body-content">
         @RenderBody()
+
+        @if (User.IsInRole("User"))
+        {
+            <div class="modal fade" id="Cart" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Cart</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            @{Html.RenderAction("Cart", "ShoppingCart");}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
         <hr />
         <footer>
             <p><a href="https://www.peoplecert.org/">PeopleCert</a> &copy; @DateTime.Now.Year CB12 C# FullTime - Group Project (OM, PC, MM, AK)</p>
