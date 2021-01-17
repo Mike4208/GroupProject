@@ -15,5 +15,6 @@ namespace GroupProject.ViewModel
         public string Name { get; set; }
         public bool IsApproved { get; set; }
         public DateTime ReviewCreated { get; set; }
+        public int Stars { get; set; }
     }
 }

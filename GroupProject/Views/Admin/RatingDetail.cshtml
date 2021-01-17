@@ -1,0 +1,62 @@
+﻿@model GroupProject.Models.Rating
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Rating</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.RatingText)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RatingText)
+        </dd>
+
+        <dt>
+            Approval
+        </dt>
+        @if (Model.IsApproved == false)
+        {
+            <dd>
+                <span class="badge badge-pill badge-danger">Pending</span>
+            </dd>
+        }
+        else
+        {
+            <dd>
+                <span class="badge badge-pill badge-success">Approved</span>
+            </dd>
+        }
+        <dt>
+            Edited?
+        </dt>
+        @if (Model.IsEdited == true)
+        {
+            <dd>
+                <span class="badge badge-pill badge-danger">Edited</span>
+            </dd>
+        }
+        else
+        {
+            <dd>
+                <span class="badge badge-pill badge-success">No edit</span>
+            </dd>
+        }
+
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", "Ratings", new { id = Model.RatingId })
+    @Html.ActionLink("Back to List", "RatingsList")
+</p>
+
+@*<a href='@Url.Action("Edit", "Ratings", new { id = Model.ProductId })'><span class="glyphicon glyphicon-pencil"></span></a>
+    | <a href='@Url.Action("RatingsList", "Admin", new { id = Model.ProductId })'><span class="glyphicon glyphicon-remove"></span></a>*@
+
