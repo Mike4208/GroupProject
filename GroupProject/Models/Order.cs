@@ -10,7 +10,7 @@ namespace GroupProject.Models
     public class Order
     {
         public int ID { get; set; }
-        public string ApplicationUserID { get; set; }
+        public string UserName { get; set; }
         [DisplayName("Total Price")]
         public decimal TotalPrice { get; set; }
         public string FirstName { get; set; }
@@ -21,7 +21,6 @@ namespace GroupProject.Models
         public string PostalCode { get; set; }
         [DisplayName("Order Date")]
         public DateTime OrderDate { get; set; }
-        public virtual ApplicationUser ApplicationUser { get; set; }
         public virtual ICollection<OrderDetails> OrderDetails { get; set; }
     }
 }

@@ -144,13 +144,21 @@ namespace GroupProject.Controllers
             if (!ModelState.IsValid)
                 return View(model);
 
-            if (UserManager.FindByEmail(model.Email) != null)
+            bool alreayExists = false;
+            var userEmail = UserManager.FindById(User.Identity.GetUserId()).Email;
+            if (UserManager.FindByEmail(model.Email) != null && userEmail != model.Email)
             {
+                alreayExists = true;
                 ModelState.AddModelError("Email", "Email already exists");
-                if (UserManager.FindByName(model.Username) != null)
-                    ModelState.AddModelError("Username", "Username already exists");
                 return View(model);
             }
+            if (UserManager.FindByName(model.Username) != null && User.Identity.GetUserName() != model.Username)
+            {
+                alreayExists = true;
+                ModelState.AddModelError("Username", "Username already exists");
+            }
+            if (alreayExists)
+                return View(model);
 
             var userId = User.Identity.GetUserId();
             var user = UserManager.FindById(userId);
@@ -165,6 +173,15 @@ namespace GroupProject.Controllers
             var result = await UserManager.UpdateAsync(user);
             if (result.Succeeded)
             {
+                // OM: Migrate orders when username changes
+                var username = User.Identity.GetUserName();
+                var orders = context.Orders.Where(x => x.UserName == username);
+                foreach (var item in orders)
+                {
+                    item.UserName = model.Username;
+                }
+                await context.SaveChangesAsync();
+
                 await SignInManager.SignInAsync(user, true, true);
                 return RedirectToAction("Index", new { Message = ManageMessageId.ChangeAccountDetailsSuccess });
             }
@@ -181,8 +198,8 @@ namespace GroupProject.Controllers
             ViewBag.PageName = "Manage";
             var id = User.Identity.GetUserId();
             var user = UserManager.FindById(id);
-            user.Orders = context.Orders.Where(x => x.ApplicationUserID == id).ToList();
-            var model = user.Orders;
+
+            var model = context.Orders.Where(x => x.UserName == user.UserName).Include(y => y.OrderDetails.Select(z => z.Product)).ToList();
             return View(model);
         }
 

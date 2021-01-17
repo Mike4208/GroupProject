@@ -188,25 +188,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202101161208254_start again.cs" />
-    <Compile Include="Migrations\202101161208254_start again.Designer.cs">
-      <DependentUpon>202101161208254_start again.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202101161600287_dunno.cs" />
-    <Compile Include="Migrations\202101161600287_dunno.Designer.cs">
-      <DependentUpon>202101161600287_dunno.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202101161643550_more.cs" />
-    <Compile Include="Migrations\202101161643550_more.Designer.cs">
-      <DependentUpon>202101161643550_more.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202101161937392_more1.cs" />
-    <Compile Include="Migrations\202101161937392_more1.Designer.cs">
-      <DependentUpon>202101161937392_more1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202101162008288_more2.cs" />
-    <Compile Include="Migrations\202101162008288_more2.Designer.cs">
-      <DependentUpon>202101162008288_more2.cs</DependentUpon>
+    <Compile Include="Migrations\202101171658226_init.cs" />
+    <Compile Include="Migrations\202101171658226_init.Designer.cs">
+      <DependentUpon>202101171658226_init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Rating.cs" />
@@ -399,6 +383,7 @@
     <Content Include="Views\Checkout\Complete.cshtml" />
     <Content Include="Views\Manage\Orders.cshtml" />
     <Content Include="Views\ShoppingCart\Cart.cshtml" />
+    <Content Include="Views\Admin\OrderList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -415,20 +400,8 @@
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202101161208254_start again.resx">
-      <DependentUpon>202101161208254_start again.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202101161600287_dunno.resx">
-      <DependentUpon>202101161600287_dunno.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202101161643550_more.resx">
-      <DependentUpon>202101161643550_more.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202101161937392_more1.resx">
-      <DependentUpon>202101161937392_more1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202101162008288_more2.resx">
-      <DependentUpon>202101162008288_more2.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202101171658226_init.resx">
+      <DependentUpon>202101171658226_init.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -3,7 +3,9 @@ using GroupProject.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin;
+using Microsoft.Owin.Security;
 using Owin;
+using System.Net;
 
 [assembly: OwinStartupAttribute(typeof(GroupProject.Startup))]
 namespace GroupProject

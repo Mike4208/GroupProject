@@ -25,10 +25,13 @@ textarea {
 
 
 /* Custom from here on out */
+
 body {
     padding-top: 0%;
     background-color: gainsboro;
 }
+
+/* For nav buttons start */
 
 .nav li{
     border-radius:10px;
@@ -82,3 +85,17 @@ body {
 .modal-content {
     background-color: gainsboro;
 }
+
+/* For nav buttons end */
+
+/* For Manage/Orders start */
+
+.hidden{
+    display:none;
+}
+
+.order-details td {
+    vertical-align: baseline;
+}
+
+/* For Manage/Orders end */

@@ -53,27 +53,27 @@ namespace GroupProject.Controllers
         {
             ViewBag.PageName = "Admin";
             var users = (from user in context.Users
-                                  select new
-                                  {
-                                      user.Roles,
-                                      user.CurrentLog,
-                                      user.Created,
-                                      user.Id,
-                                      user.UserName,
-                                      user.Email,
-                                      RoleNames = (from userRole in user.Roles
-                                                   join role in context.Roles on userRole.RoleId
-                                                   equals role.Id
-                                                   select role.Name).ToList()
-                                  }).ToList().Select(p => new UserView()
-                                  {
-                                      LastLogin = p.CurrentLog,
-                                      Created = p.Created,
-                                      UserId = p.Id,
-                                      Username = p.UserName,
-                                      Email = p.Email,
-                                      UserRoles = string.Join(",", p.RoleNames)
-                                  });
+                         select new
+                         {
+                             user.Roles,
+                             user.CurrentLog,
+                             user.Created,
+                             user.Id,
+                             user.UserName,
+                             user.Email,
+                             RoleNames = (from userRole in user.Roles
+                                          join role in context.Roles on userRole.RoleId
+                                          equals role.Id
+                                          select role.Name).ToList()
+                         }).ToList().Select(p => new UserView()
+                         {
+                             LastLogin = p.CurrentLog,
+                             Created = p.Created,
+                             UserId = p.Id,
+                             Username = p.UserName,
+                             Email = p.Email,
+                             UserRoles = string.Join(",", p.RoleNames)
+                         });
             users = users.OrderBy(x => x.UserRoles);
             return View(users);
         }
@@ -100,7 +100,7 @@ namespace GroupProject.Controllers
             context.SaveChanges();
             return RedirectToAction("UserList");
         }
-        
+
         public ActionResult EditUser(string id)
         {
             ViewBag.PageName = "Admin";
@@ -125,22 +125,38 @@ namespace GroupProject.Controllers
             if (!ModelState.IsValid)
                 return View(model);
 
-            if (UserManager.FindByEmail(model.Email) != null)
+            bool alreayExists = false;
+            var userEmail = UserManager.FindById(User.Identity.GetUserId()).Email;
+            if (UserManager.FindByEmail(model.Email) != null && userEmail != model.Email)
             {
+                alreayExists = true;
                 ModelState.AddModelError("Email", "Email already exists");
-                if (UserManager.FindByName(model.Username) != null)
-                    ModelState.AddModelError("Username", "Username already exists");
                 return View(model);
             }
+            if (UserManager.FindByName(model.Username) != null && User.Identity.GetUserName() != model.Username)
+            {
+                alreayExists = true;
+                ModelState.AddModelError("Username", "Username already exists");
+            }
+            if (alreayExists)
+                return View(model);
 
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             var userToUpdate = context.Users.Find(id);
+            var username = userToUpdate.UserName;
 
             if (TryUpdateModel(userToUpdate, "", new string[] { "Email", "Username", "FirstName", "LastName" }))
             {
                 try
                 {
+                    // OM: Migrate orders when username changes
+                    var orders = context.Orders.Where(x => x.UserName == username);
+                    foreach (var item in orders)
+                    {
+                        item.UserName = model.Username;
+                    }
+
                     context.SaveChanges();
                     return RedirectToAction("UserList");
                 }
@@ -257,6 +273,15 @@ namespace GroupProject.Controllers
             context.Roles.Remove(roled);
             context.SaveChanges();
             return RedirectToAction("IndexRole");
+        }
+
+
+        // --------------------- Orders Actions -----------------------------
+
+        public ActionResult OrderList()
+        {
+            var model = context.Orders;
+            return View(model);
         }
     }
 }
