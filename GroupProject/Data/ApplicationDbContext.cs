@@ -29,13 +29,13 @@ namespace GroupProject.Data
         public DbSet<OrderDetails> OrderDetails { get; set; }
         public DbSet<Rating> Ratings { get; set; }
 
-        //protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        //{
-        //    modelBuilder.Entity<Rating>()
-        //           .HasOptional(x => x.ApplicationUser)
-        //           .WithMany()
-        //           .WillCascadeOnDelete(true);
-        //    base.OnModelCreating(modelBuilder);
-        //}
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Rating>()
+                   .HasOptional(x => x.ApplicationUser)
+                   .WithMany()
+                   .WillCascadeOnDelete(true);
+            base.OnModelCreating(modelBuilder);
+        }
     }
 }

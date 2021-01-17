@@ -3,22 +3,13 @@
 @{
     ViewBag.Title = "Details";
 }
-
-<h2>Details</h2>
-
-<div>
-    <h4>Product</h4>
-    <h5>@ViewBag.AddedToCart</h5>
-    <hr />
-
-    <h2 class="display-6">
-        @Html.DisplayFor(model => model.Manufacturer.Name) @Html.DisplayFor(model => model.Name) <small class="text-muted">
-            @Html.DisplayFor(model => model.Description) @Html.DisplayFor(model => model.Price)€
-            @if (Model.Offer == true)
-            {<h5>Super Offer!</h5>}
-        </small>
-    </h2>
-
+<h2 class="display-6">
+    @Html.DisplayFor(model => model.Manufacturer.Name) @Html.DisplayFor(model => model.Name) <small class="text-muted">
+        @Html.DisplayFor(model => model.Description) @Html.DisplayFor(model => model.Price)€
+        @if (Model.Offer == true)
+        {<h5>Super Offer!</h5>}
+    </small>
+</h2>
     @{
         if (ViewBag.RatingExist)
         {
@@ -26,22 +17,20 @@
 
             for (var i = 1; i <= sumAvg; i++)
             {
-                <span class="starOn"><img src="~/Images/StarGlow.gif" /></span>
+                <span class="starOn"></span>
             }
             for (var i = sumAvg; i < 5; i++)
             {
-                <span class="starOff"><img src="~/Images/StarFade.gif" /></span>
+                <span class="starOff"></span>
             }
-
         }
         else
         {
             for (var i = 1; i <= 5; i++)
             {
-                <span class="starOff"><img src="~/Images/StarFade.gif" /></span>
+                <span class="starOff"></span>
             }
         }
-
     }
     <a href='@Url.Action("AddToCart", "ShoppingCart", new { id = Model.ID })'>
         <img src="https://freepngimg.com/thumb/add_to_cart_button/25394-4-add-to-cart-button-transparent-background.png" width="100" height="40" style="float:right" />
@@ -50,150 +39,148 @@
     @*<button type="button" style="float:right" class="btn btn-warning" onclick="location.href='@Url.Action("Details", "Ratings", new { id = Model.ProductId })'">
             Ratings
         </button>*@
+    <hr />
+    <img src="@Url.Content(Model.ProductImage)" alt="" width="200" height="200" class="rounded" style="float:right; border-style: outset" />
+    <div class="row" style="height:200px;">
+        <div class="col-md-4">
+            <dl class="dl-horizontal">
 
-    <div class="prodet">
-        <img src="@Url.Content(Model.ProductImage)" alt="" width="200" height="200" class="product" style="float:right" />
-        <hr />
-        <div class="row">
-            <div class="col-md-4">
-                <dl class="dl-horizontal">
-
-                    <dt>
-                        Manufacturer
-                    </dt>
-                    <dd>
-                        @Html.DisplayFor(model => model.Manufacturer.Name)
-                    </dd>
-                    <dt>
-                        Category
-                    </dt>
-                    <dd>
-                        @Html.DisplayFor(model => model.Category.Name)
-                    </dd>
-                </dl>
-            </div> 
-            <div class="col-md-4">
-                <dl>
-                    Product Name
-                    </dt>
-                    <dd>
-                        @Html.DisplayFor(model => model.Name)
-                    </dd>
-
-                    <dt>
-                        @Html.DisplayNameFor(model => model.Description)
-                    </dt>
-                    <dd>
-                        @Html.DisplayFor(model => model.Description)
-                    </dd>
-                </dl>
-
-            </div>
-            <div class="col-md-4">
-              
-            </div>
+                <dt>
+                    Manufacturer
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Manufacturer.Name)
+                </dd>
+                <dt>
+                    Category
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Category.Name)
+                </dd>
+            </dl>
         </div>
-        <hr />
-        <div class="row">
-            <div class="col-md-10">
-                <p>
-                    <button type="button" class="btn btn-warning" onclick="location.href='@Url.Action("Create", "Ratings", new { id = Model.ID, user = User.Identity.Name })'">
-                        Make a review
-                    </button>
-                    <button type="button" class="btn btn-warning" onclick="location.href='@Url.Action("Edit", new { id = Model.ID })'">
-                        Edit
-                    </button>
-                    <button type="button" class="btn btn-warning" onclick="location.href='@Url.Action("Index")'">
-                        Back
-                    </button>
+        <div class="col-md-4">
+            <dl>
+                <dt>
+                Product Name
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Name)
+                </dd>
 
-                    <button type="button" name="btnLink" class="btn btn-warning" id="btnLink">Reviews</button>
-                </p>
-
-            </div>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Description)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Description)
+                </dd>
+            </dl>
         </div>
-        <div class="modal fade" id="ModalPopUp" role="dialog">
-            <div class="modal-dialog err-pop" style="">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        Product Reviews
-                        <button id="DivClose" type="button" class="close" data-dismiss="modal">&times;</button>
-                    </div>
-                    <div class="modal-body" style="text-align:center;">
-                        <table class="table table-bordered" id="myTable">
-                            <thead class="thead-dark">
+        <div class="col-md-4">
+
+        </div>
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col-md-10">
+            <p>
+                <button type="button" class="btn btn-warning" onclick="location.href='@Url.Action("Create", "Ratings", new { id = Model.ID, user = User.Identity.Name })'">
+                    Make a review
+                </button>
+                <button type="button" class="btn btn-warning" onclick="location.href='@Url.Action("Edit", new { id = Model.ID })'">
+                    Edit
+                </button>
+                <button type="button" class="btn btn-warning" onclick="location.href='@Url.Action("Index")'">
+                    Back
+                </button>
+                <button type="button" name="btnLink" class="btn btn-warning" id="btnLink">Reviews</button>
+            </p>
+
+        </div>
+    </div>
+    <div class="modal fade" id="ModalPopUp" role="dialog">
+        <div class="modal-dialog err-pop" style="">
+            <div class="modal-content">
+                <div class="modal-header">
+                    Product Reviews
+                    <button id="DivClose" type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body" style="text-align:center;">
+                    <table class="table table-bordered" id="myTable">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>Author</th>
+                                <th>Review</th>
+                                <th>Rating</th>
+                                <th>Date</th>
+                                <th>Edit/Delete</th>
+                            </tr>
+                        </thead>
+                        @if (Model.Ratings.Count > 0)
+                        {
+                            foreach (var item in Model.Ratings.Where(x => x.IsApproved == true))
+                            {
                                 <tr>
-                                    <th>Author</th>
-                                    <th>Review</th>
-                                    <th>Rating</th>
-                                    <th>Date</th>
-                                    <th>Edit/Delete</th>
-
+                                    <td>
+                                        <b>Reviewer: </b>
+                                        @Html.DisplayFor(modelItem => item.ApplicationUser.UserName)
+                                    </td>
+                                    <td>
+                                        <b>Review: </b>
+                                        @Html.DisplayFor(modelItem => item.RatingText)
+                                    </td>
+                                    <td>
+                                        @for (var i = 1; i <= item.Stars; i++)
+                                        {
+                                            <span class="starOn"></span>
+                                        }
+                                        @for (var i = (item.Stars + 1); i <= 5; i++)
+                                        {
+                                            <span class="starOff"></span>
+                                        }
+                                    </td>
+                                    <td>
+                                        <b>Date: </b>
+                                        @Html.DisplayFor(modelItem => item.ReviewCreated)
+                                    </td>
+                                    @if (item.ApplicationUser.UserName == User.Identity.Name || User.IsInRole("Admin"))
+                                    {
+                                        <td>
+                                            <b>Editor: </b>
+                                            @Html.ActionLink("Edit", "Edit", "Ratings", new { id = item.RatingId, randomNo = item.Id }, null) |
+                                            @Html.ActionLink("Delete", "Delete", "Ratings", new { id = item.RatingId }, null)
+                                        </td>
+                                    }
+                                    else
+                                    {
+                                        <td>Not Allowed</td>
+                                    }
                                 </tr>
-                            </thead>
-                            @if (Model.Ratings.Count > 0)
-                            {
-                                foreach (var item in Model.Ratings.Where(x => x.IsApproved == true))
-                                {
-                                    <tr>
-                                        <td>
-                                            <b>Reviewer: </b>
-                                            @Html.DisplayFor(modelItem => item.ApplicationUser.UserName)
-                                        </td>
-                                        <td>
-                                            <b>Review: </b>
-                                            @Html.DisplayFor(modelItem => item.RatingText)
-                                        </td>
-                                        <td>
-                                            @for (var i = 1; i <= item.Stars; i++)
-                                            {
-                                                <span class="starOn"><img src="~/Images/StarGlow.gif" /></span>
-                                            }
-                                            @for (var i = (item.Stars + 1); i <= 5; i++)
-                                            {
-                                                <span class="starOff"><img src="~/Images/StarFade.gif" /></span>
-                                            }
-                                        </td>
-                                        <td>
-                                            <b>Date: </b>
-                                            @Html.DisplayFor(modelItem => item.ReviewCreated)
-                                        </td>
-                                        @if (item.ApplicationUser.UserName == User.Identity.Name || User.IsInRole("Admin"))
-                                        {
-                                            <td>
-                                                <b>Editor: </b>
-                                                @Html.ActionLink("Edit", "Edit", "Ratings", new { id = item.RatingId, randomNo = item.Id }, null) |
-                                                @Html.ActionLink("Delete", "Delete", "Ratings", new { id = item.RatingId }, null)
-                                            </td>
-                                        }
-                                        else
-                                        {
-                                            <td>Not Allowed</td>
-                                        }
-                                    </tr>
-                                }
                             }
-                            else
-                            {
-                                <h3>No ratings yet</h3>
-                            }
-                        </table>
-                    </div>
+                        }
+                        else
+                        {
+                            <h3>No ratings yet</h3>
+                        }
+                    </table>
                 </div>
             </div>
         </div>
-        <h4>Customers who viewed this item also viewed</h4>
-       
-        <hr />
+    </div>
 
+    <h4>Customers who viewed this item also viewed</h4>
 
-        <script src="https://code.jquery.com/jquery-1.10.0.min.js"
-                integrity="sha256-2+LznWeWgL7AJ1ciaIG5rFP7GKemzzl+K75tRyTByOE="
-                crossorigin="anonymous"></script>
-        <script>
-            $("#btnLink").click(function () {
-                $('#ModalPopUp').modal('show');
-            })
-        </script>
+    <hr />
+
+    @*-------------------------Modal script, need to be reviewed-----------------*@
+
+    <script src="https://code.jquery.com/jquery-1.10.0.min.js"
+            integrity="sha256-2+LznWeWgL7AJ1ciaIG5rFP7GKemzzl+K75tRyTByOE="
+            crossorigin="anonymous"></script>
+    <script>
+        $("#btnLink").click(function () {
+            $('#ModalPopUp').modal('show');
+        })
+    </script>
 
 

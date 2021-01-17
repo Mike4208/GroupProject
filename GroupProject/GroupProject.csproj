@@ -227,6 +227,18 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\asus.jpg" />
+    <Content Include="Images\hp.jpg" />
+    <Content Include="Images\iphone12.jpg" />
+    <Content Include="Images\iphonebanner.jpg" />
+    <Content Include="Images\laptop.jpg" />
+    <Content Include="Images\login.png" />
+    <Content Include="Images\logoff.png" />
+    <Content Include="Images\samsungs20.jpeg" />
+    <Content Include="Images\shop.png" />
+    <Content Include="Images\shopp.jpg" />
+    <Content Include="Images\StarFade.gif" />
+    <Content Include="Images\StarGlow.gif" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -332,6 +344,7 @@
     <Content Include="Scripts\umd\popper-utils.min.js" />
     <Content Include="Scripts\umd\popper.js" />
     <Content Include="Scripts\umd\popper.min.js" />
+    <Content Include="StarGlow.gif" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
