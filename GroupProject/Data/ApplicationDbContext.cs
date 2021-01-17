@@ -27,6 +27,15 @@ namespace GroupProject.Data
         //public DbSet<ShoppingCart> ShoppinCarts { get; set; } // OM: checking the copy pasted shoppingcart
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderDetails> OrderDetails { get; set; }
-        //public DbSet<Rating> Ratings { get; set; }
+        public DbSet<Rating> Ratings { get; set; }
+
+        //protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        //{
+        //    modelBuilder.Entity<Rating>()
+        //           .HasOptional(x => x.ApplicationUser)
+        //           .WithMany()
+        //           .WillCascadeOnDelete(true);
+        //    base.OnModelCreating(modelBuilder);
+        //}
     }
 }

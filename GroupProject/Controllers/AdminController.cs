@@ -12,6 +12,7 @@ using System.Web.Mvc;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity.Owin;
 using GroupProject.Data;
+using System.Data.Entity;
 
 namespace GroupProject.Controllers
 {
@@ -96,6 +97,7 @@ namespace GroupProject.Controllers
         public ActionResult DeleteUserConfirmed(string id)
         {
             var userid = context.Users.Where(x => x.Id == id).Single();
+            
             context.Users.Remove(userid);
             context.SaveChanges();
             return RedirectToAction("UserList");
@@ -283,5 +285,29 @@ namespace GroupProject.Controllers
             var model = context.Orders;
             return View(model);
         }
+
+        //------------------------------------Rating Tools---------------------------
+
+        public async Task<ActionResult> RatingsList()
+        {
+
+            return View(await context.Ratings.ToListAsync());
+
+        }
+
+        public async Task<ActionResult> RatingDetail(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Rating rating = await context.Ratings.FindAsync(id);
+            if (rating == null)
+            {
+                return HttpNotFound();
+            }
+            return View(rating);
+        }
+
     }
 }

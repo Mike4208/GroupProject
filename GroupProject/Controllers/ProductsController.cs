@@ -97,6 +97,7 @@ namespace GroupProject.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Product product = db.Products.Find(id);
+            ViewBag.RatingExist = product.Ratings.Count() > 0;
             if (product == null)
             {
                 return HttpNotFound();
@@ -163,6 +164,11 @@ namespace GroupProject.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (product.Offer == true)
+                {
+                    product.OldPrice = product.Price;
+                    product.Price = (decimal)(product.Price - (product.Price * product.Discount));
+                }
                 db.Entry(product).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

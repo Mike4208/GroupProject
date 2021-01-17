@@ -1,0 +1,20 @@
+﻿
+@{
+    ViewBag.Title = "RatingError";
+}
+
+<div class="row">
+    <div class="col-lg-6" style="height: 300px">
+        <h2>Sorry!</h2>
+
+        <h2>
+            You have allready reviewed this product!
+        </h2>
+    </div>
+    <div class="col-lg-6">
+        <div id="animated-example" class="animated2 bounce"></div>
+    </div>
+</div>
+<div>
+    @Html.ActionLink("Back to List", "Index", "Products")
+</div>
