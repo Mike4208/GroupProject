@@ -21,6 +21,7 @@ namespace GroupProject.Controllers
         public ActionResult Index(string sortOrder, string currentFilter, string searchString, string selectedCategory, string selectedManufacturer, int? page)
         {
             ViewBag.PageName = "Products";
+
             var products = db.Products.Include(p => p.Category).Include(p => p.Manufacturer); //OM: get all products
             ViewBag.IsAdminOrEmployee = User.IsInRole("Admin") || User.IsInRole("Employee"); //OM: Used to check what to hide in View depending on role
 
@@ -86,6 +87,11 @@ namespace GroupProject.Controllers
         public ActionResult Details(int? id)
         {
             ViewBag.PageName = "Products";
+
+            ViewBag.AddedToCart = "";
+            if (!(TempData["AddedToCart"] == null))
+                ViewBag.AddedToCart = TempData["AddedToCart"].ToString();
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -103,6 +109,7 @@ namespace GroupProject.Controllers
         public ActionResult Create()
         {
             ViewBag.PageName = "Products";
+
             ViewBag.CategoryID = new SelectList(db.Categories, "ID", "Name");
             ViewBag.ManufacturerID = new SelectList(db.Manufacturers, "ID", "Name");
             return View();
@@ -132,6 +139,7 @@ namespace GroupProject.Controllers
         public ActionResult Edit(int? id)
         {
             ViewBag.PageName = "Products";
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -169,6 +177,7 @@ namespace GroupProject.Controllers
         public ActionResult Delete(int? id)
         {
             ViewBag.PageName = "Products";
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);

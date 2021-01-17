@@ -46,12 +46,14 @@ namespace GroupProject.Controllers
         // GET: /Store/AddToCart/5
         public ActionResult AddToCart(int id)
         {
+            TempData["AddedToCart"] = "Oops, something went wrong";
             // Retrieve product from the database
             var addedProduct = context.Products.Single(product => product.ID == id);
             // Add it to the shopping cart
             var cart = ShoppingCart.GetCart(this.HttpContext);
             cart.AddToCart(addedProduct);
-            return RedirectToAction("Index");
+            TempData["AddedToCart"] = "Product added successfully";
+            return RedirectToAction("Details", "Products", new { id = (int?)id });
         }
 
         //
