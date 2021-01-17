@@ -1,0 +1,76 @@
+﻿@model IEnumerable<GroupProject.ViewModel.RatingViewModel>
+
+@{
+    ViewBag.Title = "Rating Detail";
+}
+<link href="~/Content/StyleSheet1.css" rel="stylesheet" />
+<h2>Details</h2>
+
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h3 class="box-title">
+            <b>Product Reviews</b>
+        </h3>
+    </div>
+    <!-- /.box-header -->
+    <div class="panel-body">
+        <table class="table table-hover table-bordered table-condensed" id="UsersWithRoles">
+            <thead>
+                <tr>
+                    <td><b>Review Text</b></td>
+                    <td><b>UserName</b></td>
+                    <td><b>Product</b></td>
+                    <td><b>Date</b></td>
+                    <td><b>Rating</b></td>
+                    <td><b>Rating Stars</b></td>
+                    <td><b>Editor</b></td>
+                </tr>
+            </thead>
+            @foreach (var item in Model)
+            {
+                if (item.IsApproved == true || item.Username == User.Identity.Name)
+                {
+                    <tr>
+                        <td>@item.RatingText</td>
+                        <td>@item.Username</td>
+                        <td>@item.Name</td>
+                        <td>@item.ReviewCreated</td>
+                        <td>@item.Stars</td>
+                        <td>
+                            @for (var i = 1; i <= item.Stars; i++)
+                            {
+                                <span class="starOn"><img src="~/Images/StarGlow.gif" /></span>
+                            }
+                            @for (var i = (item.Stars + 1); i <= 5; i++)
+                            {
+                                <span class="starOff"><img src="~/Images/StarFade.gif" /></span>
+                            }
+                        </td>
+                        @if (item.Username == User.Identity.Name || User.IsInRole("Admin"))
+                        {
+                            <td>
+                                @Html.ActionLink("Edit", "Edit", "Ratings", new { id = item.RatingID, randomNo = item.ID }, null) |
+                                @Html.ActionLink("Delete", "Delete", "Ratings", new { id = item.RatingID }, null)
+                            </td>
+                        }
+                        else
+                        {
+                            <td>Not Allowed</td>
+                        }
+                    </tr>
+                }
+            }
+        </table>
+
+    </div>
+</div>
+@*<button type="button" class="btn btn-warning" onclick="location.href='@Url.Action("Details", "Products",new { id = Model.ProductId })'">
+        Back to list
+    </button>*@
+
+@*<button type="button" class="btn btn-warning" onclick="location.href='@Url.Action("Edit", "Ratings", new { id =  })'">
+        Edit
+    </button>*@
+
+
