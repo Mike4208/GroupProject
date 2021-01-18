@@ -16,13 +16,13 @@
                 Approval
             </th>
             <th>
-                Edited?
+                Edited
             </th>
             <th>
-                Product Name
+                Product
             </th>
             <th>
-                Created or Edited time
+                Created
             </th>
             <th>
                 Stars
@@ -39,7 +39,7 @@
     @{ int rowNo = 0; }
     @foreach (var item in Model.Where(m => m.IsApproved == false))
     {
-        @Html.HiddenFor(modelItem => item.Id)
+        @*@Html.HiddenFor(modelItem => item.Id)*@
         @Html.HiddenFor(modelItem => item.ProductId)
         @Html.HiddenFor(modelItem => item.RatingText)
 <tr>
@@ -68,20 +68,18 @@
         @Html.DisplayFor(modelItem => item.ReviewCreated)
     </td>
 
-    <td>
-        @Html.DisplayFor(modelItem => item.Stars)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.ApplicationUser.UserName)
-    </td>
-    <td>
-        @Html.ActionLink("Edit", "Edit", "Ratings", new { id = item.RatingId@*, randomNo = item.Id*@ }, null) |
-        @Html.ActionLink("Delete", "Delete", "Ratings", new { id = item.RatingId }, null) |
-        @Html.ActionLink("Details", "RatingDetail", new { id = item.RatingId })
-
-    </td>
-
-</tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Stars)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserName)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", "Ratings", new { id = item.RatingId, randomNo = item.UserName }, null) |
+                @Html.ActionLink("Details", "RatingDetail", new { id = item.RatingId }) |
+                @Html.ActionLink("Delete", "Delete", "Ratings", new { id = item.RatingId }, null)
+            </td>
+        </tr>
     }
 
 </table>

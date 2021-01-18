@@ -21,7 +21,7 @@ namespace GroupProject.Controllers
         {
             var cart = ShoppingCart.GetCart(this.HttpContext);
             ViewBag.NoOrders = false;
-            if (cart.GetCartItems().Count == 0) 
+            if (cart.GetCartItems().Count == 0)
             {
                 ViewBag.NoOrders = true;
                 return View();
@@ -52,9 +52,9 @@ namespace GroupProject.Controllers
             }
             var order = new Order();
             TryUpdateModel(order);
+            order.UserName = User.Identity.GetUserName();
             try
             {
-                order.ApplicationUserID = context.Users.Single(x => x.UserName == User.Identity.Name).Id;
                 order.OrderDate = DateTime.Now;
                 var cart = ShoppingCart.GetCart(this.HttpContext);
                 order.TotalPrice = cart.GetTotal();
@@ -76,8 +76,10 @@ namespace GroupProject.Controllers
         public ActionResult Complete(int id)
         {
             // Validate customer owns this order
-            bool isValid = context.Orders.Any(o => o.ID == id &&
-                o.ApplicationUser.UserName == User.Identity.Name);
+            bool isValid = context.Orders.Any(
+                o => o.ID == id &&
+                o.UserName == User.Identity.Name);
+
             if (isValid)
                 return View(id);
             else

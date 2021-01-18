@@ -11,16 +11,16 @@ namespace GroupProject.Models
     {
         [Key]
         public int RatingId { get; set; }
+        public string UserName { get; set; }
         public string RatingText { get; set; }
         public bool IsApproved { get; set; }
         public bool IsEdited { get; set; }
-        [Column(TypeName = "datetime2")]
-        public DateTime ReviewCreated { get; set; }
-        public string Id { get; set; }
-        public int ProductId { get; set; }
-        public virtual Product Products { get; set; }
-        public virtual ApplicationUser ApplicationUser { get; set; }
         public double Stars { get; set; }
+        public DateTime ReviewCreated { get; set; }
+        public int ProductId { get; set; }
+        //public string Id { get; set; }
+        public virtual Product Products { get; set; }
+        //public virtual ApplicationUser ApplicationUser { get; set; }
 
     }
 }
