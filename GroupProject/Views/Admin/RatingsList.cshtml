@@ -10,7 +10,7 @@
     <thead class="thead-dark">
         <tr>
             <th>
-                Review Text
+                No.
             </th>
             <th>
                 Approval
@@ -31,54 +31,57 @@
                 Reviewer
             </th>
             <th>
-                 Edit/Delete
+                Edit/Delete
             </th>
         </tr>
     </thead>
 
-
+    @{ int rowNo = 0; }
     @foreach (var item in Model.Where(m => m.IsApproved == false))
     {
         @Html.HiddenFor(modelItem => item.Id)
         @Html.HiddenFor(modelItem => item.ProductId)
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.RatingText)
-            </td>
-            <td>
-                <span class="badge badge-pill badge-danger">Pending</span>
-            </td>
-            @if (item.IsEdited == true)
-            {
-                <td>
-                    <span class="badge badge-pill badge-danger">Edited</span>
-                </td>
-            }
-            else
-            {
-                <td>
-                    <span class="badge badge-pill badge-success">No Edit</span>
-                </td>
-            }
-            <td>
-                @Html.DisplayFor(modelItem => item.Products.Manufacturer.Name) @Html.DisplayFor(modelItem => item.Products.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ReviewCreated)
-            </td>
+        @Html.HiddenFor(modelItem => item.RatingText)
+<tr>
+    <td>
+        @(rowNo += 1)
+    </td>
+    <td>
+        <span class="badge badge-pill badge-danger">Pending</span>
+    </td>
+    @if (item.IsEdited == true)
+    {
+        <td>
+            <span class="badge badge-pill badge-danger">Edited</span>
+        </td>
+    }
+    else
+    {
+        <td>
+            <span class="badge badge-pill badge-success">No Edit</span>
+        </td>
+    }
+    <td>
+        @Html.DisplayFor(modelItem => item.Products.Manufacturer.Name) @Html.DisplayFor(modelItem => item.Products.Name)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.ReviewCreated)
+    </td>
 
-            <td>
-                @Html.DisplayFor(modelItem => item.Stars)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ApplicationUser.UserName)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", "Ratings", new { id = item.RatingId, randomNo = item.Id }, null) |
-                @Html.ActionLink("Details", "RatingDetail", new { id = item.RatingId }) |
-                @Html.ActionLink("Delete", "Delete", "Ratings", new { id = item.RatingId }, null)
-            </td>
-        </tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.Stars)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.ApplicationUser.UserName)
+    </td>
+    <td>
+        @Html.ActionLink("Edit", "Edit", "Ratings", new { id = item.RatingId@*, randomNo = item.Id*@ }, null) |
+        @Html.ActionLink("Delete", "Delete", "Ratings", new { id = item.RatingId }, null) |
+        @Html.ActionLink("Details", "RatingDetail", new { id = item.RatingId })
+
+    </td>
+
+</tr>
     }
 
 </table>

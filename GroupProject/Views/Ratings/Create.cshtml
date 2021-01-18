@@ -41,7 +41,10 @@
     </div>
 }
 
+
+@*--------------------------------------------------------- FIX BACK BUTTON--------------------------------------*@
+
 <div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+        @Html.ActionLink("Back to List", "Details", new { id = ViewBag.ProductId })
+    </div>
 

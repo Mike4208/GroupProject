@@ -211,8 +211,7 @@ body {
     }
 
     .product-grid .product-image img {
-        width: 200px;
-        height: 200px;
+        width: 80%;
         position: center;
     }
 
@@ -335,6 +334,7 @@ body {
     position: relative;
     z-index: -1;
     text-align: center;
+    width;
 }
 
     .product-grid .rating li.disable {
@@ -406,12 +406,16 @@ body {
     overflow-y: auto;
 }
 
+/*----------------------------------------------------*/
 @media only screen and (max-width:990px) {
-    .product-grid {
-        margin-bottom: 30px
+
+    .rating .starOff .starOn {
+        max-width: 10vh;
+        height: 10vh;
     }
 }
 
+/*----------------------------------------------------*/
 
 #myTable, #myTable thead, #myTable tbody, #myTable th, #myTable td, #myTable tr {
     display: block;

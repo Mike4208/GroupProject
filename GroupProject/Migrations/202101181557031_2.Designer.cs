@@ -13,7 +13,7 @@ namespace GroupProject.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "202101171738035_2"; }
+            get { return "202101181557031_2"; }
         }
         
         string IMigrationMetadata.Source

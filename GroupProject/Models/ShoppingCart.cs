@@ -49,12 +49,10 @@ namespace GroupProject.Models
 
         public void AddToCart(Product products)
         {
-
             // Get the matching cart and product instances
             var cartItem = context.Carts.SingleOrDefault(
                            c => c.CartID == ShoppingCartId
                            && c.ProductID == products.ID);
-
             if (cartItem == null)
             {
                 // Create a new cart item if no cart item exists

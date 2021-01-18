@@ -3,7 +3,7 @@ namespace GroupProject.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class rating : DbMigration
+    public partial class _2 : DbMigration
     {
         public override void Up()
         {
@@ -74,7 +74,7 @@ namespace GroupProject.Migrations
                         Stars = c.Double(nullable: false),
                     })
                 .PrimaryKey(t => t.RatingId)
-                .ForeignKey("dbo.AspNetUsers", t => t.Id)
+                .ForeignKey("dbo.AspNetUsers", t => t.Id, cascadeDelete: true)
                 .ForeignKey("dbo.Products", t => t.ProductId, cascadeDelete: true)
                 .Index(t => t.Id)
                 .Index(t => t.ProductId);

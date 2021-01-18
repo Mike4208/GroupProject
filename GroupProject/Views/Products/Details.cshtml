@@ -116,7 +116,7 @@
                                 <th>Edit/Delete</th>
                             </tr>
                         </thead>
-                        @if (Model.Ratings.Count > 0)
+                        @if (Model.Ratings.Where(x=>x.IsApproved == true).ToList().Count > 0)
                         {
                             foreach (var item in Model.Ratings.Where(x => x.IsApproved == true))
                             {

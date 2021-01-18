@@ -63,6 +63,8 @@ namespace GroupProject.Controllers
 
             return View(productswithreviews);
         }
+
+
         // GET: Ratings
         public async Task<ActionResult> Index()
         {
@@ -81,6 +83,7 @@ namespace GroupProject.Controllers
                         new SelectListItem() {Text="4", Value = "4" },
                         new SelectListItem() {Text="5", Value = "5" }
                     };
+
             return View();
         }
 
@@ -205,6 +208,8 @@ namespace GroupProject.Controllers
             }
             return View(rating);
         }
+
+       
 
         // GET: Ratings/Delete/5
         public async Task<ActionResult> Delete(int? id)

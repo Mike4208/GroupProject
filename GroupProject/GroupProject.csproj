@@ -189,13 +189,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202101171330345_rating.cs" />
-    <Compile Include="Migrations\202101171330345_rating.Designer.cs">
-      <DependentUpon>202101171330345_rating.cs</DependentUpon>
+    <Compile Include="Migrations\202101181557031_2.cs" />
+    <Compile Include="Migrations\202101181557031_2.Designer.cs">
+      <DependentUpon>202101181557031_2.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202101171738035_2.cs" />
-    <Compile Include="Migrations\202101171738035_2.Designer.cs">
-      <DependentUpon>202101171738035_2.cs</DependentUpon>
+    <Compile Include="Migrations\202101182016142_223.cs" />
+    <Compile Include="Migrations\202101182016142_223.Designer.cs">
+      <DependentUpon>202101182016142_223.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Rating.cs" />
@@ -426,11 +426,11 @@
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202101171330345_rating.resx">
-      <DependentUpon>202101171330345_rating.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202101181557031_2.resx">
+      <DependentUpon>202101181557031_2.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202101171738035_2.resx">
-      <DependentUpon>202101171738035_2.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202101182016142_223.resx">
+      <DependentUpon>202101182016142_223.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -1,46 +1,50 @@
 ﻿@model GroupProject.Models.Rating
 
 @{
-    ViewBag.Title = "Create";
-}
-<style>
-    textarea {
-        resize: none;
-    }
-</style>
-<h2>Create</h2>
-
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-
-    <div class="form-horizontal">
-        <h4>Rating</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.RatingText, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.TextAreaFor(model => model.RatingText, 7, 40, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.RatingText, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Stars, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("Stars", (IEnumerable<SelectListItem>)ViewBag.Stars, new { @class = "form-control" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-warning" />
-            </div>
-        </div>
-    </div>
+    ViewBag.Title = "Delete";
 }
 
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    <h4>Rating</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.RatingText)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RatingText)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsApproved)
+        </dt>
+
+        @if (Model.IsApproved == false)
+        {
+            <dd>
+                <p style="color:red">Pending</p>
+            </dd>
+        }
+        else
+        {
+            <dd>
+                <p style="color:green">Approved</p>
+            </dd>
+        }
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-warning" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
 </div>
