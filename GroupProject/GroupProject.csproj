@@ -189,9 +189,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202101171658226_init.cs" />
-    <Compile Include="Migrations\202101171658226_init.Designer.cs">
-      <DependentUpon>202101171658226_init.cs</DependentUpon>
+    <Compile Include="Migrations\202101180752500_start again after merge.cs" />
+    <Compile Include="Migrations\202101180752500_start again after merge.Designer.cs">
+      <DependentUpon>202101180752500_start again after merge.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Rating.cs" />
@@ -223,6 +223,18 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\asus.jpg" />
+    <Content Include="Images\hp.jpg" />
+    <Content Include="Images\iphone12.jpg" />
+    <Content Include="Images\iphonebanner.jpg" />
+    <Content Include="Images\laptop.jpg" />
+    <Content Include="Images\login.png" />
+    <Content Include="Images\logoff.png" />
+    <Content Include="Images\samsungs20.jpeg" />
+    <Content Include="Images\shop.png" />
+    <Content Include="Images\shopp.jpg" />
+    <Content Include="Images\StarFade.gif" />
+    <Content Include="Images\StarGlow.gif" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -385,6 +397,15 @@
     <Content Include="Views\Manage\Orders.cshtml" />
     <Content Include="Views\ShoppingCart\Cart.cshtml" />
     <Content Include="Views\Admin\OrderList.cshtml" />
+    <Content Include="Views\Admin\RatingDetail.cshtml" />
+    <Content Include="Views\Admin\RatingsList.cshtml" />
+    <Content Include="Views\Ratings\Create.cshtml" />
+    <Content Include="Views\Ratings\Delete.cshtml" />
+    <Content Include="Views\Ratings\Details.cshtml" />
+    <Content Include="Views\Ratings\Edit.cshtml" />
+    <Content Include="Views\Ratings\RatingError.cshtml" />
+    <Content Include="Views\Ratings\RatingFail.cshtml" />
+    <Content Include="Views\Ratings\RatingSuccess.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -401,8 +422,8 @@
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202101171658226_init.resx">
-      <DependentUpon>202101171658226_init.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202101180752500_start again after merge.resx">
+      <DependentUpon>202101180752500_start again after merge.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

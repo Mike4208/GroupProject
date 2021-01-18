@@ -97,7 +97,6 @@ namespace GroupProject.Controllers
         public ActionResult DeleteUserConfirmed(string id)
         {
             var userid = context.Users.Where(x => x.Id == id).Single();
-            
             context.Users.Remove(userid);
             context.SaveChanges();
             return RedirectToAction("UserList");
@@ -114,7 +113,7 @@ namespace GroupProject.Controllers
             var model = new UserView()
             {
                 Email = user.Email,
-                Username = user.UserName,
+                Username = user.UserName
             };
             return View(model);
         }
@@ -124,37 +123,47 @@ namespace GroupProject.Controllers
         [ActionName("EditUser")]
         public ActionResult EditUserConfirmed(string id, UserView model)
         {
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
             if (!ModelState.IsValid)
                 return View(model);
 
+            // OM: Check if Username or Email already exists and throw error if yes 
             bool alreayExists = false;
-            var userEmail = UserManager.FindById(User.Identity.GetUserId()).Email;
+            var userEmail = UserManager.FindById(id).Email;
+            var userUsername = UserManager.FindById(id).UserName;
             if (UserManager.FindByEmail(model.Email) != null && userEmail != model.Email)
             {
                 alreayExists = true;
                 ModelState.AddModelError("Email", "Email already exists");
-                return View(model);
             }
-            if (UserManager.FindByName(model.Username) != null && User.Identity.GetUserName() != model.Username)
+            if (UserManager.FindByName(model.Username) != null && userUsername != model.Username)
             {
                 alreayExists = true;
                 ModelState.AddModelError("Username", "Username already exists");
             }
             if (alreayExists)
                 return View(model);
+            //
 
-            if (id == null)
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             var userToUpdate = context.Users.Find(id);
             var username = userToUpdate.UserName;
 
-            if (TryUpdateModel(userToUpdate, "", new string[] { "Email", "Username", "FirstName", "LastName" }))
+            if (TryUpdateModel(userToUpdate, "", new string[] { "Email", "Username" }))
             {
                 try
                 {
-                    // OM: Migrate orders when username changes
+                    // OM: Migrate orders to new User when Username changes
                     var orders = context.Orders.Where(x => x.UserName == username);
                     foreach (var item in orders)
+                    {
+                        item.UserName = model.Username;
+                    }
+
+                    // OM: Migrate orders to new User when Username changes
+                    var ratings = context.Ratings.Where(x => x.UserName == username);
+                    foreach (var item in ratings)
                     {
                         item.UserName = model.Username;
                     }
@@ -290,9 +299,8 @@ namespace GroupProject.Controllers
 
         public async Task<ActionResult> RatingsList()
         {
-
-            return View(await context.Ratings.ToListAsync());
-
+            var model = await context.Ratings.ToListAsync();
+            return View(model);
         }
 
         public async Task<ActionResult> RatingDetail(int? id)
@@ -308,6 +316,5 @@ namespace GroupProject.Controllers
             }
             return View(rating);
         }
-
     }
 }

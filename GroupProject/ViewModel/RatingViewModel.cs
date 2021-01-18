@@ -9,7 +9,7 @@ namespace GroupProject.ViewModel
     {
         public int RatingID { get; set; }
         public int ProductID { get; set; }
-        public string ID { get; set; }
+        //public string ID { get; set; }
         public string RatingText { get; set; }
         public string Username { get; set; }
         public string Name { get; set; }

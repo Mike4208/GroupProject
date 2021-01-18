@@ -17,6 +17,7 @@ namespace GroupProject.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
+        //
         // GET: Products
         public ActionResult Index(string sortOrder, string currentFilter, string searchString, string selectedCategory, string selectedManufacturer, int? page)
         {
@@ -83,6 +84,7 @@ namespace GroupProject.Controllers
             return View(products.ToPagedList(pageNumber, pageSize));
         }
 
+        //
         // GET: Products/Details/5
         public ActionResult Details(int? id)
         {
