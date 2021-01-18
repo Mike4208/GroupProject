@@ -102,7 +102,7 @@ namespace GroupProject.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]                                      //ApplicationUser instead of username
+        [ValidateAntiForgeryToken]                                      
         public ActionResult Create([Bind(Include = "RatingId, RatingText, IsApproved, UserName, ProductId, Stars")] Rating rating, int? id)
         {
             ViewBag.Stars = new List<SelectListItem>()
@@ -116,21 +116,18 @@ namespace GroupProject.Controllers
 
             if (ModelState.IsValid)
             {
-                //string currentUserId = User.Identity.GetUserId();
-                //ApplicationUser currentUser = db.Users.FirstOrDefault(x => x.Id == currentUserId);
                 rating.UserName = User.Identity.GetUserName();
                 var currentProduct = db.Products.Where(p => p.ID == id).Select(x => x.ID).Single();
                 rating.ProductId = currentProduct;
                 var ratingExists = from r in db.Ratings
                                    select new
                                    {
-                                       //r.Id,
                                        r.UserName,
                                        r.ProductId
                                    };
                 foreach (var item in ratingExists)
                 {
-                    if (item.ProductId == currentProduct && item.UserName == User.Identity.GetUserName()) //currentUser.UserName
+                    if (item.ProductId == currentProduct && item.UserName == User.Identity.GetUserName())
                     {
                         return RedirectToAction("RatingFail", "Ratings");
                     }
@@ -172,14 +169,14 @@ namespace GroupProject.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            string currentUsername = User.Identity.GetUserName(); // used id before
-            ApplicationUser currentUser = db.Users.FirstOrDefault(x => x.UserName == currentUsername); // used id before
+            string currentUsername = User.Identity.GetUserName(); 
+            ApplicationUser currentUser = db.Users.FirstOrDefault(x => x.UserName == currentUsername);
             Rating rating = await db.Ratings.FindAsync(id);
 
             // OM: only allow admin and user who made the review to edit the review
             if (!User.IsInRole("Admin"))
             {
-                if (currentUser.UserName != rating.UserName) // used id before
+                if (currentUser.UserName != rating.UserName)
                 {
                     return RedirectToAction("RatingError");
                 }
@@ -196,27 +193,17 @@ namespace GroupProject.Controllers
         // POST: Ratings/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost/*, Route("/{username:string}")*/]
+        [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit([Bind(Include = "RatingId, RatingText, UserName, IsApproved, ProductId, ReviewCreated, Stars")] Rating rating, int? id)
         {
             if (ModelState.IsValid)
             {
-                //var currentStar = db.Ratings.Where(x => x.RatingId == id).Select(i => i.Stars).SingleOrDefault();
-                //var currentPid = rating.ProductId;
-                //var currentUser = User.Identity.GetUserId();
-
-                var username = User.Identity.GetUserName();
                 if (!User.IsInRole("Admin"))
                 {
                     rating.IsApproved = false;
                     rating.IsEdited = true;
-                    //rating.UserName = username;
-                    //rating.Id = currentUser;
                 }
-                //rating.Id = randomNo;
-                //rating.ProductId = currentPid;
-                //rating.Stars = currentStar;
                 rating.ReviewCreated = DateTime.Now;
                 db.Entry(rating).State = EntityState.Modified;
                 await db.SaveChangesAsync();
