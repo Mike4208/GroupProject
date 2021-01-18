@@ -7,13 +7,13 @@ namespace GroupProject.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class _2 : IMigrationMetadata
+    public sealed partial class startagainaftermerge : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(_2));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(startagainaftermerge));
         
         string IMigrationMetadata.Id
         {
-            get { return "202101171738035_2"; }
+            get { return "202101180752500_start again after merge"; }
         }
         
         string IMigrationMetadata.Source

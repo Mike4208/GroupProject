@@ -50,7 +50,7 @@
                         @if (item.Username == User.Identity.Name || User.IsInRole("Admin"))
                         {
                             <td>
-                                @Html.ActionLink("Edit", "Edit", "Ratings", new { id = item.RatingID, randomNo = item.ID }, null) |
+                                @Html.ActionLink("Edit", "Edit", "Ratings", new { id = item.RatingID, randomNo = item.Username }, null) |
                                 @Html.ActionLink("Delete", "Delete", "Ratings", new { id = item.RatingID }, null)
                             </td>
                         }

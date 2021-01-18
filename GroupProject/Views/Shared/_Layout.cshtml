@@ -23,9 +23,9 @@
                         <li class="nav-item @(ViewBag.PageName == "Admin" ? "active" : "")">@Html.ActionLink("Admin Panel", "Index", "Admin", null, new { @class = "nav-link" })</li>
                     }
                     @*@if ((!User.IsInRole("Admin") && !User.IsInRole("Employee")) && User.Identity.IsAuthenticated)
-                    {
-                        <li class="nav-item @(ViewBag.PageName == "Cart" ? "active" : "")">@{Html.RenderAction("CartSummary", "ShoppingCart");}</li>
-                    }*@
+                        {
+                            <li class="nav-item @(ViewBag.PageName == "Cart" ? "active" : "")">@{Html.RenderAction("CartSummary", "ShoppingCart");}</li>
+                        }*@
                     @if (User.IsInRole("User"))
                     {
                         <li class="nav-item">
@@ -68,5 +68,15 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+
+    @* For Manage/Orders action to show order details  *@
+    <script>
+        $(document).ready(function () {
+            $('.showdetails').click(function () {
+                $('.hidden').eq($(this).index('.showdetails')).toggle();
+            });
+        });
+    </script>
+
 </body>
 </html>
