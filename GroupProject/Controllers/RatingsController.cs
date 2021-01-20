@@ -18,6 +18,8 @@ namespace GroupProject.Controllers
         private readonly ApplicationDbContext db = new ApplicationDbContext();
 
         //
+
+
         // GET: Ratings
         public async Task<ActionResult> Index()
         {
@@ -61,6 +63,7 @@ namespace GroupProject.Controllers
                         new SelectListItem() {Text="4", Value = "4" },
                         new SelectListItem() {Text="5", Value = "5" }
                     };
+
             return View();
         }
 
@@ -165,6 +168,8 @@ namespace GroupProject.Controllers
             // OM: If all else fails
             return View(rating);
         }
+
+       
 
         // GET: Ratings/Delete/5
         [Authorize]

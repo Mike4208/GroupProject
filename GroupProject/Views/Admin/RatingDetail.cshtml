@@ -51,9 +51,42 @@
 
 
     </dl>
+
+    @using (Html.BeginForm("Details","Ratings", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <h4>Rating</h4>
+            <hr />
+            @*@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.RatingId)
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.Id)
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.ProductId)*@
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.IsApproved, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        <div class="checkbox">
+                            @Html.EditorFor(model => model.IsApproved)
+                            @Html.ValidationMessageFor(model => model.IsApproved, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Save" class="btn btn-warning" />
+                </div>
+            </div>
+        </div>
+    }
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", "Ratings", new { id = Model.RatingId })
+    
+    @Html.ActionLink("Delete", "Delete", "Ratings", new { id = Model.RatingId }, null)
+    @Html.ActionLink("Edit", "Edit", "Ratings", new { id = Model.RatingId}, null)
     @Html.ActionLink("Back to List", "RatingsList")
 </p>
 

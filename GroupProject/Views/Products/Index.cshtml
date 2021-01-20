@@ -73,7 +73,7 @@
 
     <p>Showing @ViewBag.ItemCount items</p>
 
-    <div class="row">
+    <div class="row" id="productGrid">
         @foreach (var item in Model)
         {
             <div class="col-md-3 col-sm-6">
@@ -107,11 +107,11 @@
                                 int sumAvg = Convert.ToInt32((from x in item.Ratings.Where(x => x.IsApproved == true) select x.Stars).Average());
                                 for (var i = 1; i <= sumAvg; i++)
                                 {
-                                    <li class="starOn"><img src="~/Images/StarGlow.gif" /></li>
+                                    <li class="starOn"></li>
                                 }
                                 for (var i = sumAvg; i < 5; i++)
                                 {
-                                    <li class="starOff"><img src="~/Images/StarFade.gif" /></li>
+                                    <li class="starOff"></li>
                                 }
                             }
                             else
