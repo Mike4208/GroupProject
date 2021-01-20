@@ -20,7 +20,7 @@ namespace GroupProject.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
-        ApplicationDbContext context;
+        readonly ApplicationDbContext context; // OM: make readonly
 
 
         public ManageController()

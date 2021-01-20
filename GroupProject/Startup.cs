@@ -30,7 +30,8 @@ namespace GroupProject
             // In Startup iam creating first Admin Role and creating a default Admin User     
             if (!roleManager.RoleExists("Admin"))
             {
-                // first we create Admin rool 
+                // Creating Admin role 
+                // Admin has access to AdminPanel
                 var role = new IdentityRole() { Name = "Admin" };
                 roleManager.Create(role);
 
@@ -48,14 +49,16 @@ namespace GroupProject
                 }
             }
 
-            // creating Employee role     
+            // Creating Employee role     
+            // Employee can only manage products
             if (!roleManager.RoleExists("Employee"))
             {
                 var role = new IdentityRole() { Name = "Employee" };
                 roleManager.Create(role);
             }
 
-            // creating Customer role
+            // Creating User role
+            // User has access to cart and is able to make orders
             if (!roleManager.RoleExists("User"))
             {
                 var role = new IdentityRole() { Name = "User" };
