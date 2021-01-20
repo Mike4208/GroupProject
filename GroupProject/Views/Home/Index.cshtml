@@ -2,16 +2,20 @@
     ViewBag.Title = "Home";
 }
 
+@* OM: TODO! make home page prettier. Maybe navbar top padding another color, 
+    background image for home, footer with same color as top padding of navbar, 
+    probably white, and fixed to bottom *@
+
 <div class="jumbotron" style="height:100px">
     <p class="lead">
         @using (Html.BeginForm("Index", "Products", FormMethod.Get))
         {
-            <p>
-                Search: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
-                <input type="submit" value="Search" />
-            </p>
-        }
-    </p>
+        <p>
+            Search: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+            <input type="submit" value="Search" />
+        </p>
+    }
+        </p>
     </div>
 
     <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
