@@ -37,7 +37,7 @@ else
     const delay = ms => new Promise(res => setTimeout(res, ms));
 
     const WaitAndRedirect = async () => {
-        await delay(5000);
+        await delay(6000);
         var urlOfProductToReturnTo = document.getElementById("RedirectTo").value;
         location.href = urlOfProductToReturnTo;
     };
