@@ -17,9 +17,7 @@ namespace GroupProject.Models
         public double Stars { get; set; }
         public DateTime ReviewCreated { get; set; }
         public int ProductId { get; set; }
-        //public string Id { get; set; }
+        // OM: TODO! change name to 'Product' and all its references... which could be a pain
         public virtual Product Products { get; set; }
-        //public virtual ApplicationUser ApplicationUser { get; set; }
-
     }
 }

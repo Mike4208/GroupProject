@@ -401,9 +401,7 @@
     <Content Include="Views\Admin\RatingsList.cshtml" />
     <Content Include="Views\Ratings\Create.cshtml" />
     <Content Include="Views\Ratings\Delete.cshtml" />
-    <Content Include="Views\Ratings\Details.cshtml" />
     <Content Include="Views\Ratings\Edit.cshtml" />
-    <Content Include="Views\Ratings\RatingError.cshtml" />
     <Content Include="Views\Ratings\RatingFail.cshtml" />
     <Content Include="Views\Ratings\RatingSuccess.cshtml" />
   </ItemGroup>

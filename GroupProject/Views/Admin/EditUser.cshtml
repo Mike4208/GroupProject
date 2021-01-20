@@ -1,17 +1,17 @@
 ﻿@model GroupProject.ViewModel.UserView
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Edit User";
 }
 
-<h2>Edit</h2>
+<h2>@ViewBag.Title</h2>
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
 <div class="form-horizontal">
-    <h4>User</h4>
+    <h4>@ViewBag.Title</h4>
     <hr />
 
     <div class="form-group">

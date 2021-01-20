@@ -8,6 +8,8 @@ namespace GroupProject.Migrations
     using System.Data.Entity.Migrations;
     using System.Linq;
 
+    // OM: TODO! Make a proper configuration Seed, with like 10-20 products of each category
+
     internal sealed class Configuration : DbMigrationsConfiguration<ApplicationDbContext>
     {
         public Configuration()
@@ -23,7 +25,8 @@ namespace GroupProject.Migrations
             {
                 new Category { Name = "Laptop" },
                 new Category { Name = "Mobile" },
-                new Category { Name = "Tablet" }
+                new Category { Name = "Tablet" },
+                new Category { Name = "TV" }
             };
 
             categories.ForEach(s => context.Categories.AddOrUpdate(p => p.Name, s));
@@ -40,6 +43,7 @@ namespace GroupProject.Migrations
                 new Manufacturer { Name = "Toshiba" },
                 new Manufacturer { Name = "Dell" },
                 new Manufacturer { Name = "Cubot" },
+                new Manufacturer { Name = "LG" },
                 new Manufacturer { Name = "Xiaomi" }
             };
             manufacturers.ForEach(s => context.Manufacturers.AddOrUpdate(p => p.Name, s));

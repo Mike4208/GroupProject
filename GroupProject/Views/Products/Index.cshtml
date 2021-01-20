@@ -1,9 +1,16 @@
 ﻿@model PagedList.IPagedList<GroupProject.Models.Product>
 @using PagedList.Mvc;
+
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Our Products";
 }
+
+@* OM: TODO! Tidy filter stuff, they're not very pretty in small screens, and their look is default, maybe spice it up. 
+    also move search button a couple of pixels up to center it more. move select lists a couple of pixels down too
+    (With position:relative; top:5px; bottom:5px;) *@
+
 <style>
+
     .rating {
         position: absolute;
         top: 50px;
@@ -12,8 +19,11 @@
     .product-grid {
         background-color: white;
     }
+
 </style>
+
 <link href="~/Content/Site.css" rel="stylesheet" />
+
 <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/pricing/">
 
 <main class="container">
@@ -92,9 +102,9 @@
                     <ul class="rating">
 
                         @{
-                            if (item.Ratings.Count > 0)
+                            if (item.Ratings.Where(x => x.IsApproved == true).ToList().Count > 0)
                             {
-                                int sumAvg = Convert.ToInt32((from x in item.Ratings select x.Stars).Average());
+                                int sumAvg = Convert.ToInt32((from x in item.Ratings.Where(x => x.IsApproved == true) select x.Stars).Average());
                                 for (var i = 1; i <= sumAvg; i++)
                                 {
                                     <li class="starOn"><img src="~/Images/StarGlow.gif" /></li>

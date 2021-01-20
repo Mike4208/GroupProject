@@ -3,18 +3,18 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title - Ebuy</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
 </head>
 <body>
-    <nav class="navbar navbar-top navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar py-4 navbar-top navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            @Html.ActionLink("E-buy", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            @Html.ActionLink("Ebuy", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             <div class="navbar-collapse collapse" id="navbarNavDropdown">
                 <ul class="nav navbar-nav mr-auto">
                     <li class="nav-item @(ViewBag.PageName == "Products" ? "active" : "")">@Html.ActionLink("Browse", "Index", "Products", null, new { @class = "nav-link" })</li>
@@ -33,16 +33,28 @@
                         </li>
                     }
                 </ul>
+
                 @Html.Partial("_LoginPartial")
+
             </div>
         </div>
+
+        @* OM: Searchbar in navbar *@
+        
+            @*@using (Html.BeginForm("Index", "Products", FormMethod.Get))
+            {
+                @Html.TextBox("SearchString", ViewBag.CurrentFilter as string);
+            }*@
+
+
     </nav>
 
     <div class="container body-content">
         @RenderBody()
 
         @if (User.IsInRole("User"))
-        {
+            {
+            // OM: Pure CSS modal
             <div class="modal fade" id="Cart" tabindex="-1" role="dialog">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -53,7 +65,7 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            @{Html.RenderAction("Cart", "ShoppingCart");}
+                            @{Html.RenderAction("Cart", "ShoppingCart");}  @* OM: So ShoppingCart/Index renders in the modal *@
                         </div>
                     </div>
                 </div>

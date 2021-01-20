@@ -15,7 +15,7 @@ namespace GroupProject.Controllers
 {
     public class ProductsController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+        private readonly ApplicationDbContext db = new ApplicationDbContext(); // OM: made readonly
 
         //
         // GET: Products
@@ -64,7 +64,7 @@ namespace GroupProject.Controllers
             // OM: sort by price
             ViewBag.sortParam = string.IsNullOrEmpty(sortOrder) ? "price_asc" : ""; // OM: default sort is price ascending
             ViewBag.CurrentSort = sortOrder; // OM: to keep sortorder in different pages
-            if (string.IsNullOrEmpty(sortOrder) ? false : sortOrder.Equals("price_asc")) // OM: !sortOrder == "price_asc"
+            if (string.IsNullOrEmpty(sortOrder) ? false : sortOrder.Equals("price_asc")) // OM: !sortOrder == "price_asc" but i read somewhere sometime to use string.Equals() to compare strings. Probably simplify it later when I'm no longer emotionally attached to the ternary operator
             {
                 products = products.OrderByDescending(x => x.Price);
                 ViewBag.Descending = true; // OM: to check in View and print it
@@ -98,15 +98,22 @@ namespace GroupProject.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             Product product = db.Products.Find(id);
-            ViewBag.RatingExist = product.Ratings.Count() > 0;
             if (product == null)
             {
                 return HttpNotFound();
             }
+
+            var productRatingsCount = product.Ratings.Count();
+            var productApprovedRatingsCount = product.Ratings.Where(x => x.IsApproved == true).ToList().Count;
+            ViewBag.RatingExist = productRatingsCount > 0;
+            ViewBag.ApprovedRatingExist = productApprovedRatingsCount > 0;
+
             return View(product);
         }
 
+        //
         // GET: Products/Create
         [Authorize(Roles = "Admin, Employee")]
         public ActionResult Create()
@@ -118,6 +125,7 @@ namespace GroupProject.Controllers
             return View();
         }
 
+        //
         // POST: Products/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
@@ -137,6 +145,7 @@ namespace GroupProject.Controllers
             return View(product);
         }
 
+        //
         // GET: Products/Edit/5
         [Authorize(Roles = "Admin, Employee")]
         public ActionResult Edit(int? id)
@@ -152,11 +161,13 @@ namespace GroupProject.Controllers
             {
                 return HttpNotFound();
             }
+
             ViewBag.CategoryID = new SelectList(db.Categories, "ID", "Name", product.CategoryID);
             ViewBag.ManufacturerID = new SelectList(db.Manufacturers, "ID", "Name", product.ManufacturerID);
             return View(product);
         }
 
+        //
         // POST: Products/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
@@ -180,6 +191,7 @@ namespace GroupProject.Controllers
             return View(product);
         }
 
+        //
         // GET: Products/Delete/5
         [Authorize(Roles = "Admin, Employee")]
         public ActionResult Delete(int? id)
@@ -198,6 +210,7 @@ namespace GroupProject.Controllers
             return View(product);
         }
 
+        //
         // POST: Products/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]

@@ -14,20 +14,25 @@ namespace GroupProject.Controllers
     [Authorize(Roles = "Admin, Employee")]
     public class ManufacturersController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+        private readonly ApplicationDbContext db = new ApplicationDbContext(); // OM: make readonly
 
+        // OM: Boiler plate code mostly, it's only used by admin-employee
+
+        //
         // GET: Manufacturers
         public ActionResult Index()
         {
             return View(db.Manufacturers.ToList());
         }
 
+        //
         // GET: Manufacturers/Create
         public ActionResult Create()
         {
             return View();
         }
 
+        //
         // POST: Manufacturers/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
@@ -45,6 +50,7 @@ namespace GroupProject.Controllers
             return View(manufacturer);
         }
 
+        //
         // GET: Manufacturers/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -60,6 +66,7 @@ namespace GroupProject.Controllers
             return View(manufacturer);
         }
 
+        //
         // POST: Manufacturers/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
@@ -76,6 +83,7 @@ namespace GroupProject.Controllers
             return View(manufacturer);
         }
 
+        //
         // GET: Manufacturers/Delete/5
         public ActionResult Delete(int? id)
         {
@@ -91,6 +99,7 @@ namespace GroupProject.Controllers
             return View(manufacturer);
         }
 
+        //
         // POST: Manufacturers/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]

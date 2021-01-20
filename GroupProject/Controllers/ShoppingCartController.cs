@@ -12,7 +12,7 @@ namespace GroupProject.Controllers
     [Authorize(Roles = "User")]
     public class ShoppingCartController : Controller
     {
-        ApplicationDbContext context = new ApplicationDbContext();
+        readonly ApplicationDbContext context = new ApplicationDbContext(); // OM: make readonly
 
         //
         // GET: /ShoppingCart/

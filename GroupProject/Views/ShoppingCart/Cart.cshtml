@@ -1,7 +1,12 @@
 ﻿@model GroupProject.ViewModel.ShoppingCartViewModel
-@{ ViewBag.Title = "Shopping Cart"; }
+
+@* OM: Maybe make this different from full page shopping cart? 
+    if not remember to update this page every time you update that one *@ 
+
 <script src="~/Scripts/jquery-3.4.1.min.js" type="text/javascript"></script>
+
 <script type="text/javascript">
+
     $(function () {
         // Document.ready -> link up remove event handler
         $(".RemoveLink").click(function () {
@@ -30,7 +35,6 @@
 
     });
 
-
     function handleUpdate() {
         // Load and deserialize the returned JSON data
         var json = context.get_data();
@@ -47,7 +51,9 @@
         $('#update-message').text(data.Message);
         $('#cart-status').text('Cart (' + data.CartCount + ')');
     }
+
 </script>
+
 <h3>
     <em>Review</em> your cart:
 </h3>
