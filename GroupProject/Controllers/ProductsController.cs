@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using GroupProject.Data;
 using GroupProject.Models;
+using GroupProject.ViewModel;
 using PagedList;
 using PagedList.Mvc;
 
@@ -82,6 +83,12 @@ namespace GroupProject.Controllers
             int pageNumber = (page ?? 1);
 
             return View(products.ToPagedList(pageNumber, pageSize));
+        }
+
+        public ActionResult RandomItems()
+        {
+            
+            return View();
         }
 
         //

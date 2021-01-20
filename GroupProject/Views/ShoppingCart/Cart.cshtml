@@ -84,6 +84,9 @@
             <td>
                 <a href="#" class="RemoveLink" data-id="@item.ID">Remove from cart</a>
             </td>
+            <td>
+                @Html.ActionLink("Pay with Paypal Account", "PaymentWithPaypal", "Paypal")
+            </td>
         </tr>
     }
     <tr>
