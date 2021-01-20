@@ -50,6 +50,7 @@ namespace GroupProject.Controllers
             return View();
         }
 
+        // OM: TODO! Simplify LinQ query, can't be that hard
         public ActionResult UserList()
         {
             ViewBag.PageName = "Admin";
@@ -288,7 +289,6 @@ namespace GroupProject.Controllers
 
 
         // --------------------- Orders Actions -----------------------------
-
         public ActionResult OrderList()
         {
             var model = context.Orders;

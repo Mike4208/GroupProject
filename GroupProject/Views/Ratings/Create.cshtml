@@ -1,14 +1,18 @@
 ﻿@model GroupProject.Models.Rating
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Make a Review";
 }
+
+@* OM: TODO! center everything. maybe inside a div with its own background color, and maybe some styling? *@ 
+
 <style>
     textarea {
         resize: none;
     }
 </style>
-<h2>Create</h2>
+
+<h2>@ViewBag.Title</h2>
 
 @using (Html.BeginForm())
 {
@@ -40,11 +44,3 @@
         </div>
     </div>
 }
-
-
-@*--------------------------------------------------------- FIX BACK BUTTON--------------------------------------*@
-
-<div>
-        @Html.ActionLink("Back to List", "Details", new { id = ViewBag.ProductId })
-    </div>
-

@@ -1,7 +1,10 @@
 ﻿@model GroupProject.ViewModel.ShoppingCartViewModel
 
-@* OM: Maybe make this different from full page shopping cart? 
-    if not remember to update this page every time you update that one *@ 
+@{ ViewBag.Title = "Shopping Cart"; }
+
+@* OM: Maybe center everything, make links into cute buttons or sth.
+    also update Cart.cshtml if we plan to keep them the same.
+    Or just scrap this one completely and only keep that view.*@
 
 <script src="~/Scripts/jquery-3.4.1.min.js" type="text/javascript"></script>
 
@@ -89,9 +92,6 @@
             </td>
             <td>
                 <a href="#" class="RemoveLink" data-id="@item.ID">Remove from cart</a>
-            </td>
-            <td>
-                @Html.ActionLink("Pay with Paypal Account", "PaymentWithPaypal", "Paypal")
             </td>
         </tr>
     }

@@ -23,7 +23,7 @@ namespace GroupProject.Models
 
     public class ShoppingCart
     {
-        ApplicationDbContext context = new ApplicationDbContext();
+        readonly ApplicationDbContext context = new ApplicationDbContext(); // OM: added readonly
 
         string ShoppingCartId { get; set; }
 
@@ -162,7 +162,7 @@ namespace GroupProject.Models
         }
 
         // We're using HttpContextBase to allow access to cookies.
-        // OM: Anonymus cart is not used but implemented
+        // OM: Anonymus cart is not used but implemented for possible future extentions
         public string GetCartId(HttpContextBase context)
         {
             if (context.Session[CartSessionKey] == null)

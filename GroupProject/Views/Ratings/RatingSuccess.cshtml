@@ -1,10 +1,11 @@
-﻿
+﻿@model int?
+
 @{
-    ViewBag.Title = "RatingSuccess";
+    ViewBag.Title = "Review Successfull";
 }
 
-<style>
-</style>
+@* OM: TODO! doesn't appear nice on small screens. Center everything, probably have the icon on top and text below it*@
+
 <div class="row">
     <div class="col-lg-6" style="height: 300px">
         <h2>Thank you for your review!</h2>
@@ -17,6 +18,32 @@
         <div id="animated-example" class="animated bounce"></div>
     </div>
 </div>
-<div>
-    @Html.ActionLink("Back to List", "Index", "Products")
-</div>
+@if (Model != null)
+{
+    <div>
+        @Html.ActionLink("Back to Product", "Details", "Products", new { id = Model }, null)
+    </div>
+}
+else
+{
+    <div>
+        @Html.ActionLink("Back to List", "Index", "Products")
+    </div>
+}
+
+@Html.Hidden("RedirectTo", Url.Action("Details", "Products", new { id = Model }))
+
+<script>
+    const delay = ms => new Promise(res => setTimeout(res, ms));
+
+    const WaitAndRedirect = async () => {
+        await delay(5000);
+        var urlOfProductToReturnTo = document.getElementById("RedirectTo").value;
+        location.href = urlOfProductToReturnTo;
+    };
+
+    var productIdToReturnTo = @Html.Raw(Json.Encode(Model));
+    if (productIdToReturnTo != null) {
+        WaitAndRedirect();
+    }
+</script>

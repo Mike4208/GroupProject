@@ -1,10 +1,12 @@
 ﻿@model GroupProject.Models.Rating
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Edit Review";
 }
 
-<h2>Edit</h2>
+@* OM: TODO! center everything *@
+
+<h2>@ViewBag.Title</h2>
 
 @using (Html.BeginForm())
 {
@@ -53,5 +55,6 @@
     @if (!User.IsInRole("Admin"))
     {
         @Html.ActionLink("Back to List", "Details", "Ratings", new { id = Model.RatingId }, null)
-    }@Html.ActionLink("Back to List", "RatingsList", "Admin", new { id = Model.RatingId }, null)
+    }
+    @Html.ActionLink("Back to List", "RatingsList", "Admin", new { id = Model.RatingId }, null)
 </div>

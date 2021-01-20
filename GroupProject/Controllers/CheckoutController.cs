@@ -13,8 +13,9 @@ namespace GroupProject.Controllers
     public class CheckoutController : Controller
     {
 
-        ApplicationDbContext context = new ApplicationDbContext();
+        readonly ApplicationDbContext context = new ApplicationDbContext(); // OM: make readonly
 
+        //
         // GET: Checkout
         [Authorize(Roles = "User")]
         public ActionResult Index()

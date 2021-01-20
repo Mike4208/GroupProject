@@ -14,20 +14,25 @@ namespace GroupProject.Controllers
     [Authorize(Roles = "Admin, Employee")]
     public class CategoriesController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+        private readonly ApplicationDbContext db = new ApplicationDbContext(); // OM: make readonly
 
+        // OM: Boiler plate code mostly, it's only used by admin-employee
+
+        //
         // GET: Categories
         public ActionResult Index()
         {
             return View(db.Categories.ToList());
         }
 
+        //
         // GET: Categories/Create
         public ActionResult Create()
         {
             return View();
         }
 
+        //
         // POST: Categories/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
@@ -45,6 +50,7 @@ namespace GroupProject.Controllers
             return View(category);
         }
 
+        //
         // GET: Categories/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -60,6 +66,7 @@ namespace GroupProject.Controllers
             return View(category);
         }
 
+        //
         // POST: Categories/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
@@ -76,6 +83,7 @@ namespace GroupProject.Controllers
             return View(category);
         }
 
+        //
         // GET: Categories/Delete/5
         public ActionResult Delete(int? id)
         {
@@ -91,6 +99,7 @@ namespace GroupProject.Controllers
             return View(category);
         }
 
+        //
         // POST: Categories/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
