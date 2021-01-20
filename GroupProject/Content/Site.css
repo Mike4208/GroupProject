@@ -197,21 +197,33 @@ body {
     -webkit-animation-name: bounce;
     animation-name: bounce;
 }
+/*--------------------------STAR GIFS REVIEW----------------------------------------*/
 
 .starOff {
     background-image: url("../Images/StarFade.gif");
-    min-width: 30px;
-    min-height: 30px;
+    width: 30px;
+    height: 30px;
     display: inline-block;
+   
 }
 
 .starOn {
     background-image: url("../Images/StarGlow.gif");
-    min-width: 30px;
-    min-height: 30px;
+    width: 30px;
+    height: 30px;
     display: inline-block;
+   
+
 }
 
+@media only screen and (max-width:995px) {
+    .starOff, .starOn {
+        background-size: contain;
+        height: 20px;
+        width: 20px;
+    }
+}
+/*---------------------------------------------------------------------------*/
 .product-grid {
     font-family: Raleway, sans-serif;
     text-align: center;
@@ -261,8 +273,7 @@ body {
     }
 
     .product-grid .product-image img {
-        width: 200px;
-        height: 200px;
+        width: 80%;
         position: center;
     }
 
@@ -456,12 +467,13 @@ body {
     overflow-y: auto;
 }
 
+/*----------------------------------------------------*/
 @media only screen and (max-width:990px) {
-    .product-grid {
-        margin-bottom: 30px
-    }
+
+    
 }
 
+/*----------------------------------------------------*/
 
 #myTable, #myTable thead, #myTable tbody, #myTable th, #myTable td, #myTable tr {
     display: block;

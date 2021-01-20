@@ -79,16 +79,15 @@
                         @Html.DisplayFor(model => model.Name)
                     </dd>
 
-                    <dt>
-                        @Html.DisplayNameFor(model => model.Description)
-                    </dt>
-                    <dd>
-                        @Html.DisplayFor(model => model.Description)
-                    </dd>
-                </dl>
-
-            </div>
-            <div class="col-md-4">
+            <dt>
+                @Html.DisplayNameFor(model => model.Description)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Description)
+            </dd>
+        </dl>
+    </div>
+    <div class="col-md-4">
 
             </div>
         </div>
@@ -267,9 +266,7 @@
 </div>
 <script src="https://code.jquery.com/jquery-1.10.0.min.js"
         integrity="sha256-2+LznWeWgL7AJ1ciaIG5rFP7GKemzzl+K75tRyTByOE="
-        crossorigin="anonymous">
-
-</script>
+        crossorigin="anonymous"></script>
 <script>
     $("#btnLink").click(function () {
         $('#ModalPopUp').modal('show');
