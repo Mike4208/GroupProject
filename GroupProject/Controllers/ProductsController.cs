@@ -98,12 +98,18 @@ namespace GroupProject.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             Product product = db.Products.Find(id);
-            ViewBag.RatingExist = product.Ratings.Count() > 0;
             if (product == null)
             {
                 return HttpNotFound();
             }
+
+            var productRatingsCount = product.Ratings.Count();
+            var productApprovedRatingsCount = product.Ratings.Where(x => x.IsApproved == true).ToList().Count;
+            ViewBag.RatingExist = productRatingsCount > 0;
+            ViewBag.ApprovedRatingExist = productApprovedRatingsCount > 0;
+
             return View(product);
         }
 

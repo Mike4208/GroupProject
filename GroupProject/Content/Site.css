@@ -31,7 +31,8 @@ body {
     background-color: gainsboro;
 }
 
-/* For nav buttons start */
+
+/* For nav icons start */
 
 .nav li{
     border-radius:10px;
@@ -86,7 +87,37 @@ body {
     background-color: gainsboro;
 }
 
-/* For nav buttons end */
+/* Fix Navbar icons for big screens */
+
+@media only screen and (min-width: 992px) {
+    .nav li a {
+        height: 60px;
+        display: table-cell;
+        vertical-align: middle;
+    }
+    .navbar-brand {
+        height: 50px;
+        display: table-cell;
+        vertical-align: middle;
+    }
+}
+/* Fix Navbar icons for smaller screens */
+
+@media only screen and (max-width: 991px) {
+    .nav li{
+        height: 60px;
+        text-align:center;
+        line-height:40px;
+    }
+    .nav li .Cart{
+        width:100%;
+    }
+    .nav li:nth-child(1){
+        margin-top:5px;
+    }
+}
+
+/* For nav icons end */
 
 /* For Manage/Orders start */
 
@@ -166,14 +197,14 @@ body {
 }
 
 .starOff {
-    background-image: url("~/Images/StarFade.gif");
+    background-image: url("../Images/StarFade.gif");
     min-width: 30px;
     min-height: 30px;
     display: inline-block;
 }
 
 .starOn {
-    background-image: url("~/Images/StarGlow.gif");
+    background-image: url("../Images/StarGlow.gif");
     min-width: 30px;
     min-height: 30px;
     display: inline-block;

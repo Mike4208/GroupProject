@@ -288,7 +288,6 @@ namespace GroupProject.Controllers
 
 
         // --------------------- Orders Actions -----------------------------
-
         public ActionResult OrderList()
         {
             var model = context.Orders;

@@ -147,19 +147,19 @@ namespace GroupProject.Controllers
                 return View(model);
 
             // OM: Check if Username or Email already exists and throw error if yes 
-            bool alreayExists = false;
+            bool alreadyExists = false;
             var userEmail = UserManager.FindById(User.Identity.GetUserId()).Email;
             if (UserManager.FindByEmail(model.Email) != null && userEmail != model.Email)
             {
-                alreayExists = true;
+                alreadyExists = true;
                 ModelState.AddModelError("Email", "Email already exists");
             }
             if (UserManager.FindByName(model.Username) != null && User.Identity.GetUserName() != model.Username)
             {
-                alreayExists = true;
+                alreadyExists = true;
                 ModelState.AddModelError("Username", "Username already exists");
             }
-            if (alreayExists)
+            if (alreadyExists)
                 return View(model);
             //
 

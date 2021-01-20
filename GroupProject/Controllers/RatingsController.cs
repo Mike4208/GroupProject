@@ -15,64 +15,64 @@ namespace GroupProject.Controllers
 {
     public class RatingsController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+        private readonly ApplicationDbContext db = new ApplicationDbContext();
 
         //
         // GET: Ratings/Details
-        public ActionResult Details(int? id)
-        {
-            //var productswithreviews = (from r in db.Ratings
-            //                           join p in db.Products on r.ProductId equals p.ID
-            //                           join u in db.Users on r.Id equals u.Id
-            //                           select new
-            //                           {
-            //                               ratingid = r.RatingId,
-            //                               productid = p.ID,
-            //                               id = u.Id,
-            //                               ratigttext = r.RatingText,
-            //                               username = u.UserName,
-            //                               name = p.Name,
-            //                               approved = r.IsApproved,
-            //                               date = r.ReviewCreated,
-            //                               stars = r.Stars,
-            //                           }).ToList().Select(p => new RatingViewModel()
-            //                           {
-            //                               RatingID = p.ratingid,
-            //                               ProductID = p.productid,
-            //                               ID = p.id,
-            //                               RatingText = p.ratigttext,
-            //                               Username = p.username,
-            //                               Name = p.name,
-            //                               IsApproved = p.approved,
-            //                               ReviewCreated = p.date,
-            //                               Stars = (int)p.stars
-            //                           }).Where(x => x.ProductID == id).ToList();
+        //public ActionResult Details(int? id)
+        //{
+        //    ////////var productswithreviews = (from r in db.Ratings
+        //    ////////                           join p in db.Products on r.ProductId equals p.ID
+        //    ////////                           join u in db.Users on r.Id equals u.Id
+        //    ////////                           select new
+        //    ////////                           {
+        //    ////////                               ratingid = r.RatingId,
+        //    ////////                               productid = p.ID,
+        //    ////////                               id = u.Id,
+        //    ////////                               ratigttext = r.RatingText,
+        //    ////////                               username = u.UserName,
+        //    ////////                               name = p.Name,
+        //    ////////                               approved = r.IsApproved,
+        //    ////////                               date = r.ReviewCreated,
+        //    ////////                               stars = r.Stars,
+        //    ////////                           }).ToList().Select(p => new RatingViewModel()
+        //    ////////                           {
+        //    ////////                               RatingID = p.ratingid,
+        //    ////////                               ProductID = p.productid,
+        //    ////////                               ID = p.id,
+        //    ////////                               RatingText = p.ratigttext,
+        //    ////////                               Username = p.username,
+        //    ////////                               Name = p.name,
+        //    ////////                               IsApproved = p.approved,
+        //    ////////                               ReviewCreated = p.date,
+        //    ////////                               Stars = (int)p.stars
+        //    ////////                           }).Where(x => x.ProductID == id).ToList();
 
-            List<RatingViewModel> productswithreviews = (from r in db.Ratings
-                                                         join p in db.Products on r.ProductId equals p.ID
-                                                        select new RatingViewModel
-                                                        {
-                                                            RatingID = r.RatingId,
-                                                            ProductID = r.ProductId,
-                                                            RatingText = r.RatingText,
-                                                            Username = r.UserName,
-                                                            Name = p.Name,
-                                                            IsApproved = r.IsApproved,
-                                                            ReviewCreated = r.ReviewCreated,
-                                                            Stars = (int)r.Stars
-                                                        }).Where(x => x.ProductID == id).ToList();
+        //    List<RatingViewModel> productswithreviews = (from r in db.Ratings
+        //                                                 join p in db.Products on r.ProductId equals p.ID
+        //                                                select new RatingViewModel
+        //                                                {
+        //                                                    RatingID = r.RatingId,
+        //                                                    ProductID = r.ProductId,
+        //                                                    RatingText = r.RatingText,
+        //                                                    Username = r.UserName,
+        //                                                    Name = p.Name,
+        //                                                    IsApproved = r.IsApproved,
+        //                                                    ReviewCreated = r.ReviewCreated,
+        //                                                    Stars = (int)r.Stars
+        //                                                }).Where(x => x.ProductID == id).ToList();
 
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            if (productswithreviews.Count() == 0)
-            {
-                return RedirectToAction("RatingError");
-            }
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    if (productswithreviews.Count() == 0)
+        //    {
+        //        return RedirectToAction("RatingError");
+        //    }
 
-            return View(productswithreviews);
-        }
+        //    return View(productswithreviews);
+        //}
 
         //
         // GET: Ratings
@@ -84,8 +84,32 @@ namespace GroupProject.Controllers
 
         //
         // GET: Ratings/Create
-        public ActionResult Create()
+        [Authorize(Roles = "User")]
+        public ActionResult Create(int? id)
         {
+            var product = db.Products.Single(x => x.ID == id);
+            var currentUserUsername = User.Identity.GetUserName();
+            var currentUserId = User.Identity.GetUserId();
+            var currentUser = db.Users.Where(x => x.Id == currentUserId).Single();
+
+            // OM: check if user has already rated the product, if yes show error page
+            foreach (var item in product.Ratings)
+            {
+                if (item.UserName != null && item.UserName.Equals(currentUserUsername))
+                {
+                    TempData["UserHasRated"] = true;
+                    return RedirectToAction("RatingFail", "Ratings", new { id = id });
+                }
+            }
+
+            // OM: check if user has already bought the product, if no then redirect to error page
+            bool UserHasBoughtProduct = db.Orders.Where(x => x.UserName == currentUserUsername).SelectMany(y => y.OrderDetails.Where(z => z.ProductID == id)).Count() > 0;
+            if (!UserHasBoughtProduct)
+            {
+                TempData["UserHasNotOrderedProduct"] = true;
+                return RedirectToAction("RatingFail", "Ratings", new { id = id });
+            }
+
             ViewBag.Stars = new List<SelectListItem>()
                     {
                         new SelectListItem() {Text="1", Value = "1" },
@@ -105,63 +129,77 @@ namespace GroupProject.Controllers
         [ValidateAntiForgeryToken]                                      
         public ActionResult Create([Bind(Include = "RatingId, RatingText, IsApproved, UserName, ProductId, Stars")] Rating rating, int? id)
         {
-            ViewBag.Stars = new List<SelectListItem>()
-                    {
-                        new SelectListItem() {Text="1", Value = "1" },
-                        new SelectListItem() {Text="2", Value = "2" },
-                        new SelectListItem() {Text="3", Value = "3" },
-                        new SelectListItem() {Text="4", Value = "4" },
-                        new SelectListItem() {Text="5", Value = "5" }
-                    };
+            //ViewBag.Stars = new List<SelectListItem>()
+            //        {
+            //            new SelectListItem() {Text="1", Value = "1" },
+            //            new SelectListItem() {Text="2", Value = "2" },
+            //            new SelectListItem() {Text="3", Value = "3" },
+            //            new SelectListItem() {Text="4", Value = "4" },
+            //            new SelectListItem() {Text="5", Value = "5" }
+            //        };
 
             if (ModelState.IsValid)
             {
                 rating.UserName = User.Identity.GetUserName();
-                var currentProduct = db.Products.Where(p => p.ID == id).Select(x => x.ID).Single();
-                rating.ProductId = currentProduct;
-                var ratingExists = from r in db.Ratings
-                                   select new
-                                   {
-                                       r.UserName,
-                                       r.ProductId
-                                   };
-                foreach (var item in ratingExists)
-                {
-                    if (item.ProductId == currentProduct && item.UserName == User.Identity.GetUserName())
-                    {
-                        return RedirectToAction("RatingFail", "Ratings");
-                    }
-                }
+                var currentProductId = db.Products.Where(p => p.ID == id).Select(x => x.ID).Single();
+                rating.ProductId = currentProductId;
+                //var ratingExists = from r in db.Ratings
+                //                   select new
+                //                   {
+                //                       r.UserName,
+                //                       r.ProductId
+                //                   };
+                //foreach (var item in ratingExists)
+                //{
+                //    if (item.ProductId == currentProduct && item.UserName == User.Identity.GetUserName())
+                //    {
+                //        return RedirectToAction("RatingFail", "Ratings");
+                //    }
+                //}
                 rating.ReviewCreated = DateTime.Now;
                 db.Ratings.Add(rating);
                 db.SaveChanges();
             }
-            return RedirectToAction("RatingSuccess", "Ratings");
+            return RedirectToAction("RatingSuccess", "Ratings", new { id = id });
         }
 
         //
         //
-        public ActionResult RatingError()
+        //[Authorize]
+        //public ActionResult RatingError()
+        //{
+        //    return View();
+        //}
+
+        //
+        //
+        [Authorize]
+        public ActionResult RatingSuccess(int? id)
         {
-            return View();
+            return View(id);
         }
 
         //
-        //
-        public ActionResult RatingSuccess()
-        {
-            return View();
-        }
-
         //
         // OM: when user has already made a review for a product
-        public ActionResult RatingFail()
+        [Authorize]
+        public ActionResult RatingFail(int? id)
         {
-            return View();
+            // OM: Default state is false in case someone tries to access page directly from url
+            if (TempData["UserHasNotOrderedProduct"] != null)
+                ViewBag.UserHasNotOrderedProduct = TempData["UserHasNotOrderedProduct"];
+            else
+                ViewBag.UserHasNotOrderedProduct = false;
+            if (TempData["UserHasRated"] != null)
+                ViewBag.UserHasRated = TempData["UserHasRated"];
+            else
+                ViewBag.UserHasRated = false;
+            return View(id);
         }
 
         //
         // GET: Ratings/Edit/5
+        [Authorize]
         public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
@@ -173,12 +211,12 @@ namespace GroupProject.Controllers
             ApplicationUser currentUser = db.Users.FirstOrDefault(x => x.UserName == currentUsername);
             Rating rating = await db.Ratings.FindAsync(id);
 
-            // OM: only allow admin and user who made the review to edit the review
+            // PC: only allow admin and user who made the review to edit the review
             if (!User.IsInRole("Admin"))
             {
                 if (currentUser.UserName != rating.UserName)
                 {
-                    return RedirectToAction("RatingError");
+                    return RedirectToAction("Error", "Home");
                 }
             }
 
@@ -219,6 +257,7 @@ namespace GroupProject.Controllers
         }
 
         // GET: Ratings/Delete/5
+        [Authorize]
         public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
