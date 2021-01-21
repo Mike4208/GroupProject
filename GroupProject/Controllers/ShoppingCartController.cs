@@ -59,11 +59,12 @@ namespace GroupProject.Controllers
         //
         // AJAX: /ShoppingCart/RemoveFromCart/5
         [HttpPost]
+        [Authorize(Roles = "User")]
         public ActionResult RemoveFromCart(int id)
         {
             // Remove the item from the cart
             var cart = ShoppingCart.GetCart(this.HttpContext);
-            // Get the name of the album to display confirmation
+            // Get the name of the product, to display confirmation
             string productName = context.Carts
                 .Single(item => item.ID == id).Product.Name;
             // Remove from cart
@@ -80,6 +81,27 @@ namespace GroupProject.Controllers
             };
             return Json(results);
         }
+
+        ////
+        //// AJAX: /ShoppingCart/AddToCartJson/5
+        //[HttpPost]
+        //[Authorize(Roles = "User")]
+        //public ActionResult AddToCartJson(int id)
+        //{
+        //    // Add the item to the cart
+        //    var cart = ShoppingCart.GetCart(this.HttpContext);
+        //    // Get product to add
+        //    var product = context.Products.Single(item => item.ID == id);
+        //    // Add to cart
+        //    cart.AddToCart(product);
+        //    // Display the confirmation message
+        //    var results = new ShoppingCartRemoveViewModel
+        //    {
+        //        Message = Server.HtmlEncode(productName) + " has been added from your shopping cart.",
+        //        AddId = product.ID
+        //    };
+        //    return Json(results);
+        //}
 
         //
         // GET: /ShoppingCart/CartSummary

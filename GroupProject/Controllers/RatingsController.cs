@@ -160,9 +160,7 @@ namespace GroupProject.Controllers
                 await db.SaveChangesAsync();
 
                 if (!User.IsInRole("Admin"))
-                {
                     return RedirectToAction("RatingSuccess");
-                }
                 return RedirectToAction("RatingsList", "Admin");
             }
             // OM: If all else fails

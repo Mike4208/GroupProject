@@ -36,20 +36,20 @@ body {
 
 /* For nav icons start */
 
-.nav li{
-    border-radius:10px;
-}
-
-.nav li a{
+.nav li {
     border-radius: 10px;
 }
 
-.nav .active{
+    .nav li a {
+        border-radius: 10px;
+    }
+
+.nav .active {
     background-color: #2a3330;
 }
 
-.nav li a:active{
-    background-color:#4f625c !important;
+.nav li a:active {
+    background-color: #4f625c !important;
 }
 
 .nav li a:hover {
@@ -63,27 +63,27 @@ body {
     border-radius: 10px;
 }
 
-.Cart .active {
-    /*background-color: #2a3330;*/
-}
+    .Cart .active {
+        /*background-color: #2a3330;*/
+    }
 
-.Cart:active {
-    background-color: #4f625c !important;
-}
+    .Cart:active {
+        background-color: #4f625c !important;
+    }
 
-.Cart:hover {
-    background-color: #617971;
-}
+    .Cart:hover {
+        background-color: #617971;
+    }
 
-.Cart:focus {
-    outline:none;
-}
+    .Cart:focus {
+        outline: none;
+    }
 
-.Cart .nav-link{
-    pointer-events: none;
-    cursor: default;
-    text-decoration: none
-}
+    .Cart .nav-link {
+        pointer-events: none;
+        cursor: default;
+        text-decoration: none
+    }
 
 .modal-content {
     background-color: gainsboro;
@@ -97,6 +97,7 @@ body {
         display: table-cell;
         vertical-align: middle;
     }
+
     .navbar-brand {
         height: 50px;
         display: table-cell;
@@ -106,25 +107,27 @@ body {
 /* Fix Navbar icons for smaller screens */
 
 @media only screen and (max-width: 991px) {
-    .nav li{
+    .nav li {
         height: 60px;
-        text-align:center;
-        line-height:40px;
+        text-align: center;
+        line-height: 40px;
     }
-    .nav li .Cart{
-        width:100%;
-    }
-    .nav li:nth-child(1){
-        margin-top:5px;
-    }
+
+        .nav li .Cart {
+            width: 100%;
+        }
+
+        .nav li:nth-child(1) {
+            margin-top: 5px;
+        }
 }
 
 /* For nav icons end */
 
 /* For Manage/Orders start */
 
-.hidden{
-    display:none;
+.hidden {
+    display: none;
 }
 
 .order-details td {
@@ -204,7 +207,6 @@ body {
     width: 30px;
     height: 30px;
     display: inline-block;
-   
 }
 
 .starOn {
@@ -212,17 +214,23 @@ body {
     width: 30px;
     height: 30px;
     display: inline-block;
-   
-
 }
 
-@media only screen and (max-width:995px) {
+@media only screen and (max-width:991px) {
     .starOff, .starOn {
         background-size: contain;
         height: 20px;
         width: 20px;
     }
 }
+
+@media only screen and (max-width:767px) {
+    .starOff, .starOn {
+        height: 30px;
+        width: 30px;
+    }
+}
+
 /*---------------------------------------------------------------------------*/
 .product-grid {
     font-family: Raleway, sans-serif;
@@ -469,8 +477,6 @@ body {
 
 /*----------------------------------------------------*/
 @media only screen and (max-width:990px) {
-
-    
 }
 
 /*----------------------------------------------------*/
@@ -518,5 +524,3 @@ body {
 .carousel {
     margin: 50px auto;
 }
-
-

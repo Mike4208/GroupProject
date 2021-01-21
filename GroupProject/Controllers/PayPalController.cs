@@ -11,32 +11,23 @@ namespace GroupProject.Controllers
 {
     public class PayPalController : Controller
     {
-
         readonly ApplicationDbContext db = new ApplicationDbContext(); // OM: make readonly
+
         //  Work with PayPal Payment
         private PayPal.Api.Payment payment;
 
-        ////
-        //// GET: PayPal
-        //public ActionResult Index()
-        //{
-        //    return View();
-        //}
 
         // Create a payment using an APIContext
-        private Payment CreatePayment(APIContext apiContext, string redirectUrl)
+        private Payment CreatePayment(APIContext apiContext, string redirectUrl, Models.Order order) // OM: add order
         {
             // similar to credit card create itemlist and add item objects to it
             var itemList = new ItemList() { items = new List<Item>() };
 
-            string currentUsername = User.Identity.Name;
-            ApplicationUser currentUser = db.Users.FirstOrDefault(x => x.UserName == currentUsername);
-            var carts = db.Carts.Where(x => x.CartID == currentUsername).ToList();
-
+            // OM: find price of each item exclusively, and of each item * quantity in order to find the total price
+            var carts = db.Carts.Where(x => x.CartID == User.Identity.Name).ToList();
             List<decimal> price = new List<decimal>();
             List<decimal> totalPrices = new List<decimal>();
             int count = 0;
-
             foreach (var item in carts)
             {
                 price.Add(item.Product.Price);
@@ -61,6 +52,7 @@ namespace GroupProject.Controllers
                 return_url = redirectUrl
             };
 
+            // OM: get total price of items in cart
             var total = totalPrices.Sum();
             // similar as we did for credit card, do here and create details object
             var details = new Details()
@@ -69,7 +61,7 @@ namespace GroupProject.Controllers
                 //shipping = "1",
                 subtotal = total.ToString()
             };
-            
+
             // similar as we did for credit card, do here and create amount object
             var amount = new Amount()
             {
@@ -78,12 +70,15 @@ namespace GroupProject.Controllers
                 details = details
             };
 
-            var transactionList = new List<Transaction>();
+            // OM: invoice number must be unique. Unique to the paypal sandbox account that is
+            // so let's give it a huge random string and hope for the best
+            var invoice = GetInvoice();
 
+            var transactionList = new List<Transaction>();
             transactionList.Add(new Transaction()
             {
                 description = "sales",
-                invoice_number = "l;6l",
+                invoice_number = order.ID.ToString() + invoice,
                 amount = amount,
                 item_list = itemList
             });
@@ -100,6 +95,7 @@ namespace GroupProject.Controllers
             return this.payment.Create(apiContext);
         }
 
+
         private Payment ExecutePayment(APIContext apiContext, string payerId, string paymentId)
         {
             var paymentExecution = new PaymentExecution() { payer_id = payerId };
@@ -107,8 +103,14 @@ namespace GroupProject.Controllers
             return this.payment.Execute(apiContext, paymentExecution);
         }
 
-        public ActionResult PaymentWithPaypal()
+
+        public ActionResult PaymentWithPaypal() // OM: add order
         {
+            // OM: get order from POST:/Checkout, if null show error view
+            Models.Order order = TempData["Order"] as Models.Order;
+            if (order == null)
+                return View("FailureView");
+
             // getting the apiContext as earlier
             APIContext apiContext = Configuration.GetAPIContext();
 
@@ -128,34 +130,28 @@ namespace GroupProject.Controllers
 
                     // guid we are generating for storing the paymentID received in session
                     // after calling the create function and it is used in the payment execution
-
                     var guid = Convert.ToString((new Random()).Next(100000));
 
                     // CreatePayment function gives us the payment approval url
                     // on which payer is redirected for paypal account payment
-
-                    var createdPayment = this.CreatePayment(apiContext, baseURI + "guid=" + guid);
+                    var createdPayment = this.CreatePayment(apiContext, baseURI + "guid=" + guid, order); // OM: add order
 
                     // get links returned from paypal in response to Create function call
 
                     var links = createdPayment.links.GetEnumerator();
-
                     string paypalRedirectUrl = null;
-
                     while (links.MoveNext())
                     {
                         Links lnk = links.Current;
-
                         if (lnk.rel.ToLower().Trim().Equals("approval_url"))
                         {
-                            //saving the payapalredirect URL to which user will be redirected for payment
+                            // saving the payapalredirect URL to which user will be redirected for payment
                             paypalRedirectUrl = lnk.href;
                         }
                     }
 
                     // saving the paymentID in the key guid
                     Session.Add(guid, createdPayment.id);
-
                     return Redirect(paypalRedirectUrl);
                 }
                 else
@@ -165,13 +161,9 @@ namespace GroupProject.Controllers
 
                     // Executing a payment
                     var guid = Request.Params["guid"];
-
                     var executedPayment = ExecutePayment(apiContext, payerId, Session[guid] as string);
-
                     if (executedPayment.state.ToLower() != "approved")
-                    {
                         return View("FailureView");
-                    }
                 }
             }
             catch (Exception ex)
@@ -180,7 +172,36 @@ namespace GroupProject.Controllers
                 PayPalLogger.Log("Error" + ex.Message);
                 return View("FailureView");
             }
-            return RedirectToAction("Complete", "Checkout");
+
+            // OM: Update database Orders with current after payment is complete
+            SaveOrder(order);
+
+            return RedirectToAction("Complete", "Checkout", new { order.ID });
+        }
+
+
+        // OM: Helper methods
+
+        private void SaveOrder(Models.Order order)
+        {
+            var cart = ShoppingCart.GetCart(this.HttpContext);
+            db.Orders.Add(order);
+            db.SaveChanges();
+            order.ID = cart.CreateOrder(order);
+        }
+
+
+        private string GetInvoice()
+        {
+            var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789~!@#$%^&*()_+`-=[]{}<>,.";
+            var stringChars = new char[20];
+            var random = new Random();
+
+            for (int i = 0; i < stringChars.Length; i++)
+                stringChars[i] = chars[random.Next(chars.Length)];
+
+            var finalString = new string(stringChars);
+            return (finalString);
         }
     }
 }

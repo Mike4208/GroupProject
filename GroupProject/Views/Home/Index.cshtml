@@ -10,12 +10,11 @@
     <p class="lead">
         @using (Html.BeginForm("Index", "Products", FormMethod.Get))
         {
-        <p>
-            Search: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
-            <input type="submit" value="Search" />
-        </p>
-    }
-        </p>
+        
+            @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+            <input type="submit" value="Search" class="btn btn-primary" style="position:relative; top:-2px;"/>
+        }
+    </p>
     </div>
 
     <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">

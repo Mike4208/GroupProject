@@ -316,5 +316,20 @@ namespace GroupProject.Controllers
             }
             return View(rating);
         }
+
+        [HttpPost]
+        [ActionName("RatingDetail")]
+        public async Task<ActionResult> RatingDetailConfirmed([Bind(Include = "RatingId, RatingText, UserName, IsApproved, ProductId, ReviewCreated, Stars")] Rating rating, int? id)
+        {
+            if (!ModelState.IsValid)
+                return View(rating);
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            if (rating == null)
+                return HttpNotFound();
+            context.Entry(rating).State = EntityState.Modified;
+            await context.SaveChangesAsync();
+            return RedirectToAction("RatingsList");
+        }
     }
 }

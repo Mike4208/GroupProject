@@ -47,18 +47,18 @@ namespace GroupProject.Models
             context.Session[CartSessionKey] = null;
         }
 
-        public void AddToCart(Product products)
+        public void AddToCart(Product product)
         {
             // Get the matching cart and product instances
             var cartItem = context.Carts.SingleOrDefault(
                            c => c.CartID == ShoppingCartId
-                           && c.ProductID == products.ID);
+                           && c.ProductID == product.ID);
             if (cartItem == null)
             {
                 // Create a new cart item if no cart item exists
                 cartItem = new Cart
                 {
-                    ProductID = products.ID,
+                    ProductID = product.ID,
                     CartID = ShoppingCartId,
                     Quantity = 1,
                     DateCreated = DateTime.Now

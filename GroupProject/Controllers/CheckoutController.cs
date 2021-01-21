@@ -16,7 +16,7 @@ namespace GroupProject.Controllers
         readonly ApplicationDbContext context = new ApplicationDbContext(); // OM: make readonly
 
         //
-        // GET: Checkout
+        // GET: /Checkout
         [Authorize(Roles = "User")]
         public ActionResult Index()
         {
@@ -43,15 +43,16 @@ namespace GroupProject.Controllers
         }
 
         //
-        // POST: /Checkout/AddressAndPayment
+        // POST: /Checkout
         [HttpPost]
         public ActionResult Index(OrderViewModel model)
         {
             if (!ModelState.IsValid)
             {
-                ViewBag.NoOrders = false;
+                ViewBag.NoOrders = false; // OM: because GET /Checkout uses this Viewbag bool for a check, so it cant be null
                 return View(model);
             }
+
             var order = new Order();
             TryUpdateModel(order);
             order.UserName = User.Identity.GetUserName();
@@ -61,23 +62,32 @@ namespace GroupProject.Controllers
                 var cart = ShoppingCart.GetCart(this.HttpContext);
                 order.TotalPrice = cart.GetTotal();
                 //Save Order
-                context.Orders.Add(order);
-                context.SaveChanges();
+                //context.Orders.Add(order);
+                //context.SaveChanges();
                 //Process the order
-                order.ID = cart.CreateOrder(order);
-                return RedirectToAction("Complete", new { id = order.ID });
+                //order.ID = cart.CreateOrder(order);
+
+                // OM: Pass order info to PayPal payment and add the order only after payment has gone through
+                TempData["Order"] = order;
+                return RedirectToAction("PaymentWithPaypal", "PayPal");
+
+                //return RedirectToAction("Complete", new { id = order.ID });
             }
             catch
             {
-                ViewBag.NoOrders = false;
+                ViewBag.NoOrders = false; // OM: because GET: /Checkout uses this Viewbag bool for a check, so it cant be null
                 return View(model);
             }
         }
 
         [Authorize(Roles = "User")]
-        public ActionResult Complete(int id)
+        public ActionResult Complete(int? id)
         {
+            if (id == null)
+                return View("Error");
+
             ViewBag.PageName = "Cart";
+
             // Validate customer owns this order
             bool isValid = context.Orders.Any(
                 o => o.ID == id &&

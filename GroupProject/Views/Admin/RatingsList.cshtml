@@ -75,9 +75,7 @@
                 @Html.DisplayFor(modelItem => item.UserName)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", "Ratings", new { id = item.RatingId, randomNo = item.UserName }, null) |
-                @Html.ActionLink("Details", "RatingDetail", new { id = item.RatingId }) |
-                @Html.ActionLink("Delete", "Delete", "Ratings", new { id = item.RatingId }, null)
+                @Html.ActionLink("Details", "RatingDetail", new { id = item.RatingId })
             </td>
         </tr>
     }

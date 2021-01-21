@@ -1,0 +1,27 @@
+﻿- use modelerror for all errors in controllers
+
+- make a proper configuration seed
+
+- auto logout users on browser close (doubt we can do it)
+
+-(suggestion) navbar top padding another color, background image for home, footer with same color as top padding of navbar, probably white, and fixed to bottom
+
+- add an overflow to tables so they dont go out of bounds on small width screens
+
+- (suggestion) make /Home searchbar look nicer
+
+- turn everything you can to async
+
+adminpanel ratinglist 
+- (!) /Ratinglist/Delete "back to list" hyperlink doesn't work
+- (suggestion) Review text should appear only in 'details' view (where it could ideally also be aproved) - remove review text from ratinglist
+- (suggestion) Ideally ratinglist should only have 2 views, index(shows info except review text) and details(shows reviewtext and allows approval).
+- edit rating shouldnt let admin edit rating text
+-DETAILS APPROVED
+
+- (suggestion) add description for each role in models and startup and display it on admin panel 
+- (suggesetion) searchbar in navbar
+- (!)make offer for product return to old price when offer is removed
+- (suggestion)make addToCart use Ajax
+
+manufacturer/category and generally tables. give table lines(rows) a brighter background color.

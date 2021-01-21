@@ -63,13 +63,13 @@ else
 
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Save" class="btn btn-primary" />
+                    <input type="submit" value="Pay with Paypal" class="btn btn-success" />
                 </div>
             </div>
         </div>
     }
 }
 
-<div>
-    @Html.ActionLink("Back to Cart", "Index", "ShoppingCart")
-</div>
+<button type="button" class="btn btn-info" onclick="location.href='@Url.Action("Back to Cart", "Index", "ShoppingCart")'">
+    Back to Cart
+</button>

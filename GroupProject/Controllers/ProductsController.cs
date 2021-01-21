@@ -48,11 +48,11 @@ namespace GroupProject.Controllers
 
             // OM: actually do the filtering according to the above
             if (!string.IsNullOrEmpty(selectedManufacturer) && !string.IsNullOrEmpty(selectedCategory) && !string.IsNullOrEmpty(searchString))
-                products = db.Products.Where(x => x.Category.Name == selectedCategory).Where(y => y.Manufacturer.Name == selectedManufacturer).Where(s => s.Name.Contains(searchString));
+                products = db.Products.Where(x => x.Category.Name == selectedCategory).Where(y => y.Manufacturer.Name == selectedManufacturer).Where(s => s.Name.Contains(searchString) || searchString.Contains(s.Name));
             else if ((!string.IsNullOrEmpty(selectedManufacturer) && !string.IsNullOrEmpty(searchString)))
-                products = db.Products.Where(y => y.Manufacturer.Name == selectedManufacturer).Where(s => s.Name.Contains(searchString));
+                products = db.Products.Where(y => y.Manufacturer.Name == selectedManufacturer).Where(s => s.Name.Contains(searchString) || searchString.Contains(s.Name));
             else if ((!string.IsNullOrEmpty(selectedCategory) && !string.IsNullOrEmpty(searchString)))
-                products = db.Products.Where(x => x.Category.Name == selectedCategory).Where(s => s.Name.Contains(searchString));
+                products = db.Products.Where(x => x.Category.Name == selectedCategory).Where(s => s.Name.Contains(searchString) || searchString.Contains(s.Name));
             else if (!string.IsNullOrEmpty(selectedManufacturer) && !string.IsNullOrEmpty(selectedCategory))
                 products = db.Products.Where(x => x.Category.Name == selectedCategory).Where(y => y.Manufacturer.Name == selectedManufacturer);
             else if (!string.IsNullOrEmpty(selectedCategory))
@@ -60,7 +60,8 @@ namespace GroupProject.Controllers
             else if (!string.IsNullOrEmpty(selectedManufacturer))
                 products = db.Products.Where(x => x.Manufacturer.Name == selectedManufacturer);
             else if (!string.IsNullOrEmpty(searchString))
-                products = db.Products.Where(x => x.Name.Contains(searchString));
+                products = db.Products.Where(x => x.Name.Contains(searchString) || x.Manufacturer.Name.Contains(searchString) || x.Category.Name.Contains(searchString)
+                                                  || searchString.Contains(x.Name) || searchString.Contains(x.Manufacturer.Name) || searchString.Contains(x.Category.Name));
 
             // OM: sort by price
             ViewBag.sortParam = string.IsNullOrEmpty(sortOrder) ? "price_asc" : ""; // OM: default sort is price ascending

@@ -244,6 +244,8 @@
     <Content Include="Images\shopp.jpg" />
     <Content Include="Images\StarFade.gif" />
     <Content Include="Images\StarGlow.gif" />
+    <Content Include="Developer Notes\Notes.txt" />
+    <Content Include="Developer Notes\Todo list.txt" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
