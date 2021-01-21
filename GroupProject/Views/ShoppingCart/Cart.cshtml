@@ -1,7 +1,7 @@
 ﻿@model GroupProject.ViewModel.ShoppingCartViewModel
 
-@* OM: Maybe make this different from full page shopping cart? 
-    if not remember to update this page every time you update that one *@ 
+@* OM: Maybe make this different from full page shopping cart?
+    if not remember to update this page every time you update that one *@
 
 <script src="~/Scripts/jquery-3.4.1.min.js" type="text/javascript"></script>
 
@@ -55,10 +55,11 @@
 </script>
 
 <h3>
-    <em>Review</em> your cart:
+    <em>Review</em> your items:
 </h3>
-<p class="button">
-    @Html.ActionLink("Checkout", "Index", "Checkout")
+<p>
+    @Html.ActionLink("Checkout", "Index", "Checkout", null, new { @class = "btn btn-primary" })
+    @Html.ActionLink("Pay with Paypal Account", "PaymentWithPaypal", "Paypal", null, new { @class = "btn btn-primary" })
 </p>
 <div id="update-message">
 </div>
@@ -89,9 +90,6 @@
             </td>
             <td>
                 <a href="#" class="RemoveLink" data-id="@item.ID">Remove from cart</a>
-            </td>
-            <td>
-                @Html.ActionLink("Pay with Paypal Account", "PaymentWithPaypal", "Paypal")
             </td>
         </tr>
     }

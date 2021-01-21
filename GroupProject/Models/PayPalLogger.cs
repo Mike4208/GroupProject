@@ -16,6 +16,7 @@ namespace GroupProject.Models
                 StreamWriter strw = new StreamWriter(LogDirectoryPath + "\\PayPalError.log", true);
                 strw.WriteLine("{0}--->{1}",DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss"),messages);
             }
+            // VS must be run as Admin
             catch (Exception)
             {
                 throw;

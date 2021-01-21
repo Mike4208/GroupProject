@@ -414,7 +414,6 @@
     <Content Include="Views\Ratings\RatingFail.cshtml" />
     <Content Include="Views\Ratings\RatingSuccess.cshtml" />
     <Content Include="Views\Products\RandomItems.cshtml" />
-    <Content Include="Views\PayPal\SuccessView.cshtml" />
     <Content Include="Views\PayPal\FailureView.cshtml" />
     <Content Include="Views\PayPal\Index.cshtml" />
     <Content Include="Views\ShoppingCart\Index.cshtml" />

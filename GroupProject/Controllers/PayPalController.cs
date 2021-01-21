@@ -9,34 +9,37 @@ using System.Web.Mvc;
 
 namespace GroupProject.Controllers
 {
-    
     public class PayPalController : Controller
     {
-        // GET: PayPal
-        public ActionResult Index()
-        {
-            return View();
-        }
 
-        ApplicationDbContext db = new ApplicationDbContext();
-        //Work with PayPal Payment
+        readonly ApplicationDbContext db = new ApplicationDbContext(); // OM: make readonly
+        //  Work with PayPal Payment
         private PayPal.Api.Payment payment;
+
+        ////
+        //// GET: PayPal
+        //public ActionResult Index()
+        //{
+        //    return View();
+        //}
+
         // Create a payment using an APIContext
         private Payment CreatePayment(APIContext apiContext, string redirectUrl)
         {
-
-            //similar to credit card create itemlist and add item objects to it
+            // similar to credit card create itemlist and add item objects to it
             var itemList = new ItemList() { items = new List<Item>() };
 
             string currentUsername = User.Identity.Name;
             ApplicationUser currentUser = db.Users.FirstOrDefault(x => x.UserName == currentUsername);
             var carts = db.Carts.Where(x => x.CartID == currentUsername).ToList();
+
             List<decimal> price = new List<decimal>();
+            List<decimal> totalPrices = new List<decimal>();
             int count = 0;
+
             foreach (var item in carts)
             {
                 price.Add(item.Product.Price);
-
                 itemList.items.Add(new Item()
                 {
                     name = item.Product.Name,
@@ -45,9 +48,11 @@ namespace GroupProject.Controllers
                     currency = "EUR",
                     sku = item.ProductID.ToString()
                 });
+                totalPrices.Add(price[count] * item.Quantity);
                 count++;
             }
-                var payer = new Payer() { payment_method = "paypal" };
+
+            var payer = new Payer() { payment_method = "paypal" };
 
             // Configure Redirect Urls here with RedirectUrls object
             var redirUrls = new RedirectUrls()
@@ -55,7 +60,8 @@ namespace GroupProject.Controllers
                 cancel_url = redirectUrl,
                 return_url = redirectUrl
             };
-            var total = price.Sum();
+
+            var total = totalPrices.Sum();
             // similar as we did for credit card, do here and create details object
             var details = new Details()
             {
@@ -77,7 +83,7 @@ namespace GroupProject.Controllers
             transactionList.Add(new Transaction()
             {
                 description = "sales",
-                invoice_number = "1",
+                invoice_number = "l;6l",
                 amount = amount,
                 item_list = itemList
             });
@@ -103,7 +109,7 @@ namespace GroupProject.Controllers
 
         public ActionResult PaymentWithPaypal()
         {
-            //getting the apiContext as earlier
+            // getting the apiContext as earlier
             APIContext apiContext = Configuration.GetAPIContext();
 
             try
@@ -112,26 +118,25 @@ namespace GroupProject.Controllers
 
                 if (string.IsNullOrEmpty(payerId))
                 {
-                    //this section will be executed first because PayerID doesn't exist
-                    //it is returned by the create function call of the payment class
+                    // this section will be executed first because PayerID doesn't exist
+                    // it is returned by the create function call of the payment class
 
                     // Creating a payment
                     // baseURL is the url on which paypal sendsback the data.
                     // So we have provided URL of this controller only
-                    string baseURI = Request.Url.Scheme + "://" + Request.Url.Authority +
-                                "/Paypal/PaymentWithPayPal?";
+                    string baseURI = Request.Url.Scheme + "://" + Request.Url.Authority + "/Paypal/PaymentWithPayPal?";
 
-                    //guid we are generating for storing the paymentID received in session
-                    //after calling the create function and it is used in the payment execution
+                    // guid we are generating for storing the paymentID received in session
+                    // after calling the create function and it is used in the payment execution
 
                     var guid = Convert.ToString((new Random()).Next(100000));
 
-                    //CreatePayment function gives us the payment approval url
-                    //on which payer is redirected for paypal account payment
+                    // CreatePayment function gives us the payment approval url
+                    // on which payer is redirected for paypal account payment
 
                     var createdPayment = this.CreatePayment(apiContext, baseURI + "guid=" + guid);
 
-                    //get links returned from paypal in response to Create function call
+                    // get links returned from paypal in response to Create function call
 
                     var links = createdPayment.links.GetEnumerator();
 
@@ -156,11 +161,9 @@ namespace GroupProject.Controllers
                 else
                 {
                     // This section is executed when we have received all the payments parameters
-
                     // from the previous call to the function Create
 
                     // Executing a payment
-
                     var guid = Request.Params["guid"];
 
                     var executedPayment = ExecutePayment(apiContext, payerId, Session[guid] as string);
@@ -177,9 +180,7 @@ namespace GroupProject.Controllers
                 PayPalLogger.Log("Error" + ex.Message);
                 return View("FailureView");
             }
-
-            return View("SuccessView");
+            return RedirectToAction("Complete", "Checkout");
         }
-       
     }
 }

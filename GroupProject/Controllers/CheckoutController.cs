@@ -20,6 +20,7 @@ namespace GroupProject.Controllers
         [Authorize(Roles = "User")]
         public ActionResult Index()
         {
+            ViewBag.PageName = "Cart";
             var cart = ShoppingCart.GetCart(this.HttpContext);
             ViewBag.NoOrders = false;
             if (cart.GetCartItems().Count == 0)
@@ -76,6 +77,7 @@ namespace GroupProject.Controllers
         [Authorize(Roles = "User")]
         public ActionResult Complete(int id)
         {
+            ViewBag.PageName = "Cart";
             // Validate customer owns this order
             bool isValid = context.Orders.Any(
                 o => o.ID == id &&

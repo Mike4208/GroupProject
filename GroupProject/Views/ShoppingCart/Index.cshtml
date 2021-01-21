@@ -58,10 +58,11 @@
 </script>
 
 <h3>
-    <em>Review</em> your cart:
+    <em>Review</em> your items:
 </h3>
-<p class="button">
-    @Html.ActionLink("Checkout", "Index", "Checkout")
+<p>
+    @Html.ActionLink("Checkout", "Index", "Checkout", null, new { @class = "btn btn-primary" })
+    @Html.ActionLink("Pay with Paypal Account", "PaymentWithPaypal", "Paypal", null, new { @class = "btn btn-primary" })
 </p>
 <div id="update-message">
 </div>
