@@ -44,7 +44,7 @@
 
         <div class="form-actions no-color">
             <input type="submit" value="Delete" class="btn btn-warning" /> |
-            @Html.ActionLink("Back to List", "Index")
+            @Html.ActionLink("Back", "RatingDetail", "Admin", new { id = Model.RatingId }, null)
         </div>
     }
 </div>

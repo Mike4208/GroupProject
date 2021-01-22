@@ -7,13 +7,13 @@ namespace GroupProject.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class _1 : IMigrationMetadata
+    public sealed partial class discountregex : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(_1));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(discountregex));
         
         string IMigrationMetadata.Id
         {
-            get { return "202101182150138_1"; }
+            get { return "202101221625550_discount regex"; }
         }
         
         string IMigrationMetadata.Source

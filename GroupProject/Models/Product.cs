@@ -19,7 +19,8 @@ namespace GroupProject.Models
         public decimal Price { get; set; }
         public decimal OldPrice { get; set; }
         public bool Offer { get; set; }
-        public decimal? Discount { get; set; }
+        [RegularExpression(@"^[1-9][0-9]?$|^100$")]
+        public int? Discount { get; set; }
         public int CategoryID { get; set; }
         public virtual Category Category { get; set; }
         public int ManufacturerID { get; set; }

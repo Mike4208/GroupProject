@@ -44,11 +44,10 @@
 
         @* OM: Searchbar in navbar *@
 
-        @*@using (Html.BeginForm("Index", "Products", FormMethod.Get))
+        @using (Html.BeginForm("Index", "Products", FormMethod.Get))
             {
-                @Html.TextBox("SearchString", ViewBag.CurrentFilter as string);
-            }*@
-
+                @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, null, new { placeholder = "Search" });
+            }
 
     </nav>
 

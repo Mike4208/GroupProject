@@ -4,6 +4,8 @@
     ViewBag.Title = "Pending Ratings";
 }
 
+@* TODO! pagination, sort by approved status or username, search by username *@
+
 <h2>@ViewBag.Title</h2>
 
 <table class="table">
@@ -31,24 +33,31 @@
                 Reviewer
             </th>
             <th>
-                Edit/Delete
             </th>
         </tr>
     </thead>
 
     @{ int rowNo = 0; }
-    @foreach (var item in Model.Where(m => m.IsApproved == false))
+    @foreach (var item in Model)
     {
-        @*@Html.HiddenFor(modelItem => item.Id)*@
         @Html.HiddenFor(modelItem => item.ProductId)
         @Html.HiddenFor(modelItem => item.RatingText)
 <tr>
     <td>
         @(rowNo += 1)
     </td>
-    <td>
-        <span class="badge badge-pill badge-danger">Pending</span>
-    </td>
+    @if (item.IsApproved == true)
+    {
+        <td>
+            <span class="badge badge-pill badge-success">Approved</span>
+        </td>
+    }
+    else
+    {
+        <td>
+            <span class="badge badge-pill badge-danger">Pending</span>
+        </td>
+    }
     @if (item.IsEdited == true)
     {
         <td>
@@ -68,16 +77,16 @@
         @Html.DisplayFor(modelItem => item.ReviewCreated)
     </td>
 
-            <td>
-                @Html.DisplayFor(modelItem => item.Stars)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UserName)
-            </td>
-            <td>
-                @Html.ActionLink("Details", "RatingDetail", new { id = item.RatingId })
-            </td>
-        </tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.Stars)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.UserName)
+    </td>
+    <td>
+        @Html.ActionLink("Details", "RatingDetail", new { id = item.RatingId })
+    </td>
+</tr>
     }
 
 </table>

@@ -15,17 +15,18 @@ namespace GroupProject.Controllers
 {
     public class RatingsController : Controller
     {
+
         private readonly ApplicationDbContext db = new ApplicationDbContext();
 
+
         //
-
-
         // GET: Ratings
         public async Task<ActionResult> Index()
         {
             var model = await db.Ratings.ToListAsync();
             return View(model);
         }
+
 
         //
         // GET: Ratings/Create
@@ -67,10 +68,11 @@ namespace GroupProject.Controllers
             return View();
         }
 
+
         //
         // POST: Ratings/Create
         [HttpPost]
-        [ValidateAntiForgeryToken]                                      
+        [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "RatingId, RatingText, IsApproved, UserName, ProductId, Stars")] Rating rating, int? id)
         {
 
@@ -86,6 +88,7 @@ namespace GroupProject.Controllers
             return RedirectToAction("RatingSuccess", "Ratings", new { id });
         }
 
+
         //
         //
         [Authorize]
@@ -93,6 +96,7 @@ namespace GroupProject.Controllers
         {
             return View(id);
         }
+
 
         //
         //
@@ -112,35 +116,23 @@ namespace GroupProject.Controllers
             return View(id);
         }
 
+
         //
         // GET: Ratings/Edit/5
-        [Authorize]
+        [Authorize(Roles = "User")]
         public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-
-            string currentUsername = User.Identity.GetUserName(); 
-            ApplicationUser currentUser = db.Users.FirstOrDefault(x => x.UserName == currentUsername);
+            // OM: only allow user who made the review to edit the review
             Rating rating = await db.Ratings.FindAsync(id);
-
-            // PC: only allow admin and user who made the review to edit the review
-            if (!User.IsInRole("Admin"))
-            {
-                if (currentUser.UserName != rating.UserName)
-                {
-                    return RedirectToAction("Error", "Home");
-                }
-            }
-
+            if (User.Identity.GetUserName() != rating.UserName)
+                return View("Error");
             if (rating == null)
-            {
                 return HttpNotFound();
-            }
             return View(rating);
         }
+
 
         //
         // POST: Ratings/Edit/5
@@ -150,40 +142,34 @@ namespace GroupProject.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (!User.IsInRole("Admin"))
-                {
-                    rating.IsApproved = false;
-                    rating.IsEdited = true;
-                }
+                rating.IsApproved = false;
+                rating.IsEdited = true;
                 rating.ReviewCreated = DateTime.Now;
                 db.Entry(rating).State = EntityState.Modified;
                 await db.SaveChangesAsync();
-
-                if (!User.IsInRole("Admin"))
-                    return RedirectToAction("RatingSuccess");
-                return RedirectToAction("RatingsList", "Admin");
+                return RedirectToAction("RatingSuccess");
             }
             // OM: If all else fails
             return View(rating);
         }
 
-       
 
+        //
         // GET: Ratings/Delete/5
         [Authorize]
         public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
+            // OM: only allow user who made the review to edit the review
             Rating rating = await db.Ratings.FindAsync(id);
+            if (User.Identity.GetUserName() != rating.UserName)
+                return View("Error");
             if (rating == null)
-            {
                 return HttpNotFound();
-            }
             return View(rating);
         }
+
 
         //
         // POST: Ratings/Delete/5

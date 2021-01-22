@@ -161,14 +161,10 @@ namespace GroupProject.Controllers
             ViewBag.PageName = "Products";
 
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
             Product product = db.Products.Find(id);
             if (product == null)
-            {
                 return HttpNotFound();
-            }
 
             ViewBag.CategoryID = new SelectList(db.Categories, "ID", "Name", product.CategoryID);
             ViewBag.ManufacturerID = new SelectList(db.Manufacturers, "ID", "Name", product.ManufacturerID);
@@ -181,18 +177,29 @@ namespace GroupProject.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID, Name, Description, ProductImage, Price, CategoryID, ManufacturerID")] Product product)
+        public ActionResult Edit([Bind(Include = "ID, Name, Description, ProductImage, Price, OldPrice, CategoryID, ManufacturerID, Offer, Discount")] Product product)
         {
             if (ModelState.IsValid)
             {
-                if (product.Offer == true)
+
+                // OM: Switch prices between old and new according to discount and in case price is editied while on discount
+                if (product.Offer && (product.OldPrice == 0))
                 {
                     product.OldPrice = product.Price;
-                    product.Price = (decimal)(product.Price - (product.Price * product.Discount));
+                    product.Price = (decimal)(product.Price - (product.Price * (decimal)product.Discount / 100m));
                 }
+                // OM: if offer is true, then the old price property is taken in the View
+                else if (product.Offer && product.Price / (decimal)(product.Discount / 100m) != product.OldPrice)
+                    product.Price = (decimal)(product.OldPrice - (product.OldPrice * (decimal)product.Discount / 100));
+                else if (!product.Offer && product.OldPrice > 0)
+                {
+                    product.Price = product.OldPrice;
+                    product.OldPrice = 0;
+                }
+
                 db.Entry(product).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", new { id = product.ID });
             }
             ViewBag.CategoryID = new SelectList(db.Categories, "ID", "Name", product.CategoryID);
             ViewBag.ManufacturerID = new SelectList(db.Manufacturers, "ID", "Name", product.ManufacturerID);
