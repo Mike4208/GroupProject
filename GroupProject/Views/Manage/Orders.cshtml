@@ -75,6 +75,9 @@
                             Category
                         </th>
                         <th>
+                            Quantity
+                        </th>
+                        <th>
                             Price
                         </th>
                     </tr>
@@ -94,7 +97,10 @@
                                 @Html.DisplayFor(x => item2.Product.Category.Name)
                             </td>
                             <td>
-                                @Html.DisplayFor(x => item2.Product.Price)
+                                @Html.DisplayFor(x => item2.Quantity)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(x => item2.Price)
                             </td>
                         </tr>
                     }

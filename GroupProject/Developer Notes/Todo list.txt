@@ -13,10 +13,8 @@
 
 - turn everything you can to async
 
-- offer edit not showing
-
-- make order list show quantity in details
-
 - add description for each role in models and startup and display it on admin panel 
+
 - (suggesetion) searchbar in navbar behave better
+
 - (suggestion)make addToCart use Ajax
