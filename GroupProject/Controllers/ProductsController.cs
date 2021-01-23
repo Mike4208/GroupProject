@@ -20,7 +20,7 @@ namespace GroupProject.Controllers
 
         //
         // GET: Products
-        public ActionResult Index(string sortOrder, string currentFilter, string searchString, string selectedCategory, string selectedManufacturer, int? page)
+        public ActionResult GetProductData(string sortOrder, string currentFilter, string searchString, string selectedCategory, string selectedManufacturer, int? page)
         {
             ViewBag.PageName = "Products";
 
@@ -83,7 +83,7 @@ namespace GroupProject.Controllers
             int pageSize = 12;
             int pageNumber = (page ?? 1);
 
-            return View(products.ToPagedList(pageNumber, pageSize));
+            return PartialView(products.ToPagedList(pageNumber, pageSize));
         }
 
         public ActionResult RandomItems()
