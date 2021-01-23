@@ -57,17 +57,6 @@
         // Load and deserialize the returned JSON data
         var json = context.get_data();
         var data = Sys.Serialization.JavaScriptSerializer.deserialize(json);
-
-        //// Update the page elements
-        //if (data.ItemCount == 0) {
-        //    $('#row-' + data.DeleteId).fadeOut('slow');
-        //} else {
-        //    $('#item-count-' + data.DeleteId).text(data.ItemCount);
-        //}
-
-        //$('#cart-total').text(data.CartTotal);
-        //$('#update-message').text(data.Message);
-        //$('#cart-status').text('Cart (' + data.CartCount + ')');
     }
 
 </script>

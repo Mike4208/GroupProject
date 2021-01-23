@@ -17,3 +17,5 @@
 - (suggesetion) searchbar in navbar behave better
 
 - (suggestion)make addToCart use Ajax
+
+- Browse tab is a little off when active
