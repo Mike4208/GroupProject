@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using GroupProject.Data;
+using GroupProject.Hubs;
 using GroupProject.Models;
 using GroupProject.ViewModel;
 using PagedList;
@@ -20,6 +21,20 @@ namespace GroupProject.Controllers
 
         //
         // GET: Products
+        public ActionResult Index(string sortOrder, string currentFilter, string searchString, string selectedCategory, string selectedManufacturer, int? page)
+        {
+            QueryParamArgs args = new QueryParamArgs();
+            args.sortOrder = sortOrder == null ? "" : sortOrder;
+            args.currentFilter = currentFilter == null ? "" : currentFilter;
+            args.searchString = searchString == null ? "" : searchString;
+            args.selectedCategory = selectedCategory == null ? "" : selectedCategory;
+            args.selectedManufacturer = selectedManufacturer == "undefined" || selectedManufacturer == null ? "" : selectedManufacturer;
+            args.page = page == null ? 1 : page;
+
+            ViewBag.SortOrder = sortOrder;
+            return View(args);
+        }
+
         public ActionResult GetProductData(string sortOrder, string currentFilter, string searchString, string selectedCategory, string selectedManufacturer, int? page)
         {
             ViewBag.PageName = "Products";
@@ -30,12 +45,12 @@ namespace GroupProject.Controllers
             products = products.OrderBy(x => x.Name); // OM: initial order, pagedlist must have been ordered at least once
 
             // OM: Searchbar
-            if (searchString != null)
+            if (!string.IsNullOrEmpty(searchString))
                 page = 1;
             else
                 searchString = currentFilter;
             ViewBag.CurrentFilter = searchString; // OM: to keep searchstring in different pages
-            
+
             // OM: filter by category
             var categories = (from c in db.Categories select c.Name).Distinct();
             ViewBag.SelectedCategory = new SelectList(categories);
@@ -80,15 +95,15 @@ namespace GroupProject.Controllers
             ViewBag.ItemCount = products.Count();
 
             // OM: pages
-            int pageSize = 12;
+            int pageSize = 4;
             int pageNumber = (page ?? 1);
 
-            return PartialView(products.ToPagedList(pageNumber, pageSize));
+            return PartialView("_ProductData", products.ToPagedList(pageNumber, pageSize));
         }
 
         public ActionResult RandomItems()
         {
-            
+
             return View();
         }
 
@@ -145,6 +160,7 @@ namespace GroupProject.Controllers
             {
                 db.Products.Add(product);
                 db.SaveChanges();
+                UpdateProductsHub.BroadcastData();
                 return RedirectToAction("Index");
             }
 
@@ -199,6 +215,7 @@ namespace GroupProject.Controllers
 
                 db.Entry(product).State = EntityState.Modified;
                 db.SaveChanges();
+                UpdateProductsHub.BroadcastData();
                 return RedirectToAction("Details", new { id = product.ID });
             }
             ViewBag.CategoryID = new SelectList(db.Categories, "ID", "Name", product.CategoryID);
@@ -234,6 +251,7 @@ namespace GroupProject.Controllers
             Product product = db.Products.Find(id);
             db.Products.Remove(product);
             db.SaveChanges();
+            UpdateProductsHub.BroadcastData();
             return RedirectToAction("Index");
         }
 

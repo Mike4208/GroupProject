@@ -1,0 +1,56 @@
+﻿@model GroupProject.ViewModel.QueryParamArgs
+@{
+    ViewBag.Title = "Our Products";
+}
+
+@{
+    var pro = Model;
+}
+
+
+<div id="dataModel">
+
+</div>
+
+@section SignalR{
+
+    <script src="~/Scripts/jQuery/jquery-2.2.4.js"></script>
+    <script src="~/Scripts/jQuery/jquery-2.2.4.min.js"></script>
+
+    <script src="~/Scripts/jquery.signalR-2.2.2.min.js"></script>
+    <script src="/signalr/hubs"></script>
+    <script type="text/javascript">
+
+        $(function () {
+            var hubNotify = $.connection.updateProductsHub;
+
+            $.connection.hub.start().done(function () {
+                getAll();
+            });
+
+            hubNotify.client.refreshCartData = function () {
+                getAll();
+            };
+        });
+
+        function getAll() {
+            var data = @Html.Raw(Json.Encode(pro));
+            var model = $('#dataModel');
+            $.ajax({
+                url: '/Products/GetProductData?SortOrder=' + data.sortOrder +
+                    '&CurrentFilter=' + data.currentFilter +
+                    '&SearchString=' + data.searchString +
+                    '&SelectedCategory=' + data.selectedCategory +
+                    '&SelectedManufacturer=' + data.selectedManufacturer +
+                    '&Page=' + data.page,
+                contentType: 'application/html ; charset:utf-8',
+                type: 'GET',
+                dataType: 'html',
+                success: function (result) {
+                    console.log(data)
+                    model.empty().append(result);
+                }
+            });
+        }
+    </script>
+}  
