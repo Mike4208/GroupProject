@@ -1,4 +1,6 @@
-﻿- Fake paypal account for fake payments:
+﻿Paypal requires running as admin to work. dont ask
+
+- Fake paypal account for fake payments:
 
 Email:
 sb-70gza4816454@personal.example.com
