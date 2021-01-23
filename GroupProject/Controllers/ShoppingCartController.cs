@@ -57,7 +57,7 @@ namespace GroupProject.Controllers
         }
 
         //
-        // AJAX: /ShoppingCart/RemoveFromCart/5
+        //AJAX:  /ShoppingCart/RemoveFromCart/5
         [HttpPost]
         [Authorize(Roles = "User")]
         public ActionResult RemoveFromCart(int id)
@@ -66,7 +66,7 @@ namespace GroupProject.Controllers
             var cart = ShoppingCart.GetCart(this.HttpContext);
             // Get the name of the product, to display confirmation
             string productName = context.Carts
-                .Single(item => item.ID == id).Product.Name;
+                .SingleOrDefault(item => item.ID == id).Product.Name; // OM possible bug when removing stuff too fast
             // Remove from cart
             int itemCount = cart.RemoveFromCart(id);
             // Display the confirmation message
@@ -82,26 +82,33 @@ namespace GroupProject.Controllers
             return Json(results);
         }
 
-        ////
-        //// AJAX: /ShoppingCart/AddToCartJson/5
-        //[HttpPost]
-        //[Authorize(Roles = "User")]
-        //public ActionResult AddToCartJson(int id)
-        //{
-        //    // Add the item to the cart
-        //    var cart = ShoppingCart.GetCart(this.HttpContext);
-        //    // Get product to add
-        //    var product = context.Products.Single(item => item.ID == id);
-        //    // Add to cart
-        //    cart.AddToCart(product);
-        //    // Display the confirmation message
-        //    var results = new ShoppingCartRemoveViewModel
-        //    {
-        //        Message = Server.HtmlEncode(productName) + " has been added from your shopping cart.",
-        //        AddId = product.ID
-        //    };
-        //    return Json(results);
-        //}
+        //
+        //AJAX:  /ShoppingCart/AddToCartJson/5
+        [HttpPost]
+        [Authorize(Roles = "User")]
+        public ActionResult AddToCartJson(int id)
+        {
+            var cart = ShoppingCart.GetCart(this.HttpContext);
+            // Get product to add
+            var product = context.Products.Single(item => item.ID == id);
+            // Add to cart
+            var itemCount = cart.AddToCartInt(product);
+            int? cartId = context.Carts.Where(x => x.ProductID == id && x.CartID == User.Identity.Name).SingleOrDefault().ID;
+
+            if (cartId == null)
+                return View("Error");
+
+            var results = new 
+            {
+                CartTotal = cart.GetTotal(),
+                CartCount = cart.GetCount(),
+                ItemCount = itemCount,
+                AddId = cartId,
+                Price = product.Price,
+                Name = product.Name
+            };
+            return Json(results);
+        }
 
         //
         // GET: /ShoppingCart/CartSummary

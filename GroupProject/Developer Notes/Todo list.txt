@@ -1,4 +1,4 @@
-﻿- use modelerror for all errors in controllers
+﻿- use modelerror for all model errors in controllers
 
 - make a proper configuration seed
 
@@ -9,12 +9,11 @@
 - add an overflow to tables so they dont go out of bounds on small width screens
 - manufacturer/category and generally tables. give table lines(rows) a brighter background color.
 
-- (suggestion) make /Home searchbar look nicer
-
 - turn everything you can to async
 
 - add description for each role in models and startup and display it on admin panel 
 
+- (suggestion) make /Home searchbar look nicer
 - (suggesetion) searchbar in navbar behave better
 
 - (suggestion)make addToCart use Ajax
