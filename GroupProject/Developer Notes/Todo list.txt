@@ -9,9 +9,5 @@
 - make admin able to change other account's passwords
 
 
-- add an overflow to tables so they dont go out of bounds on small width screens
-- manufacturer/category and generally tables. give table lines(rows) a brighter background color.
-
-
-- Browse tab is a little off when active
 - make a proper configuration seed
+- make cart items refresh live with signalR too
