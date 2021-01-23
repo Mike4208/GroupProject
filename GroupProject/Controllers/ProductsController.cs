@@ -197,6 +197,14 @@ namespace GroupProject.Controllers
         {
             if (ModelState.IsValid)
             {
+                ViewBag.CategoryID = new SelectList(db.Categories, "ID", "Name", product.CategoryID);
+                ViewBag.ManufacturerID = new SelectList(db.Manufacturers, "ID", "Name", product.ManufacturerID);
+                if (product.Discount == null && product.Offer)
+                {
+                    product.Offer = false;
+                    ModelState.AddModelError("Offer", "Discount cannot be empty.");
+                    return View(product);
+                }
 
                 // OM: Switch prices between old and new according to discount and in case price is editied while on discount
                 if (product.Offer && (product.OldPrice == 0))
