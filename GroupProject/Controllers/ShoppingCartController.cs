@@ -4,6 +4,7 @@ using GroupProject.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
@@ -18,7 +19,7 @@ namespace GroupProject.Controllers
         // GET: /ShoppingCart/
         public ActionResult Index()
         {
-            ViewBag.PageName = "Cart"; 
+            ViewBag.PageName = "Cart";
             var cart = ShoppingCart.GetCart(this.HttpContext);
             var viewModel = new ShoppingCartViewModel
             {
@@ -65,21 +66,28 @@ namespace GroupProject.Controllers
             // Remove the item from the cart
             var cart = ShoppingCart.GetCart(this.HttpContext);
             // Get the name of the product, to display confirmation
-            string productName = context.Carts
-                .SingleOrDefault(item => item.ID == id).Product.Name; // OM possible bug when removing stuff too fast
-            // Remove from cart
-            int itemCount = cart.RemoveFromCart(id);
-            // Display the confirmation message
-            var results = new ShoppingCartRemoveViewModel
+            try
             {
-                Message = Server.HtmlEncode(productName) +
-                    " has been removed from your shopping cart.",
-                CartTotal = cart.GetTotal(),
-                CartCount = cart.GetCount(),
-                ItemCount = itemCount,
-                DeleteId = id
-            };
-            return Json(results);
+                string productName = context.Carts.SingleOrDefault(item => item.ID == id).Product.Name; // OM possible bug when removing stuff too fast
+
+                // Remove from cart
+                int itemCount = cart.RemoveFromCart(id);
+                // Display the confirmation message
+                var results = new ShoppingCartRemoveViewModel
+                {
+                    Message = Server.HtmlEncode(productName) +
+                        " has been removed from your shopping cart.",
+                    CartTotal = cart.GetTotal(),
+                    CartCount = cart.GetCount(),
+                    ItemCount = itemCount,
+                    DeleteId = id
+                };
+                return Json(results);
+            }
+            catch
+            {
+                return new HttpStatusCodeResult((int)HttpStatusCode.InternalServerError);
+            }
         }
 
         //
@@ -98,7 +106,7 @@ namespace GroupProject.Controllers
             if (cartId == null)
                 return View("Error");
 
-            var results = new 
+            var results = new
             {
                 CartTotal = cart.GetTotal(),
                 CartCount = cart.GetCount(),

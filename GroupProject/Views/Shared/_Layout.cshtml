@@ -44,9 +44,9 @@
 
         @* OM: Searchbar in navbar *@
 
-        @using (Html.BeginForm("Index", "Products", FormMethod.Get))
-            {
-                @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, null, new { placeholder = "Search" });
+        @using (Html.BeginForm("Index", "Products", FormMethod.Get, new { @class="form-inline my-2 my-lg-0 nav-search" }))
+        {
+                @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, null, new { placeholder = "Search", @class="form-control mr-sm-2 nav-search" });
             }
 
     </nav>

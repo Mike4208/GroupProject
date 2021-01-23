@@ -40,9 +40,9 @@ body {
     border-radius: 10px;
 }
 
-    .nav li a {
-        border-radius: 10px;
-    }
+.nav li a {
+    border-radius: 10px;
+}
 
 .nav .active {
     background-color: #2a3330;
@@ -87,6 +87,13 @@ body {
 
 .modal-content {
     background-color: gainsboro;
+}
+
+
+@media only screen and (max-width: 976px) {
+    .nav-search {
+        display:none;
+    }
 }
 
 /* Fix Navbar icons for big screens */
