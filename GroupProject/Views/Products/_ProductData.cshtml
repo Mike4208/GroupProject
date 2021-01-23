@@ -2,7 +2,7 @@
 @using PagedList.Mvc;
 
 @{
-    ViewBag.Title = "Our Products";
+    ViewBag.Title = "Browse Products";
 }
 
 @* OM: TODO! Tidy filter stuff, they're not very pretty in small screens, and their look is default, maybe spice it up.
@@ -59,11 +59,11 @@
 
 </script>
 
-<main class="container">
+@*<main class="container">
     <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
         <h1 class="display-4">Products</h1>
         <hr />
-    </div>
+    </div>*@
 
     <div class="container-fluid mx-auto text-center">
         @if (ViewBag.IsAdminOrEmployee)
@@ -181,4 +181,4 @@
 
     @Html.PagedListPager(Model, page => Url.Action("Index",
         new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter, selectedCategory = ViewBag.CurrentCategory, selectedManufacturer = ViewBag.CurrentManufacturer }))
-</main>
+@*</main>*@

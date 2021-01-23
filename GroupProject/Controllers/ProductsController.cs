@@ -95,7 +95,7 @@ namespace GroupProject.Controllers
             ViewBag.ItemCount = products.Count();
 
             // OM: pages
-            int pageSize = 4;
+            int pageSize = 12;
             int pageNumber = (page ?? 1);
 
             return PartialView("_ProductData", products.ToPagedList(pageNumber, pageSize));
