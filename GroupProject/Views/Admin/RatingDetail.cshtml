@@ -5,66 +5,66 @@
 }
 
 <h2>@ViewBag.Title</h2>
+<div class="tablescroll">
+    <div>
+        <h4>Rating</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.RatingText)
+            </dt>
 
-<div>
-    <h4>Rating</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.RatingText)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.RatingText)
-        </dd>
-
-        <dt>
-            Approval
-        </dt>
-        @if (Model.IsApproved == false)
-        {
             <dd>
-                <span class="badge badge-pill badge-danger">Pending</span>
+                @Html.DisplayFor(model => model.RatingText)
             </dd>
-        }
-        else
-        {
-            <dd>
-                <span class="badge badge-pill badge-success">Approved</span>
-            </dd>
-        }
-        <dt>
-            Edited?
-        </dt>
-        @if (Model.IsEdited == true)
-        {
-            <dd>
-                <span class="badge badge-pill badge-danger">Edited</span>
-            </dd>
-        }
-        else
-        {
-            <dd>
-                <span class="badge badge-pill badge-success">No edit</span>
-            </dd>
-        }
-    </dl>
 
-    @using (Html.BeginForm("RatingDetail", "Admin", FormMethod.Post))
-    {
-        @Html.AntiForgeryToken()
+            <dt>
+                Approval
+            </dt>
+            @if (Model.IsApproved == false)
+            {
+                <dd>
+                    <span class="badge badge-pill badge-danger">Pending</span>
+                </dd>
+            }
+            else
+            {
+                <dd>
+                    <span class="badge badge-pill badge-success">Approved</span>
+                </dd>
+            }
+            <dt>
+                Edited?
+            </dt>
+            @if (Model.IsEdited == true)
+            {
+                <dd>
+                    <span class="badge badge-pill badge-danger">Edited</span>
+                </dd>
+            }
+            else
+            {
+                <dd>
+                    <span class="badge badge-pill badge-success">No edit</span>
+                </dd>
+            }
+        </dl>
 
-        <div class="form-horizontal">
-            <h4>Rating</h4>
-            <hr />
+        @using (Html.BeginForm("RatingDetail", "Admin", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
 
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            @Html.HiddenFor(model => model.RatingId)
-            @Html.HiddenFor(model => model.ProductId)
-            @Html.HiddenFor(model => model.Stars)
-            @Html.HiddenFor(model => model.ReviewCreated)
-            @Html.HiddenFor(model => model.RatingText)
-            @Html.HiddenFor(model => model.UserName)
+            <div class="form-horizontal">
+                <h4>Rating</h4>
+                <hr />
+
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.RatingId)
+                @Html.HiddenFor(model => model.ProductId)
+                @Html.HiddenFor(model => model.Stars)
+                @Html.HiddenFor(model => model.ReviewCreated)
+                @Html.HiddenFor(model => model.RatingText)
+                @Html.HiddenFor(model => model.UserName)
 
                 <div class="form-group">
                     @Html.LabelFor(model => model.IsApproved, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -75,19 +75,20 @@
                         </div>
                     </div>
                 </div>
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Save" class="btn btn-warning" />
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Save" class="btn btn-warning" />
+                    </div>
                 </div>
             </div>
-        </div>
-    }
-</div>
-<p>
-    @Html.ActionLink("Delete", "Delete", "Ratings", new { id = Model.RatingId }, null)
-    @Html.ActionLink("Back to List", "RatingsList")
-</p>
+        }
+    </div>
+    </div>
+    <p>
+        @Html.ActionLink("Delete", "Delete", "Ratings", new { id = Model.RatingId }, null)
+        @Html.ActionLink("Back to List", "RatingsList")
+    </p>
 
-@*<a href='@Url.Action("Edit", "Ratings", new { id = Model.ProductId })'><span class="glyphicon glyphicon-pencil"></span></a>
-    | <a href='@Url.Action("RatingsList", "Admin", new { id = Model.ProductId })'><span class="glyphicon glyphicon-remove"></span></a>*@
+    @*<a href='@Url.Action("Edit", "Ratings", new { id = Model.ProductId })'><span class="glyphicon glyphicon-pencil"></span></a>
+        | <a href='@Url.Action("RatingsList", "Admin", new { id = Model.ProductId })'><span class="glyphicon glyphicon-remove"></span></a>*@
 
