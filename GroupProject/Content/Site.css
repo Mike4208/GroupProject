@@ -4,11 +4,18 @@
     padding:0;
 }
 
+html {
+    height: fit-content;
+}
+
 body {
     padding-top: 50px;
     padding-bottom: 20px;
-    height:100%;
-    position:relative;
+    position: relative;
+    padding-top: 0%;
+    /*background-color: gainsboro;*/
+    margin: 0;
+    height: fit-content;
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -33,13 +40,6 @@ textarea {
 
 
 /* Custom from here on out */
-
-body {
-    padding-top: 0%;
-    background-color: gainsboro;
-    min-height:100%;
-}
-
 
 /* For nav icons start */
 
@@ -582,14 +582,6 @@ body {
     .row,.SearchBox {
         text-align: center;
     }
-}
-
-html {
-    height: 100%;
-}
-
-body {
-    margin: 0;
 }
 
 .bg {

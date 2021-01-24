@@ -10,6 +10,8 @@
 
 
 
+- foorter needs work (check inspect)
+
 - text on footer overflows out of small width
 
 - make cart hyperlinks (removefromcart and product name) more visible as hyperlinks
