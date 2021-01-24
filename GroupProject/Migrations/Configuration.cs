@@ -117,7 +117,7 @@ namespace GroupProject.Migrations
                 new Product { Name = "Galaxy Book Flex 13.3\"", Description = "i7-1065G7/8GB/512GB/FHD/W10", CategoryID = categories.SingleOrDefault(g => g.Name == "Laptop").ID,
                     Price = 1899m, ManufacturerID = manufacturers.Single(a => a.Name == "Samsung").ID, ProductImage = "~/Images/laptop_samsung_galaxybookflex13,3.jpeg" },
                 new Product { Name = "Chromebook 4+", Description = "N4000/4GB/128GB/FHD/Chrome OS", CategoryID = categories.SingleOrDefault(g => g.Name == "Laptop").ID,
-                    Price = 368m, ManufacturerID = manufacturers.Single(a => a.Name == "Samsung").ID, ProductImage = "~/Images/laptop_samsung_chromebook4+.jpeg" },
+                    Price = 368m, ManufacturerID = manufacturers.Single(a => a.Name == "Samsung").ID, ProductImage = "~/Images/laptop_samsung_chromebook4plus.jpeg" },
 
                 // HP
                 new Product { Name = "250 G7", Description = "i5-1035G1/8GB/256GB/FHD/No OS", CategoryID = categories.SingleOrDefault(g => g.Name == "Laptop").ID,
