@@ -1,4 +1,4 @@
-﻿Paypal requires running as admin to work. dont ask
+﻿(!) Paypal requires running visual studio as admin to work. dont ask
 
 - Fake paypal account for fake payments:
 
@@ -9,3 +9,5 @@ Password:
 pd4RJ)?]
 
 
+- For missing roslyn/csc.exe file error
+Update-Package Microsoft.CodeDom.Providers.DotNetCompilerPlatform -r
