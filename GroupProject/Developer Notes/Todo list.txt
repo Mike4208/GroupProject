@@ -19,3 +19,5 @@
 then return him to the product/details of the product he was looking at 
 
 - navbar expand doesnt collapse when clicked out of it
+
+- text on footer overflows out of small width

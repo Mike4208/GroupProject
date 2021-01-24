@@ -45,6 +45,9 @@ namespace GroupProject.Migrations
                 new Manufacturer { Name = "Cubot" },
                 new Manufacturer { Name = "LG" },
                 new Manufacturer { Name = "Xiaomi" },
+                new Manufacturer { Name = "Nokia" },
+                new Manufacturer { Name = "Huawei" },
+                new Manufacturer { Name = "Alcatel" },
                 new Manufacturer { Name = "Sony" }
             };
             manufacturers.ForEach(s => context.Manufacturers.AddOrUpdate(p => p.Name, s));
@@ -167,39 +170,71 @@ namespace GroupProject.Migrations
                     Price = 625m, ManufacturerID = manufacturers.Single(a => a.Name == "Samsung").ID, ProductImage = "~/Images/tv_samsung_QE55Q60T.jpeg" },
 
                 // LG
-                new Product { Name = "32LM6300PLA ", Description = "Smart Full HD 32\"", CategoryID = categories.SingleOrDefault(g => g.Name == "TV").ID,
+                new Product { Name = "32LM6300PLA", Description = "Smart Full HD 32\"", CategoryID = categories.SingleOrDefault(g => g.Name == "TV").ID,
                     Price = 244.07m, ManufacturerID = manufacturers.Single(a => a.Name == "LG").ID, ProductImage = "~/Images/tv_lg_32LM6300PLA.jpeg" },
-                new Product { Name = "49NANO866NA ", Description = "Smart 4K UHD 49\"", CategoryID = categories.SingleOrDefault(g => g.Name == "TV").ID,
+                new Product { Name = "49NANO866NA", Description = "Smart 4K UHD 49\"", CategoryID = categories.SingleOrDefault(g => g.Name == "TV").ID,
                     Price = 689m, ManufacturerID = manufacturers.Single(a => a.Name == "LG").ID, ProductImage = "~/Images/tv_lg_49NANO866NA.jpeg" },
-                new Product { Name = "OLED55BX6LB ", Description = "Smart 4K UHD 55\"", CategoryID = categories.SingleOrDefault(g => g.Name == "TV").ID,
+                new Product { Name = "OLED55BX6LB", Description = "Smart 4K UHD 55\"", CategoryID = categories.SingleOrDefault(g => g.Name == "TV").ID,
                     Price = 1078m, ManufacturerID = manufacturers.Single(a => a.Name == "LG").ID, ProductImage = "~/Images/tv_lg_OLED55BX6LB.jpeg" },
-                new Product { Name = "32LK6200 ", Description = "Smart Full HD 32\"", CategoryID = categories.SingleOrDefault(g => g.Name == "TV").ID,
+                new Product { Name = "32LK6200", Description = "Smart Full HD 32\"", CategoryID = categories.SingleOrDefault(g => g.Name == "TV").ID,
                     Price = 267.61m, ManufacturerID = manufacturers.Single(a => a.Name == "LG").ID, ProductImage = "~/Images/tv_lg_32LK6200.jpeg" },
-                new Product { Name = "OLED65CX6LA ", Description = "Smart 4K UHD 65\"", CategoryID = categories.SingleOrDefault(g => g.Name == "TV").ID,
+                new Product { Name = "OLED65CX6LA", Description = "Smart 4K UHD 65\"", CategoryID = categories.SingleOrDefault(g => g.Name == "TV").ID,
                     Price = 1939m, ManufacturerID = manufacturers.Single(a => a.Name == "LG").ID, ProductImage = "~/Images/tv_lg_OLED65CX6LA.jpeg" },
-                new Product { Name = "49NANO816NA ", Description = "Smart 4K UHD 49\"", CategoryID = categories.SingleOrDefault(g => g.Name == "TV").ID,
+                new Product { Name = "49NANO816NA", Description = "Smart 4K UHD 49\"", CategoryID = categories.SingleOrDefault(g => g.Name == "TV").ID,
                     Price = 518m, ManufacturerID = manufacturers.Single(a => a.Name == "LG").ID, ProductImage = "~/Images/tv_lg_49NANO816NA.jpeg" },
-                new Product { Name = "OLED55CX6LA ", Description = "Smart 4K UHD 55\"", CategoryID = categories.SingleOrDefault(g => g.Name == "TV").ID,
+                new Product { Name = "OLED55CX6LA", Description = "Smart 4K UHD 55\"", CategoryID = categories.SingleOrDefault(g => g.Name == "TV").ID,
                     Price = 1329m, ManufacturerID = manufacturers.Single(a => a.Name == "LG").ID, ProductImage = "~/Images/tv_lg_OLED55CX6LA.jpeg" },
-                new Product { Name = "43UN73006LC ", Description = "Smart 4K UHD 43\"", CategoryID = categories.SingleOrDefault(g => g.Name == "TV").ID,
+                new Product { Name = "43UN73006LC", Description = "Smart 4K UHD 43\"", CategoryID = categories.SingleOrDefault(g => g.Name == "TV").ID,
                     Price = 366.98m, ManufacturerID = manufacturers.Single(a => a.Name == "LG").ID, ProductImage = "~/Images/tv_lg_43UN73006LC.jpeg" },
 
                 // Sony
-                new Product { Name = "KD-77AG9 ", Description = "Smart 4K UHD 77\"", CategoryID = categories.SingleOrDefault(g => g.Name == "TV").ID,
+                new Product { Name = "KD-77AG9", Description = "Smart 4K UHD 77\"", CategoryID = categories.SingleOrDefault(g => g.Name == "TV").ID,
                     Price = 3698.99m, ManufacturerID = manufacturers.Single(a => a.Name == "Sony").ID, ProductImage = "~/Images/tv_sony_KD-77AG9.jpeg" },
-                new Product { Name = "KD-85XH8096 ", Description = "Smart 4K UHD 85\"", CategoryID = categories.SingleOrDefault(g => g.Name == "TV").ID,
+                new Product { Name = "KD-85XH8096", Description = "Smart 4K UHD 85\"", CategoryID = categories.SingleOrDefault(g => g.Name == "TV").ID,
                     Price = 2099m, ManufacturerID = manufacturers.Single(a => a.Name == "Sony").ID, ProductImage = "~/Images/tv_sony_KD-85XH8096.jpeg" },
-                new Product { Name = "KD-75XH9096 ", Description = "Smart 4K UHD 75\"", CategoryID = categories.SingleOrDefault(g => g.Name == "TV").ID,
+                new Product { Name = "KD-75XH9096", Description = "Smart 4K UHD 75\"", CategoryID = categories.SingleOrDefault(g => g.Name == "TV").ID,
                     Price = 1890m, ManufacturerID = manufacturers.Single(a => a.Name == "Sony").ID, ProductImage = "~/Images/tv_sony_KD-75XH9096.jpeg" },
-                new Product { Name = "KD-43XH8096 ", Description = "Smart 4K UHD 43\"", CategoryID = categories.SingleOrDefault(g => g.Name == "TV").ID,
+                new Product { Name = "KD-43XH8096", Description = "Smart 4K UHD 43\"", CategoryID = categories.SingleOrDefault(g => g.Name == "TV").ID,
                     Price = 546m, ManufacturerID = manufacturers.Single(a => a.Name == "Sony").ID, ProductImage = "~/Images/tv_sony_KD-43XH8096.jpeg" },
-                new Product { Name = "KD-55AG9 ", Description = "Smart 4K UHD 55\"", CategoryID = categories.SingleOrDefault(g => g.Name == "TV").ID,
+                new Product { Name = "KD-55AG9", Description = "Smart 4K UHD 55\"", CategoryID = categories.SingleOrDefault(g => g.Name == "TV").ID,
                     Price = 1998.93m, ManufacturerID = manufacturers.Single(a => a.Name == "Sony").ID, ProductImage = "~/Images/tv_sony_KD-55AG9.jpeg" },
-                new Product { Name = "KD-49XH8096 ", Description = "Smart 4K UHD 49\"", CategoryID = categories.SingleOrDefault(g => g.Name == "TV").ID,
+                new Product { Name = "KD-49XH8096", Description = "Smart 4K UHD 49\"", CategoryID = categories.SingleOrDefault(g => g.Name == "TV").ID,
                     Price = 599m, ManufacturerID = manufacturers.Single(a => a.Name == "Sony").ID, ProductImage = "~/Images/tv_sony_KD-49XH8096.jpeg" },
-                new Product { Name = "KD-55XH9096 ", Description = "Smart 4K UHD 55\"", CategoryID = categories.SingleOrDefault(g => g.Name == "TV").ID,
+                new Product { Name = "KD-55XH9096", Description = "Smart 4K UHD 55\"", CategoryID = categories.SingleOrDefault(g => g.Name == "TV").ID,
                     Price = 1098m, ManufacturerID = manufacturers.Single(a => a.Name == "Sony").ID, ProductImage = "~/Images/tv_sony_KD-55XH9096.jpeg" },
 
+
+                // Mobiles
+
+                // Xiaomi
+                new Product { Name = "", Description = "", CategoryID = categories.SingleOrDefault(g => g.Name == "Mobile").ID,
+                    Price = 1098m, ManufacturerID = manufacturers.Single(a => a.Name == "Xiaomi").ID, ProductImage = "~/Images/mobile_xiaomi_.jpeg" },
+                new Product { Name = "", Description = "", CategoryID = categories.SingleOrDefault(g => g.Name == "Mobile").ID,
+                    Price = 1098m, ManufacturerID = manufacturers.Single(a => a.Name == "Xiaomi").ID, ProductImage = "~/Images/mobile_xiaomi_.jpeg" },
+                new Product { Name = "", Description = "", CategoryID = categories.SingleOrDefault(g => g.Name == "Mobile").ID,
+                    Price = 1098m, ManufacturerID = manufacturers.Single(a => a.Name == "Xiaomi").ID, ProductImage = "~/Images/mobile_xiaomi_.jpeg" },
+                new Product { Name = "", Description = "", CategoryID = categories.SingleOrDefault(g => g.Name == "Mobile").ID,
+                    Price = 1098m, ManufacturerID = manufacturers.Single(a => a.Name == "Xiaomi").ID, ProductImage = "~/Images/mobile_xiaomi_.jpeg" },
+
+                // Cubot
+
+
+                // Nokia
+
+
+                // Alcatel
+
+
+                // Huawei
+
+
+                // Apple
+
+
+                // LG
+
+
+                // Samsung
 
 
                 // test products
