@@ -438,7 +438,6 @@
     <Content Include="Views\Checkout\Index.cshtml" />
     <Content Include="Views\Checkout\Complete.cshtml" />
     <Content Include="Views\Manage\Orders.cshtml" />
-    <Content Include="Views\ShoppingCart\Cart.cshtml" />
     <Content Include="Views\Admin\OrderList.cshtml" />
     <Content Include="Views\Admin\RatingDetail.cshtml" />
     <Content Include="Views\Admin\RatingsList.cshtml" />
@@ -453,7 +452,7 @@
     <Content Include="Views\ShoppingCart\Index.cshtml" />
     <Content Include="Views\Products\Index.cshtml" />
     <Content Include="Scripts\jQuery\jquery-2.2.4.min.map" />
-    <Content Include="Views\ShoppingCart\PartialCart.cshtml" />
+    <Content Include="Views\ShoppingCart\Cart.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

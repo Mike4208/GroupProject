@@ -29,20 +29,6 @@ namespace GroupProject.Controllers
             return View(viewModel);
         }
 
-        public ActionResult PartialCart()
-        {
-            var cart = ShoppingCart.GetCart(this.HttpContext);
-            var viewModel = new ShoppingCartViewModel
-            {
-                CartItems = cart.GetCartItems(),
-                CartTotal = cart.GetTotal()
-            };
-            return PartialView(viewModel);
-        }
-
-        //
-        // GET: /ShoppingCart/
-        [ChildActionOnly]
         public ActionResult Cart()
         {
             var cart = ShoppingCart.GetCart(this.HttpContext);

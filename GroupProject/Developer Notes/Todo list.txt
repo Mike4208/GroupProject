@@ -9,16 +9,8 @@
 - make admin able to change other account's passwords
 
 
-- remove add to cart icon in front of card image if user not signed in
-
-- make 'add to cart' button appear if user is not signed in, and promt him to sign in when he presses it, 
-then return him to the product/details of the product he was looking at 
-
-- navbar expand doesnt collapse when clicked out of it
 
 - text on footer overflows out of small width
-
-- photos in product/details appear waay too distorted
 
 - make cart hyperlinks (removefromcart and product name) more visible as hyperlinks
 

@@ -41,6 +41,7 @@ namespace GroupProject.Controllers
 
             var products = db.Products.Include(p => p.Category).Include(p => p.Manufacturer); //OM: get all products
             ViewBag.IsAdminOrEmployee = User.IsInRole("Admin") || User.IsInRole("Employee"); //OM: Used to check what to hide in View depending on role
+            ViewBag.IsUser = User.IsInRole("User");
 
             products = products.OrderBy(x => x.Name); // OM: initial order, pagedlist must have been ordered at least once
 

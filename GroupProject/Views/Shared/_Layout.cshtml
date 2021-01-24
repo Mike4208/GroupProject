@@ -81,7 +81,7 @@
                         </button>
                     </div>
                     <div class="modal-body" id="cart-update">
-                        @{Html.RenderAction("Cart", "ShoppingCart");}  @* OM: So ShoppingCart/Index renders in the modal, clean up later since we dont need it any more *@
+                        @* Cart PartialView gets inserted here *@
                     </div>
                 </div>
             </div>
@@ -171,7 +171,7 @@
         function getAll() {
             var cart = $('#cart-update');
             $.ajax({
-                url: '@Url.Action("PartialCart", "ShoppingCart")',
+                url: '@Url.Action("Cart", "ShoppingCart")',
                 contentType: 'application/html ; charset:utf-8',
                 type: 'GET',
                 dataType: 'html',

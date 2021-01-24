@@ -36,11 +36,11 @@
     {
         for (var i = 1; i <= 5; i++)
         {
-            <span class="starOff"></span>
+            <span class="starOff" style="height:30px; width:30px;"></span>
         }
     }
 
-    @if (User.IsInRole("User"))
+    @if (!User.IsInRole("Admin") && !User.IsInRole("Employee"))
     {
         <button class="btn btn-warning" style="float:right;" onclick="location.href='@Url.Action("AddToCart", "ShoppingCart", new { id = Model.ID })'">
             Add to Cart
@@ -51,7 +51,7 @@
     }
 
     <div class="prodet">
-        <img src="@Url.Content(Model.ProductImage)" alt="" width="200" height="200" class="product product-img" style="float:right;position:relative; top:17px;" />
+        <img src="@Url.Content(Model.ProductImage)" alt=""  height="200" class="product product-img" style="float:right;position:relative; top:17px;" />
         <hr />
         <div class="row" style="min-height:200px;">
             <div class="col-md-4">
