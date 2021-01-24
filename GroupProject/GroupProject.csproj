@@ -203,9 +203,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Hubs\UpdateProductsHub.cs" />
-    <Compile Include="Migrations\202101241249005_init.cs" />
-    <Compile Include="Migrations\202101241249005_init.Designer.cs">
-      <DependentUpon>202101241249005_init.cs</DependentUpon>
+    <Compile Include="Migrations\202101241437081_init.cs" />
+    <Compile Include="Migrations\202101241437081_init.Designer.cs">
+      <DependentUpon>202101241437081_init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Configuration.cs" />
@@ -261,7 +261,7 @@
     <Content Include="Images\shopp.jpg" />
     <Content Include="Images\StarFade.gif" />
     <Content Include="Images\StarGlow.gif" />
-    <Content Include="Developer Notes\Notes.txt" />
+    <Content Include="Developer Notes\Instructions.txt" />
     <Content Include="Developer Notes\Todo list.txt" />
     <Content Include="Images\world-map.png" />
     <Content Include="Scripts\all.js" />
@@ -469,8 +469,8 @@
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202101241249005_init.resx">
-      <DependentUpon>202101241249005_init.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202101241437081_init.resx">
+      <DependentUpon>202101241437081_init.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

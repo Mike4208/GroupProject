@@ -45,9 +45,9 @@ namespace GroupProject.Migrations
                 new Manufacturer { Name = "Cubot" },
                 new Manufacturer { Name = "LG" },
                 new Manufacturer { Name = "Xiaomi" },
-                new Manufacturer { Name = "Nokia" },
-                new Manufacturer { Name = "Huawei" },
                 new Manufacturer { Name = "Alcatel" },
+                new Manufacturer { Name = "Microsoft" },
+                new Manufacturer { Name = "Amazon" },
                 new Manufacturer { Name = "Sony" }
             };
             manufacturers.ForEach(s => context.Manufacturers.AddOrUpdate(p => p.Name, s));
@@ -61,7 +61,7 @@ namespace GroupProject.Migrations
                 // Apples
                 new Product { Name = "MacBook Air 13.3\"", Description = "M1/8GB/256GB/Retina Display/MacOS", CategoryID = categories.SingleOrDefault(g => g.Name == "Laptop").ID,
                     Price = 1165M, ManufacturerID = manufacturers.Single(a => a.Name == "Apple").ID, ProductImage = "~/Images/laptop_apple_macbookair13,3.jpeg" },
-                new Product { Name = "MacBook Pro 13.3\"", Description = "M1/8GB/256GB/Retina Display/macOS", CategoryID = categories.SingleOrDefault(g => g.Name == "Laptop").ID,
+                new Product { Name = "MacBook Pro 13\"", Description = "M1/8GB/256GB/Retina Display/macOS", CategoryID = categories.SingleOrDefault(g => g.Name == "Laptop").ID,
                     Price = 1499M, ManufacturerID = manufacturers.Single(a => a.Name == "Apple").ID, ProductImage = "~/Images/laptop_apple_macbookpro13.jpeg" },
                 new Product { Name = "MacBook Pro 16\"", Description = "i7/16GB/512GB/Radeon Pro 5300M/Touchbar", CategoryID = categories.SingleOrDefault(g => g.Name == "Laptop").ID,
                     Price = 2677.70m, ManufacturerID = manufacturers.Single(a => a.Name == "Apple").ID, ProductImage = "~/Images/laptop_apple_macbookpro16.jpeg" },
@@ -207,34 +207,154 @@ namespace GroupProject.Migrations
                 // Mobiles
 
                 // Xiaomi
-                new Product { Name = "", Description = "", CategoryID = categories.SingleOrDefault(g => g.Name == "Mobile").ID,
-                    Price = 1098m, ManufacturerID = manufacturers.Single(a => a.Name == "Xiaomi").ID, ProductImage = "~/Images/mobile_xiaomi_.jpeg" },
-                new Product { Name = "", Description = "", CategoryID = categories.SingleOrDefault(g => g.Name == "Mobile").ID,
-                    Price = 1098m, ManufacturerID = manufacturers.Single(a => a.Name == "Xiaomi").ID, ProductImage = "~/Images/mobile_xiaomi_.jpeg" },
-                new Product { Name = "", Description = "", CategoryID = categories.SingleOrDefault(g => g.Name == "Mobile").ID,
-                    Price = 1098m, ManufacturerID = manufacturers.Single(a => a.Name == "Xiaomi").ID, ProductImage = "~/Images/mobile_xiaomi_.jpeg" },
-                new Product { Name = "", Description = "", CategoryID = categories.SingleOrDefault(g => g.Name == "Mobile").ID,
-                    Price = 1098m, ManufacturerID = manufacturers.Single(a => a.Name == "Xiaomi").ID, ProductImage = "~/Images/mobile_xiaomi_.jpeg" },
+                new Product { Name = "Redmi Note 9S", Description = "128GB", CategoryID = categories.SingleOrDefault(g => g.Name == "Mobile").ID,
+                    Price = 207m, ManufacturerID = manufacturers.Single(a => a.Name == "Xiaomi").ID, ProductImage = "~/Images/mobile_xiaomi_redminote9s.jpeg" },
+                new Product { Name = "Redmi Note 8 Pro", Description = "64GB", CategoryID = categories.SingleOrDefault(g => g.Name == "Mobile").ID,
+                    Price = 184m, ManufacturerID = manufacturers.Single(a => a.Name == "Xiaomi").ID, ProductImage = "~/Images/mobile_xiaomi_redminote8pro.jpeg" },
+                new Product { Name = "Redmi Note 9 Pro", Description = "128GB", CategoryID = categories.SingleOrDefault(g => g.Name == "Mobile").ID,
+                    Price = 2019m, ManufacturerID = manufacturers.Single(a => a.Name == "Xiaomi").ID, ProductImage = "~/Images/mobile_xiaomi_redminote9pro.jpeg" },
+                new Product { Name = "Poco X3 NFC", Description = "128GB", CategoryID = categories.SingleOrDefault(g => g.Name == "Mobile").ID,
+                    Price = 235m, ManufacturerID = manufacturers.Single(a => a.Name == "Xiaomi").ID, ProductImage = "~/Images/mobile_xiaomi_pocox3nfc.jpeg" },
 
                 // Cubot
-
-
-                // Nokia
-
+                new Product { Name = "King Kong CS", Description = "16GB", CategoryID = categories.SingleOrDefault(g => g.Name == "Mobile").ID,
+                    Price = 87m, ManufacturerID = manufacturers.Single(a => a.Name == "Cubot").ID, ProductImage = "~/Images/mobile_cubot_kingkongcs.jpeg" },
+                new Product { Name = "J9 ", Description = "16GB", CategoryID = categories.SingleOrDefault(g => g.Name == "Mobile").ID,
+                    Price = 78m, ManufacturerID = manufacturers.Single(a => a.Name == "Cubot").ID, ProductImage = "~/Images/mobile_cubot_j9.jpeg" },
+                new Product { Name = "X30 ", Description = "8GB/128GB", CategoryID = categories.SingleOrDefault(g => g.Name == "Mobile").ID,
+                    Price = 218m, ManufacturerID = manufacturers.Single(a => a.Name == "Cubot").ID, ProductImage = "~/Images/mobile_cubot_x30.jpeg" },
+                new Product { Name = "Note 7", Description = "16GB", CategoryID = categories.SingleOrDefault(g => g.Name == "Mobile").ID,
+                    Price = 70.98m, ManufacturerID = manufacturers.Single(a => a.Name == "Cubot").ID, ProductImage = "~/Images/mobile_cubot_note7.jpeg" },
 
                 // Alcatel
-
+                new Product { Name = "3L", Description = "2020 64GB", CategoryID = categories.SingleOrDefault(g => g.Name == "Mobile").ID,
+                    Price = 136.50m, ManufacturerID = manufacturers.Single(a => a.Name == "Alcatel").ID, ProductImage = "~/Images/mobile_alcatel_3l.jpeg" },
+                new Product { Name = "1B", Description = "2020 32GB", CategoryID = categories.SingleOrDefault(g => g.Name == "Mobile").ID,
+                    Price = 78.89m, ManufacturerID = manufacturers.Single(a => a.Name == "Alcatel").ID, ProductImage = "~/Images/mobile_alcatel_1b.jpeg" },
+                new Product { Name = "1 5033D", Description = "8GB", CategoryID = categories.SingleOrDefault(g => g.Name == "Mobile").ID,
+                    Price = 47.90m, ManufacturerID = manufacturers.Single(a => a.Name == "Alcatel").ID, ProductImage = "~/Images/mobile_alcatel_15033d.jpeg" },
+                new Product { Name = "1SE ", Description = "32GB", CategoryID = categories.SingleOrDefault(g => g.Name == "Mobile").ID,
+                    Price = 98.80m, ManufacturerID = manufacturers.Single(a => a.Name == "Alcatel").ID, ProductImage = "~/Images/mobile_alcatel_1se.jpeg" },
+                new Product { Name = "1S", Description = "32GB", CategoryID = categories.SingleOrDefault(g => g.Name == "Mobile").ID,
+                    Price = 112.50m, ManufacturerID = manufacturers.Single(a => a.Name == "Alcatel").ID, ProductImage = "~/Images/mobile_alcatel_1s.jpeg" },
+                new Product { Name = "3X", Description = "2020 128GB", CategoryID = categories.SingleOrDefault(g => g.Name == "Mobile").ID,
+                    Price = 147m, ManufacturerID = manufacturers.Single(a => a.Name == "Alcatel").ID, ProductImage = "~/Images/mobile_alcatel_3x.jpeg" },
 
                 // Huawei
-
+                new Product { Name = "P40 Lite E", Description = "64GB", CategoryID = categories.SingleOrDefault(g => g.Name == "Mobile").ID,
+                    Price = 139.90m, ManufacturerID = manufacturers.Single(a => a.Name == "Huawei").ID, ProductImage = "~/Images/mobile_huawei_p40litee.jpeg" },
+                new Product { Name = "P30 Lite Dual", Description = "128GB", CategoryID = categories.SingleOrDefault(g => g.Name == "Mobile").ID,
+                    Price = 169.99m, ManufacturerID = manufacturers.Single(a => a.Name == "Huawei").ID, ProductImage = "~/Images/mobile_huawei_p40litedual.jpeg" },
+                new Product { Name = "P Smart S", Description = "128GB", CategoryID = categories.SingleOrDefault(g => g.Name == "Mobile").ID,
+                    Price = 165.85m, ManufacturerID = manufacturers.Single(a => a.Name == "Huawei").ID, ProductImage = "~/Images/mobile_huawei_psmarts.jpeg" },
+                new Product { Name = "P30 Pro Dual", Description = "6GB/128GB", CategoryID = categories.SingleOrDefault(g => g.Name == "Mobile").ID,
+                    Price = 488.83m, ManufacturerID = manufacturers.Single(a => a.Name == "Huawei").ID, ProductImage = "~/Images/mobile_huawei_p30produal.jpeg" },
+                new Product { Name = "P40 Pro", Description = "256GB", CategoryID = categories.SingleOrDefault(g => g.Name == "Mobile").ID,
+                    Price = 689.15m, ManufacturerID = manufacturers.Single(a => a.Name == "Huawei").ID, ProductImage = "~/Images/mobile_huawei_p40pro.jpeg" },
+                new Product { Name = "Nova 5T", Description = "6GB/128GB", CategoryID = categories.SingleOrDefault(g => g.Name == "Mobile").ID,
+                    Price = 241m, ManufacturerID = manufacturers.Single(a => a.Name == "Huawei").ID, ProductImage = "~/Images/mobile_huawei_nova5t.jpeg" },
+                new Product { Name = "P40 Lite", Description = "128GB", CategoryID = categories.SingleOrDefault(g => g.Name == "Mobile").ID,
+                    Price = 198m, ManufacturerID = manufacturers.Single(a => a.Name == "Huawei").ID, ProductImage = "~/Images/mobile_huawei_p40lite.jpeg" },
 
                 // Apple
-
+                new Product { Name = "iPhone 11", Description = "64GB", CategoryID = categories.SingleOrDefault(g => g.Name == "Mobile").ID,
+                    Price = 697.99m, ManufacturerID = manufacturers.Single(a => a.Name == "Apple").ID, ProductImage = "~/Images/mobile_apple_iphone11.jpeg" },
+                new Product { Name = "iPhone 12 Pro Max", Description = "128GB", CategoryID = categories.SingleOrDefault(g => g.Name == "Mobile").ID,
+                    Price = 1336.80m, ManufacturerID = manufacturers.Single(a => a.Name == "Apple").ID, ProductImage = "~/Images/mobile_apple_iphone12promax.jpeg" },
+                new Product { Name = "iPhone 11 Pro", Description = "64GB", CategoryID = categories.SingleOrDefault(g => g.Name == "Mobile").ID,
+                    Price = 917.90m, ManufacturerID = manufacturers.Single(a => a.Name == "Apple").ID, ProductImage = "~/Images/mobile_apple_iphone11pro.jpeg" },
+                new Product { Name = "iPhone SE", Description = "2020 64GB", CategoryID = categories.SingleOrDefault(g => g.Name == "Mobile").ID,
+                    Price = 444.30m, ManufacturerID = manufacturers.Single(a => a.Name == "Apple").ID, ProductImage = "~/Images/mobile_apple_iphonese.jpeg" },
+                new Product { Name = "iPhone XR", Description = "64GB", CategoryID = categories.SingleOrDefault(g => g.Name == "Mobile").ID,
+                    Price = 551.14m, ManufacturerID = manufacturers.Single(a => a.Name == "Apple").ID, ProductImage = "~/Images/mobile_apple_iphonexr.jpeg" },
+                new Product { Name = "iPhone 12 Pro", Description = "128GB", CategoryID = categories.SingleOrDefault(g => g.Name == "Mobile").ID,
+                    Price = 1228.89m, ManufacturerID = manufacturers.Single(a => a.Name == "Apple").ID, ProductImage = "~/Images/mobile_apple_iphone12pro.jpeg" },
 
                 // LG
-
+                new Product { Name = "K41S ", Description = "32GB", CategoryID = categories.SingleOrDefault(g => g.Name == "Mobile").ID,
+                    Price = 126.45m, ManufacturerID = manufacturers.Single(a => a.Name == "LG").ID, ProductImage = "~/Images/mobile_LG_k41s.jpeg" },
+                new Product { Name = "G8S ThinQ", Description = "128GB", CategoryID = categories.SingleOrDefault(g => g.Name == "Mobile").ID,
+                    Price = 450m, ManufacturerID = manufacturers.Single(a => a.Name == "LG").ID, ProductImage = "~/Images/mobile_LG_g8sthinq.jpeg" },
+                new Product { Name = "Velvet 5G", Description = "128GB", CategoryID = categories.SingleOrDefault(g => g.Name == "Mobile").ID,
+                    Price = 422m, ManufacturerID = manufacturers.Single(a => a.Name == "LG").ID, ProductImage = "~/Images/mobile_LG_velvet5g.jpeg" },
+                new Product { Name = "K61 ", Description = "128GB", CategoryID = categories.SingleOrDefault(g => g.Name == "Mobile").ID,
+                    Price = 187.60m, ManufacturerID = manufacturers.Single(a => a.Name == "LG").ID, ProductImage = "~/Images/mobile_LG_k61.jpeg" },
+                new Product { Name = "K50S ", Description = "32GB", CategoryID = categories.SingleOrDefault(g => g.Name == "Mobile").ID,
+                    Price = 235.90m, ManufacturerID = manufacturers.Single(a => a.Name == "LG").ID, ProductImage = "~/Images/mobile_LG_k50s.jpeg" },
+                new Product { Name = "K22 ", Description = "32GB", CategoryID = categories.SingleOrDefault(g => g.Name == "Mobile").ID,
+                    Price = 112.95m, ManufacturerID = manufacturers.Single(a => a.Name == "LG").ID, ProductImage = "~/Images/mobile_LG_k22.jpeg" },
+                new Product { Name = "V30+", Description = "128GB", CategoryID = categories.SingleOrDefault(g => g.Name == "Mobile").ID,
+                    Price = 253.20m, ManufacturerID = manufacturers.Single(a => a.Name == "LG").ID, ProductImage = "~/Images/mobile_LG_v30plus.jpeg" },
+                new Product { Name = "Wing 5G", Description = "128GB", CategoryID = categories.SingleOrDefault(g => g.Name == "Mobile").ID,
+                    Price = 871.88m, ManufacturerID = manufacturers.Single(a => a.Name == "LG").ID, ProductImage = "~/Images/mobile_LG_wing5g.jpeg" },
 
                 // Samsung
+                new Product { Name = "Galaxy A71", Description = "128GB", CategoryID = categories.SingleOrDefault(g => g.Name == "Mobile").ID,
+                    Price = 337.21m, ManufacturerID = manufacturers.Single(a => a.Name == "Samsung").ID, ProductImage = "~/Images/mobile_samsung_galaxya71.jpeg" },
+                new Product { Name = "Galaxy A51 ", Description = "128GB", CategoryID = categories.SingleOrDefault(g => g.Name == "Mobile").ID,
+                    Price = 250.96m, ManufacturerID = manufacturers.Single(a => a.Name == "Samsung").ID, ProductImage = "~/Images/mobile_samsung_galaxya51.jpeg" },
+                new Product { Name = "Galaxy A20e Dual", Description = "32GB", CategoryID = categories.SingleOrDefault(g => g.Name == "Mobile").ID,
+                    Price = 126m, ManufacturerID = manufacturers.Single(a => a.Name == "Samsung").ID, ProductImage = "~/Images/mobile_samsung_galaxya20edual.jpeg" },
+                new Product { Name = "Galaxy A21s", Description = "32GB", CategoryID = categories.SingleOrDefault(g => g.Name == "Mobile").ID,
+                    Price = 163m, ManufacturerID = manufacturers.Single(a => a.Name == "Samsung").ID, ProductImage = "~/Images/mobile_samsung_galaxya21s.jpeg" },
+                new Product { Name = "Galaxy A41", Description = "64GB", CategoryID = categories.SingleOrDefault(g => g.Name == "Mobile").ID,
+                    Price = 197m, ManufacturerID = manufacturers.Single(a => a.Name == "Samsung").ID, ProductImage = "~/Images/mobile_samsung_galaxya41.jpeg" },
+                new Product { Name = "Galaxy A31", Description = "64GB", CategoryID = categories.SingleOrDefault(g => g.Name == "Mobile").ID,
+                    Price = 198m, ManufacturerID = manufacturers.Single(a => a.Name == "Samsung").ID, ProductImage = "~/Images/mobile_samsung_galaxya31.jpeg" },
+                new Product { Name = "Galaxy S20 Ultra 5G", Description = "128GB", CategoryID = categories.SingleOrDefault(g => g.Name == "Mobile").ID,
+                    Price = 1044.08m, ManufacturerID = manufacturers.Single(a => a.Name == "Samsung").ID, ProductImage = "~/Images/mobile_samsung_galaxys20ultra5g.jpeg" },
+
+
+                // Tablets
+
+                // Microsoft
+                new Product { Name = "Surface Pro 7 12.3\"", Description = "Windows 10 Home/i5/128GB", CategoryID = categories.SingleOrDefault(g => g.Name == "Tablet").ID,
+                    Price = 849m, ManufacturerID = manufacturers.Single(a => a.Name == "Microsoft").ID, ProductImage = "~/Images/tablet_microsoft_surfacepro712,3.jpeg" },
+                new Product { Name = "Surface Pro 6 12.3\"", Description = "i5-8250U/8GB/256GB", CategoryID = categories.SingleOrDefault(g => g.Name == "Tablet").ID,
+                    Price = 939.52m, ManufacturerID = manufacturers.Single(a => a.Name == "Microsoft").ID, ProductImage = "~/Images/tablet_microsoft_surfacepro612,3.jpeg" },
+
+                // Amazon
+                new Product { Name = "Fire 10.1\"", Description = "HD 32GB", CategoryID = categories.SingleOrDefault(g => g.Name == "Tablet").ID,
+                    Price = 130.59m, ManufacturerID = manufacturers.Single(a => a.Name == "Amazon").ID, ProductImage = "~/Images/tablet_amazon_fire10,1.jpeg" },
+                new Product { Name = "Fire HD 8\"", Description = "32GB", CategoryID = categories.SingleOrDefault(g => g.Name == "Tablet").ID,
+                    Price = 87.03m, ManufacturerID = manufacturers.Single(a => a.Name == "Amazon").ID, ProductImage = "~/Images/tablet_amazon_firehd8.jpeg" },
+                new Product { Name = "Fire 7 7\"", Description = "16GB", CategoryID = categories.SingleOrDefault(g => g.Name == "Tablet").ID,
+                    Price = 65.25m, ManufacturerID = manufacturers.Single(a => a.Name == "Amazon").ID, ProductImage = "~/Images/tablet_amazon_fire77.jpeg" },
+
+                // Alcatel
+                new Product { Name = "1T ", Description = "10.1\" 32GB", CategoryID = categories.SingleOrDefault(g => g.Name == "Tablet").ID,
+                    Price = 111.99m, ManufacturerID = manufacturers.Single(a => a.Name == "Alcatel").ID, ProductImage = "~/Images/tablet_alcatel_1t.jpeg" },
+                new Product { Name = "Smart Tab 7", Description = "7\" 16GB", CategoryID = categories.SingleOrDefault(g => g.Name == "Tablet").ID,
+                    Price = 71.80m, ManufacturerID = manufacturers.Single(a => a.Name == "Alcatel").ID, ProductImage = "~/Images/tablet_alcatel_smarttab7.jpeg" },
+
+                // Huawei
+                new Product { Name = "MatePad Pro", Description = "10.8\" 4G 128GB", CategoryID = categories.SingleOrDefault(g => g.Name == "Tablet").ID,
+                    Price = 573.90m, ManufacturerID = manufacturers.Single(a => a.Name == "Huawei").ID, ProductImage = "~/Images/tablet_huawei_matepadpro.jpeg" },
+                new Product { Name = "MediaPad T5", Description = "10.1\" 64GB", CategoryID = categories.SingleOrDefault(g => g.Name == "Tablet").ID,
+                    Price = 228.98m, ManufacturerID = manufacturers.Single(a => a.Name == "Huawei").ID, ProductImage = "~/Images/tablet_huawei_mediapadt5.jpeg" },
+                new Product { Name = "MediaPad T5 lite", Description = "10.1\" 32GB", CategoryID = categories.SingleOrDefault(g => g.Name == "Tablet").ID,
+                    Price = 199m, ManufacturerID = manufacturers.Single(a => a.Name == "Huawei").ID, ProductImage = "~/Images/tablet_huawei_mediapadt5lite.jpeg" },
+
+                // Lenovo
+                new Product { Name = "Tab M10 X505", Description = "10.1\" 32GB", CategoryID = categories.SingleOrDefault(g => g.Name == "Tablet").ID,
+                    Price = 150m, ManufacturerID = manufacturers.Single(a => a.Name == "Lenovo").ID, ProductImage = "~/Images/tablet_lenovo_tabm10x505.jpeg" },
+
+                // Samsung
+                new Product { Name = "Galaxy Tab A7", Description = "2020 10.4\" 32GB", CategoryID = categories.SingleOrDefault(g => g.Name == "Tablet").ID,
+                    Price = 218.10m, ManufacturerID = manufacturers.Single(a => a.Name == "Samsung").ID, ProductImage = "~/Images/tablet_samsung_galaxytaba7.jpeg" },
+                new Product { Name = "Galaxy Tab S7", Description = "11\" 128GB", CategoryID = categories.SingleOrDefault(g => g.Name == "Tablet").ID,
+                    Price = 690.31m, ManufacturerID = manufacturers.Single(a => a.Name == "Samsung").ID, ProductImage = "~/Images/tablet_samsung_galaxytabs7.jpeg" },
+
+                // Apple
+                new Product { Name = "iPad", Description = "2020 10.2\" 32GB", CategoryID = categories.SingleOrDefault(g => g.Name == "Tablet").ID,
+                    Price = 391.83m, ManufacturerID = manufacturers.Single(a => a.Name == "Apple").ID, ProductImage = "~/Images/tablet_apple_ipad.jpeg" },
+                new Product { Name = "iPad Air", Description = "2020 10.9\" 64GB", CategoryID = categories.SingleOrDefault(g => g.Name == "Tablet").ID,
+                    Price = 704.38m, ManufacturerID = manufacturers.Single(a => a.Name == "Apple").ID, ProductImage = "~/Images/tablet_apple_ipadair.jpeg" },
+                new Product { Name = "iPad Pro", Description = "2020 11\" 256GB", CategoryID = categories.SingleOrDefault(g => g.Name == "Tablet").ID,
+                    Price = 993.92m, ManufacturerID = manufacturers.Single(a => a.Name == "Apple").ID, ProductImage = "~/Images/tablet_apple_ipadpro.jpeg" },
+                new Product { Name = "iPad Mini", Description = "2019 Wi-Fi 7.9\" 64GB", CategoryID = categories.SingleOrDefault(g => g.Name == "Tablet").ID,
+                    Price = 418.99m, ManufacturerID = manufacturers.Single(a => a.Name == "Apple").ID, ProductImage = "~/Images/tablet_apple_ipadmini.jpeg" }
+
 
 
                 // test products

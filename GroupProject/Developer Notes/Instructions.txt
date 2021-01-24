@@ -11,3 +11,5 @@ pd4RJ)?]
 
 - For missing roslyn/csc.exe file error
 Update-Package Microsoft.CodeDom.Providers.DotNetCompilerPlatform -r
+
+- Initial migration is ready. Just enter update-database in packet manager console and run.
