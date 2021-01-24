@@ -109,8 +109,14 @@
     }
 </p>
 
-
-<p>Showing @ViewBag.ItemCount items</p>
+@if (ViewBag.ItemCount == 0)
+{
+    <h3>Oops, we didn't find any of the products you're looking for :(</h3>
+}
+else
+{
+    <p>Showing @ViewBag.ItemCount items</p>
+}
 
 <div class="row" id="productGrid">
     @foreach (var item in Model)
