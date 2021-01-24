@@ -32,8 +32,8 @@ namespace GroupProject
                  "~/Content/custom.css"));
 
             bundles.Add(new ScriptBundle("~/bundles/custom").Include(
-                "~/Scripts/all.js",
-                "~/Scripts/custom.js"));
+                "~/Scripts/loader.js",
+            "~/Scripts/navbar.js"));
 
             bundles.Add(new StyleBundle("~/Content/fontawesome").Include(
                  "~/Content/font-awesome.css",
