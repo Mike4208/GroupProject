@@ -1,0 +1,120 @@
+﻿@model GroupProject.ViewModel.ShoppingCartViewModel
+
+@* OM: Maybe make this different from full page shopping cart?
+    if not remember to update this page every time you update that one *@
+
+<script src="~/Scripts/jquery-3.4.1.min.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+
+    $(function () {
+        // Document.ready -> link up remove event handler
+        $(".RemoveLink").click(function () {
+            // Get the id from the link
+            var recordToDelete = $(this).attr("data-id");
+
+            if (recordToDelete != '') {
+
+                // Perform the ajax post
+                var url = '@Url.Action("RemoveFromCart", "ShoppingCart")';
+                        $.post(url, { "id": recordToDelete }, function (data) {
+                        // Successful requests get here
+                        // Update the page elements
+                        if (data.ItemCount == 0) {
+                            $('#row-' + data.DeleteId).fadeOut('slow');
+                        } else {
+                            $('#item-count-' + data.DeleteId).text(data.ItemCount);
+                        }
+                        $('#cart-total').text(data.CartTotal);
+                        $('#update-message').text(data.Message);
+                        $('#cart-status').text('Cart (' + data.CartCount + ')');
+                    });
+            }
+        });
+    });
+
+        // OM: this one is to be given to dynamically created cart items on its onclick attribute, since the above doesnt work with dynamically created elements for some reason
+        function RemoveItem(itemToDelete) {
+            if (itemToDelete != '') {
+                // Perform the ajax post
+                var url = '@Url.Action("RemoveFromCart", "ShoppingCart")';
+                        $.post(url, { "id": itemToDelete }, function (data) {
+                        // Successful requests get here
+                        // Update the page elements
+                        if (data.ItemCount == 0) {
+                            $('#row-' + data.DeleteId).fadeOut('slow');
+                        } else {
+                            $('#item-count-' + data.DeleteId).text(data.ItemCount);
+                        }
+                        $('#cart-total').text(data.CartTotal);
+                        $('#update-message').text(data.Message);
+                        $('#cart-status').text('Cart (' + data.CartCount + ')');
+                    });
+            }
+        }
+
+    function handleUpdate() {
+        // Load and deserialize the returned JSON data
+        var json = context.get_data();
+        var data = Sys.Serialization.JavaScriptSerializer.deserialize(json);
+    }
+
+</script>
+
+<h3>
+    <em>Review</em> your items:
+</h3>
+<p>
+    @Html.ActionLink("Checkout", "Index", "Checkout", null, new { @class = "btn btn-success" })
+</p>
+<div id="update-message">
+</div>
+<table id="cart-items">
+    <thead>
+        <tr>
+            <th>
+                Product Name
+            </th>
+            <th>
+                Price (each)
+            </th>
+            <th>
+                Quantity
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody id="added-items">
+        @foreach (var item in Model.CartItems)
+        {
+            <tr id="row-@item.ID">
+                <td>
+                    @Html.ActionLink(item.Product.Name, "Details", "Products", new { id = item.ProductID }, null)
+                </td>
+                <td>
+                    @item.Product.Price€
+                </td>
+                <td id="item-count-@item.ID">
+                    @item.Quantity
+                </td>
+                <td>
+                    <a href="javascript:void(0);" class="RemoveLink" data-id="@item.ID">Remove from cart</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+    <tbody>
+        <tr>
+            <td>
+                Total
+            </td>
+            <td>
+            </td>
+            <td>
+            </td>
+            <td id="cart-total">
+                @Model.CartTotal€
+            </td>
+        </tr>
+    </tbody>
+</table>

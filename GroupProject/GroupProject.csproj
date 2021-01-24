@@ -453,6 +453,7 @@
     <Content Include="Views\ShoppingCart\Index.cshtml" />
     <Content Include="Views\Products\Index.cshtml" />
     <Content Include="Scripts\jQuery\jquery-2.2.4.min.map" />
+    <Content Include="Views\ShoppingCart\PartialCart.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

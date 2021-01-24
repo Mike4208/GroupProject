@@ -52,7 +52,16 @@
                 }
             });
 
-
+            var cart = $('#cart-update');
+            $.ajax({
+                url: '@Url.Action("PartialCart", "ShoppingCart")',
+                contentType: 'application/html ; charset:utf-8',
+                type: 'GET',
+                dataType: 'html',
+                success: function (result) {
+                    cart.empty().append(result);
+                }
+            });
         }
     </script>
 }  

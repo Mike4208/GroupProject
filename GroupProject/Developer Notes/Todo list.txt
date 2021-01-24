@@ -9,10 +9,6 @@
 - make admin able to change other account's passwords
 
 
-- make a proper configuration seed
-
-- make cart items refresh live with signalR too
-
 - remove add to cart icon in front of card image if user not signed in
 
 - make 'add to cart' button appear if user is not signed in, and promt him to sign in when he presses it, 
@@ -25,3 +21,7 @@ then return him to the product/details of the product he was looking at
 - photos in product/details appear waay too distorted
 
 - if no products are found in search, show message saying so
+
+- make cart hyperlinks (removefromcart and product name) more visible as hyperlinks
+
+- font in forms is barely visible. (make it bold? or bigger?)

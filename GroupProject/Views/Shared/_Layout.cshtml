@@ -81,7 +81,7 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <div class="modal-body">
+                    <div class="modal-body" id="cart-update">
                         @{Html.RenderAction("Cart", "ShoppingCart");}  @* OM: So ShoppingCart/Index renders in the modal *@
                     </div>
                 </div>
@@ -153,8 +153,39 @@
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/custom")
     @RenderSection("scripts", required: false)
-    @RenderSection("Signalr", required: false)
 
+    @* SignalR script to refresh cart in any view *@
+    <script src="~/Scripts/jquery.signalR-2.2.2.min.js"></script>
+    <script src="/signalr/hubs"></script>
+
+    <script type="text/javascript">
+
+        $(function () {
+            var hubNotify = $.connection.updateProductsHub;
+
+            $.connection.hub.start().done(function () {
+                getAll();
+            });
+            hubNotify.client.refreshCartData = function () {
+                getAll();
+            };
+        });
+
+        function getAll() {
+            var cart = $('#cart-update');
+            $.ajax({
+                url: '@Url.Action("PartialCart", "ShoppingCart")',
+                contentType: 'application/html ; charset:utf-8',
+                type: 'GET',
+                dataType: 'html',
+                success: function (result) {
+                    cart.empty().append(result);
+                }
+            });
+        }
+    </script>
+
+    @RenderSection("Signalr", required: false)
 
     @* For Manage/Orders action to show order details  *@
     <script>
@@ -166,9 +197,9 @@
     </script>
     @* Burger menu hide on mouse click*@
     <script>
-        $(".navbar-toggler").click(function (event) {
-            $(".navbar-collapse").toggle();
-        });
+                $(".navbar-toggler").click(function (event) {
+                    $(".navbar-collapse").toggle();
+                });
     </script>
 
 

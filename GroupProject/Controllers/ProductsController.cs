@@ -224,12 +224,26 @@ namespace GroupProject.Controllers
 
                 db.Entry(product).State = EntityState.Modified;
                 db.SaveChanges();
+
+                // OM: update prices that are already in cart
+                UpdateCartPrices(product);
+
                 UpdateProductsHub.BroadcastData();
                 return RedirectToAction("Details", new { id = product.ID });
             }
             ViewBag.CategoryID = new SelectList(db.Categories, "ID", "Name", product.CategoryID);
             ViewBag.ManufacturerID = new SelectList(db.Manufacturers, "ID", "Name", product.ManufacturerID);
             return View(product);
+        }
+
+        public void UpdateCartPrices(Product product)
+        {
+            var cartsToUpdate = db.Carts.Where(x => x.ProductID == product.ID).Include(x => x.Product);
+            foreach (var item in cartsToUpdate)
+            {
+                if (item.Product.Price != product.Price)
+                    item.Product.Price = product.Price;
+            }
         }
 
         //
