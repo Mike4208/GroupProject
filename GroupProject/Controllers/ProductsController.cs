@@ -156,6 +156,7 @@ namespace GroupProject.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ID, Name, Description, ProductImage, Price, CategoryID, ManufacturerID")] Product product)
         {
+            product.ProductImage = "~/Images/" + product.ProductImage;
             if (ModelState.IsValid)
             {
                 db.Products.Add(product);
