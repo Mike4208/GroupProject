@@ -199,6 +199,7 @@
     <Compile Include="Controllers\RatingsController.cs" />
     <Compile Include="Controllers\ShoppingCartController.cs" />
     <Compile Include="Data\ApplicationDbContext.cs" />
+    <Compile Include="Email\SendEmail.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -243,6 +244,7 @@
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\style.css" />
     <Content Include="Content\versions.css" />
+    <Content Include="Email\AccountConfirmation.html" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\Flaticon.svg" />
     <Content Include="fonts\fontawesome-webfont.svg" />
@@ -453,6 +455,8 @@
     <Content Include="Views\Products\Index.cshtml" />
     <Content Include="Scripts\jQuery\jquery-2.2.4.min.map" />
     <Content Include="Views\ShoppingCart\Cart.cshtml" />
+    <Content Include="Views\Account\EmailSent.cshtml" />
+    <Content Include="Views\Account\ConfirmEmail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
