@@ -8,6 +8,14 @@ sb-70gza4816454@personal.example.com
 Password:
 pd4RJ)?]
 
+- more human fake paypal email for fake payments:
+
+Email:
+ebuytest@personal.com
+
+Password:
+123123123
+
 
 - For missing roslyn/csc.exe file error
 Update-Package Microsoft.CodeDom.Providers.DotNetCompilerPlatform -r
