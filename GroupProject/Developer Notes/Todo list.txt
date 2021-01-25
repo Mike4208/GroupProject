@@ -13,3 +13,5 @@
 - foorter needs work (check inspect)
 
 - font in forms is barely visible. (make it bold? or bigger?)
+
+- delete ratingviewmodel if nothing breaks after some tests
