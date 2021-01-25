@@ -170,6 +170,13 @@ namespace GroupProject.Controllers
                         item.UserName = model.Username;
                     }
 
+                    // OM: Migrate cart to new User when Username changes
+                    var carts = context.Carts.Where(x => x.CartID == username);
+                    foreach (var item in carts)
+                    {
+                        item.CartID = model.Username;
+                    }
+
                     context.SaveChanges();
                     return RedirectToAction("UserList");
                 }

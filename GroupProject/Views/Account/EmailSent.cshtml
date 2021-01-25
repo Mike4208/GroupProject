@@ -1,10 +1,9 @@
-﻿
-@{
-    ViewBag.Title = "EmailSent";
+﻿@{
+    ViewBag.Title = "Email Sent";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Email Sent Sucesfully</h2>
+<h2>Email Sent Successfully</h2>
 <p>Confirm your email to use our services!</p>
 <p>We'll redirect you back to the page in just a second</p>
 
@@ -15,12 +14,8 @@
 
     const WaitAndRedirect = async () => {
         await delay(6000);
-        var urlOfProductToReturnTo = document.getElementById("RedirectTo").value;
-        location.href = urlOfProductToReturnTo;
+        var urlToReturnTo = document.getElementById("RedirectTo").value;
+        location.href = urlToReturnTo;
     };
-
-    var productIdToReturnTo = @Html.Raw(Json.Encode(Model));
-    if (productIdToReturnTo != null) {
-        WaitAndRedirect();
-    }
+    WaitAndRedirect();
 </script>

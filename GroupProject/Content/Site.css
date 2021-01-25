@@ -1,7 +1,7 @@
 ﻿/* OM: TODO! Move whatever inline and in view css in this file */
-*{
-    margin:0;
-    padding:0;
+* {
+    margin: 0;
+    padding: 0;
 }
 
 html {
@@ -15,8 +15,8 @@ body {
     padding-top: 0%;
     /*background-color: gainsboro;*/
     margin: 0;
-    height: fit-content;  
-    color:black;
+    height: fit-content;
+    color: black;
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -61,7 +61,7 @@ textarea {
 }
 
 .nav li a:hover {
-    opacity:0.8;
+    opacity: 0.8;
 }
 
 .Cart {
@@ -80,7 +80,7 @@ textarea {
     }
 
     .Cart:hover {
-       /* background-color: #617971;*/
+        /* background-color: #617971;*/
     }
 
     .Cart:focus {
@@ -100,7 +100,7 @@ textarea {
 
 @media only screen and (max-width: 976px) {
     .nav-search {
-        display:none;
+        display: none;
     }
 }
 
@@ -190,8 +190,8 @@ textarea {
         background-position: center;
     }
 
-    .ratingResult{
-        text-align:center;
+    .ratingResult {
+        text-align: center;
     }
 }
 
@@ -227,6 +227,7 @@ textarea {
     -webkit-animation-name: bounce;
     animation-name: bounce;
 }
+
 /*--------------------------STAR GIFS REVIEW----------------------------------------*/
 
 .starOff {
@@ -259,6 +260,7 @@ textarea {
 }
 
 /*---------------------------------------------------------------------------*/
+
 .product-grid {
     font-family: Raleway, sans-serif;
     text-align: center;
@@ -268,6 +270,8 @@ textarea {
     position: relative;
     z-index: 1;
     border-radius: 20px;
+    height: 400px;
+    background-color: white;
 }
 
 .product-grid2 {
@@ -308,20 +312,21 @@ textarea {
     }
 
     .product-grid .product-image img {
-        width: 80%;
+        width: 75%;
         position: center;
+        max-height: 230px;
     }
 
 .product-grid .pic-1 {
     opacity: 1;
-    transition: all .3s ease-out 0s
+    transition: all .3s ease-out 0s;
 }
 
 .product-grid:hover .pic-1 {
-    opacity: 1;
+    opacity: 0.5;
 }
 
-.product-grid .pic-2 {
+/*.product-grid .pic-2 {
     opacity: 0;
     position: absolute;
     top: 0;
@@ -331,7 +336,7 @@ textarea {
 
 .product-grid:hover .pic-2 {
     opacity: 1
-}
+}*/
 
 .product-grid .social {
     width: 150px;
@@ -356,53 +361,53 @@ textarea {
     display: inline-block
 }
 
-    .product-grid .social li a {
-        color: #fff;
-        background-color: #333;
-        font-size: 16px;
-        line-height: 40px;
-        text-align: center;
-        height: 40px;
-        width: 40px;
-        margin: 0 2px;
-        display: block;
-        position: relative;
-        transition: all .3s ease-in-out
-    }
+.product-grid .social li a {
+    color: #fff;
+    background-color: #333;
+    font-size: 16px;
+    line-height: 40px;
+    text-align: center;
+    height: 40px;
+    width: 40px;
+    margin: 0 2px;
+    display: block;
+    position: relative;
+    transition: all .3s ease-in-out
+}
 
-        .product-grid .social li a:hover {
-            color: #fff;
-            background-color: #ef5777;
-        }
+.product-grid .social li a:hover {
+    color: #fff;
+    background-color: #ef5777;
+}
 
-        .product-grid .social li a:after, .product-grid .social li a:before {
-            color: #fff;
-            background-color: #ef5777;
-            font-size: 12px;
-            letter-spacing: 1px;
-            line-height: 20px;
-            padding: 1px 5px;
-            white-space: nowrap;
-            opacity: 0;
-            transform: translateX(-50%);
-            position: absolute;
-            left: 50%;
-            top: -30px
-        }
+.product-grid .social li a:after, .product-grid .social li a:before {
+    color: #fff;
+    background-color: #ef5777;
+    font-size: 12px;
+    letter-spacing: 1px;
+    line-height: 20px;
+    padding: 1px 5px;
+    white-space: nowrap;
+    opacity: 0;
+    transform: translateX(-50%);
+    position: absolute;
+    left: 50%;
+    top: -30px
+}
 
-        .product-grid .social li a:after {
-            content: '';
-            height: 15px;
-            width: 15px;
-            border-radius: 0;
-            transform: translateX(-50%) rotate(45deg);
-            top: -20px;
-            z-index: -1
-        }
+.product-grid .social li a:after {
+    content: '';
+    height: 15px;
+    width: 15px;
+    border-radius: 0;
+    transform: translateX(-50%) rotate(45deg);
+    top: -20px;
+    z-index: -1
+}
 
-        .product-grid .social li a:hover:after, .product-grid .social li a:hover:before {
-            opacity: 1
-        }
+.product-grid .social li a:hover:after, .product-grid .social li a:hover:before {
+     opacity: 1
+}
 
 .product-grid .product-discount-label, .product-grid .product-new-label {
     color: #fff;
@@ -433,9 +438,9 @@ textarea {
     text-align: center;
 }
 
-    .product-grid .rating li.disable {
-        color: rgba(0, 0, 0, .2)
-    }
+.product-grid .rating li.disable {
+    color: rgba(0, 0, 0, .2)
+}
 
 .product-grid .product-content {
     background-color: #fff;
@@ -463,13 +468,13 @@ textarea {
     transition: all .3s ease 0s
 }
 
-    .product-grid .title a {
-        color: #828282
-    }
+.product-grid .title a {
+    color: #828282
+}
 
-        .product-grid .title a:hover, .product-grid:hover .title a {
-            color: #ef5777
-        }
+.product-grid .title a:hover, .product-grid:hover .title a {
+    color: #ef5777
+}
 
 .product-grid .price {
     color: #333;
@@ -482,14 +487,14 @@ textarea {
     transition: all .3s
 }
 
-    .product-grid .price span {
-        color: #999;
-        font-size: 13px;
-        font-weight: 400;
-        text-decoration: line-through;
-        margin-left: 3px;
-        display: inline-block
-    }
+.product-grid .price span {
+    color: #999;
+    font-size: 13px;
+    font-weight: 400;
+    text-decoration: line-through;
+    margin-left: 3px;
+    display: inline-block
+}
 
 .product-grid .add-to-cart {
     color: #000;
@@ -501,12 +506,22 @@ textarea {
     max-height: calc(100vh - 200px);
     overflow-y: auto;
 }
+
 .modal {
-    top:20%;
+    top: 20%;
 }
 
 /*----------------------------------------------------*/
-@media only screen and (max-width:990px) {
+
+@media only screen and (max-width:576px) {
+    .product-grid .product-image a {
+        max-width: 200px;
+        position: relative;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        display: block;
+    }
 }
 
 /*----------------------------------------------------*/
@@ -515,31 +530,31 @@ textarea {
     display: block;
 }
 
-    #myTable thead tr {
-        position: absolute;
-        top: -9999px;
-        left: -9999px;
-    }
+#myTable thead tr {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+}
 
-    #myTable tr {
-        border: 1px solid #ccc;
-    }
+#myTable tr {
+    border: 1px solid #ccc;
+}
 
-    #myTable td {
-        border: none;
-        border-bottom: 1px solid #eee;
-        position: relative;
-        /*padding-left: 50%;*/
-    }
+#myTable td {
+    border: none;
+    border-bottom: 1px solid #eee;
+    position: relative;
+    /*padding-left: 50%;*/
+}
 
-        #myTable td:before {
-            position: absolute;
-            top: 6px;
-            left: 6px;
-            width: 45%;
-            padding-right: 10px;
-            white-space: nowrap;
-        }
+#myTable td:before {
+     position: absolute;
+     top: 6px;
+     left: 6px;
+     width: 45%;
+     padding-right: 10px;
+     white-space: nowrap;
+}
 
 .modal-body {
     max-height: calc(100vh - 200px);
@@ -556,31 +571,34 @@ textarea {
 .carousel {
     margin: 50px auto;
 }
+
 @media only screen and (max-width: 760px), (min-device-width: 768px) and (max-device-width: 1024px) {
 
-    .carousel img{
-        height:250px;
+    .carousel img {
+        height: 250px;
     }
 }
 /*----------------------------------------- Sorting Text ---------------------------------------------------*/
-.hyperlink{
-    color:blue;
+
+.hyperlink {
+    color: blue;
 }
 
 /*--------------------------------------------Footer to bottom-----------------------------------------------*/
 
 
 .container {
-    min-height:100%;
-    margin-top:10px; 
+    min-height: 100%;
+    margin-top: 10px;
 }
 
 @media only screen and (max-width: 760px), (min-device-width: 768px) and (max-device-width: 1024px) {
 
-   .tablescroll {
-       overflow-x:scroll;
-   }
-    .row,.SearchBox {
+    .tablescroll {
+        overflow-x: scroll;
+    }
+
+    .row, .SearchBox {
         text-align: center;
     }
 }
@@ -616,11 +634,10 @@ textarea {
     }
 }
 
-.product-img{
-    float:right;
+.product-img {
+    float: right;
     position: relative;
     top: 17px;
-    border:outset;
-    border-radius:15px;
+    border: outset;
+    border-radius: 15px;
 }
-
