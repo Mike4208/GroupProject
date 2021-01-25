@@ -34,8 +34,11 @@
                             <td>@Html.DisplayFor(model => user.Created)</td>
                             <td>@Html.DisplayFor(model => user.LastLogin)</td>
                             <td>
-                                @Html.ActionLink("Edit", "EditUser", new { id = user.UserId }, new { @class = "hyperlink" }) |
-                                @Html.ActionLink("Delete", "DeleteUser", new { id = user.UserId }, new { @class = "hyperlink" })
+                                @Html.ActionLink("Edit", "EditUser", new { id = user.UserId }, new { @class = "hyperlink" })
+                                @if (user.Username != "admin")
+                                {
+                                    @:| @Html.ActionLink("Delete", "DeleteUser", new { id = user.UserId }, new { @class = "hyperlink" })
+                                }
                             </td>
                         </tr>
 
