@@ -89,7 +89,7 @@
         {
             <tr id="row-@item.ID">
                 <td>
-                    @Html.ActionLink(item.Product.Name, "Details", "Products", new { id = item.ProductID }, null)
+                    @Html.ActionLink(item.Product.Name, "Details", "Products", new { id = item.ProductID }, new { @class = "hyperlink" })
                 </td>
                 <td>
                     @item.Product.Price€
@@ -98,7 +98,7 @@
                     @item.Quantity
                 </td>
                 <td>
-                    <a href="javascript:void(0);" class="RemoveLink" data-id="@item.ID">Remove from cart</a>
+                    <a href="javascript:void(0);" class="RemoveLink hyperlink" data-id="@item.ID">Remove from cart</a>
                 </td>
             </tr>
         }

@@ -12,8 +12,4 @@
 
 - foorter needs work (check inspect)
 
-- text on footer overflows out of small width
-
-- make cart hyperlinks (removefromcart and product name) more visible as hyperlinks
-
 - font in forms is barely visible. (make it bold? or bigger?)

@@ -75,7 +75,6 @@ namespace GroupProject.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "RatingId, RatingText, IsApproved, UserName, ProductId, Stars")] Rating rating, int? id)
         {
-
             if (ModelState.IsValid)
             {
                 rating.UserName = User.Identity.GetUserName();
