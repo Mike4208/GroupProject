@@ -85,7 +85,7 @@
                         @Html.DisplayFor(modelItem => item.UserName)
                     </td>
                     <td>
-                        @Html.ActionLink("Details", "RatingDetail", new { id = item.RatingId })
+                        @Html.ActionLink("Details", "RatingDetail", new { id = item.RatingId }, new { @class = "hyperlink" })
                     </td>
                 </tr>
             }

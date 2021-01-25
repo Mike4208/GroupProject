@@ -85,8 +85,8 @@
     </div>
     </div>
     <p>
-        @Html.ActionLink("Delete", "Delete", "Ratings", new { id = Model.RatingId }, null)
-        @Html.ActionLink("Back to List", "RatingsList")
+        @Html.ActionLink("Delete", "Delete", "Ratings", new { id = Model.RatingId }, new { @class = "hyperlink" })
+        @Html.ActionLink("Back to List", "RatingsList", null, new { @class = "hyperlink" })
     </p>
 
     @*<a href='@Url.Action("Edit", "Ratings", new { id = Model.ProductId })'><span class="glyphicon glyphicon-pencil"></span></a>
