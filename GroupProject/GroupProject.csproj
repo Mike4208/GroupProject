@@ -225,7 +225,6 @@
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModel\OrderViewModel.cs" />
     <Compile Include="ViewModel\QueryParamArgs.cs" />
-    <Compile Include="ViewModel\RatingViewModel.cs" />
     <Compile Include="ViewModel\ShoppingCartRemoveViewModel.cs" />
     <Compile Include="ViewModel\ShoppingCartViewModel.cs" />
     <Compile Include="ViewModel\UserView.cs" />
