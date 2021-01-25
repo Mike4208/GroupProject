@@ -301,16 +301,17 @@ textarea {
 .product-grid .product-image {
     position: relative;
     top: 30px;
-    transition: all .3s ease 0s
+    transition: all .3s ease 0s;
 }
 
     .product-grid .product-image a {
-        display: block
+        display: block;
     }
 
     .product-grid .product-image img {
-        width: 80%;
+        width: 75%;
         position: center;
+        max-height: 220px;
     }
 
 .product-grid .pic-1 {
@@ -319,7 +320,7 @@ textarea {
 }
 
 .product-grid:hover .pic-1 {
-    opacity: 1;
+    opacity: 0.5;
 }
 
 .product-grid .pic-2 {
@@ -507,7 +508,15 @@ textarea {
 }
 
 /*----------------------------------------------------*/
-@media only screen and (max-width:990px) {
+@media only screen and (max-width:576px) {
+    .product-grid .product-image a {
+        max-width: 200px;
+        position: relative;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        display: block;
+    }
 }
 
 /*----------------------------------------------------*/

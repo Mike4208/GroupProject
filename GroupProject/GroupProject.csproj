@@ -199,6 +199,7 @@
     <Compile Include="Controllers\RatingsController.cs" />
     <Compile Include="Controllers\ShoppingCartController.cs" />
     <Compile Include="Data\ApplicationDbContext.cs" />
+    <Compile Include="Email\SendEmail.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -264,6 +265,7 @@
     <Content Include="Developer Notes\Instructions.txt" />
     <Content Include="Developer Notes\Todo list.txt" />
     <Content Include="Images\world-map.png" />
+    <Content Include="MailTemplate\AccountConfirmation.html" />
     <Content Include="Scripts\loader.js" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
@@ -453,6 +455,8 @@
     <Content Include="Views\Products\Index.cshtml" />
     <Content Include="Scripts\jQuery\jquery-2.2.4.min.map" />
     <Content Include="Views\ShoppingCart\Cart.cshtml" />
+    <Content Include="Views\Account\ConfirmEmail.cshtml" />
+    <Content Include="Views\Account\EmailSent1.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
