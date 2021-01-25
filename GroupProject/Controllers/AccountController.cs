@@ -12,7 +12,6 @@ using GroupProject.Models;
 using System.Data.Entity;
 using GroupProject.Data;
 using System.IO;
-using PayPal;
 using GroupProject.Email;
 
 namespace GroupProject.Controllers
@@ -132,12 +131,13 @@ namespace GroupProject.Controllers
                     // OM: Assign Role to User for whoever Registers
                     // OM: Finish registration and role assigning and then sign user in to get proper user functionalities tp work correctly (Authorization, cart)
                     await this.UserManager.AddToRoleAsync(user.Id, "User");
-                    // await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
+                    //await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
+
                     string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href="" + callbackUrl + "">here</a>");
                     string body = string.Empty;
-                    using (StreamReader reader = new StreamReader(Server.MapPath("~/MailTemplate/AccountConfirmation.html")))
+                    using (StreamReader reader = new StreamReader(Server.MapPath("~/Email/AccountConfirmation.html")))
                     {
                         body = reader.ReadToEnd();
                     }
@@ -145,7 +145,9 @@ namespace GroupProject.Controllers
                     body = body.Replace("{UserName}", model.UserName);
                     bool IsSendEmail = SendEmail.EmailSend(model.Email, "Confirm your account", body, true);
                     if (IsSendEmail)
-                        return RedirectToAction("EmailSent1", "Account");
+                        return RedirectToAction("EmailSent", "Account");
+
+                    //return RedirectToAction("Index", "Home");
                 }
                 AddErrors(result);
             }
@@ -159,6 +161,27 @@ namespace GroupProject.Controllers
             return View();
         }
 
+        // GET: /Account/ConfirmEmail
+        [AllowAnonymous]
+        public async Task<ActionResult> ConfirmEmail(string userId, string code)
+        {
+            if (userId == null || code == null)
+            {
+                return View("Error");
+            }
+            var result = await UserManager.ConfirmEmailAsync(userId, code);
+            return View(result.Succeeded ? "ConfirmEmail" : "Error");
+        }
+
+        //
+        // GET: /Account/EmailSent
+        [AllowAnonymous]
+        public ActionResult EmailSent()
+        {
+            return View();
+        }
+
+        //
         // GET: /Account/ConfirmEmail
         [AllowAnonymous]
         public async Task<ActionResult> ConfirmEmail(string userId, string code)

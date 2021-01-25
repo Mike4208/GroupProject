@@ -85,10 +85,10 @@
                         {
                             <tr class="order-details">
                                 <td>
-                                    <img src="@Url.Content(item2.Product.ProductImage)" alt="" width="80" height="80" />
+                                    <img src="@Url.Content(item2.Product.ProductImage)" alt="" height="80" />
                                 </td>
                                 <td>
-                                    @Html.ActionLink(item2.Product.Name, "Details", "Products", new { id = item2.ProductID }, null)
+                                    @Html.ActionLink(item2.Product.Name, "Details", "Products", new { id = item2.ProductID }, new { @class = "hyperlink" })
                                 </td>
                                 <td>
                                     @Html.DisplayFor(x => item2.Product.Manufacturer.Name)

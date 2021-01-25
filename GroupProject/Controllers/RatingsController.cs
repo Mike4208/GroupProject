@@ -75,7 +75,6 @@ namespace GroupProject.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "RatingId, RatingText, IsApproved, UserName, ProductId, Stars")] Rating rating, int? id)
         {
-
             if (ModelState.IsValid)
             {
                 rating.UserName = User.Identity.GetUserName();
@@ -163,7 +162,7 @@ namespace GroupProject.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             // OM: only allow user who made the review to edit the review
             Rating rating = await db.Ratings.FindAsync(id);
-            if (User.Identity.GetUserName() != rating.UserName)
+            if (User.Identity.GetUserName() != rating.UserName && !User.IsInRole("Admin"))
                 return View("Error");
             if (rating == null)
                 return HttpNotFound();

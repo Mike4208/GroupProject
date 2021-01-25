@@ -9,18 +9,6 @@
     also move search button a couple of pixels up to center it more. move select lists a couple of pixels down too
     (With position:relative; top:5px; bottom:5px;) *@
 
-<style>
-
-    .rating {
-        position: absolute;
-        top: 50px;
-    }
-
-    .product-grid {
-        background-color: white;
-    }
-</style>
-
 <link href="~/Content/Site.css" rel="stylesheet" />
 
 <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/pricing/">
@@ -121,7 +109,7 @@ else
 <div class="row" id="productGrid">
     @foreach (var item in Model)
     {
-        <div class="col-md-3 col-sm-6">
+        <div class="col-lg-3 col-md-4 col-sm-6">
             <div class="product-grid">
                 <div class="product-image">
                     <a href='@Url.Action("Details", "Products", new { id = item.ID })'>
@@ -146,28 +134,29 @@ else
                         <span class="product-discount-label">-@Html.DisplayFor(Model => item.Discount)</span>
                     }
                 </div>
-                <ul class="rating">
-
-                    @{
-                        if (item.Ratings.Where(x => x.IsApproved == true).ToList().Count > 0)
-                        {
-                            int sumAvg = Convert.ToInt32((from x in item.Ratings.Where(x => x.IsApproved == true) select x.Stars).Average());
-                            for (var i = 1; i <= sumAvg; i++)
-                            {
-                                <li class="starOn"></li>
-                            }
-                            for (var i = sumAvg; i < 5; i++)
-                            {
-                                <li class="starOff"></li>
-                            }
-                        }
-                        else
-                        {
-                            <h6>No rating yet</h6>
-                        }
-                    }
-                </ul>
+                
                 <div class="product-content">
+                    <ul class="rating">
+
+                        @{
+                            if (item.Ratings.Where(x => x.IsApproved == true).ToList().Count > 0)
+                            {
+                                int sumAvg = Convert.ToInt32((from x in item.Ratings.Where(x => x.IsApproved == true) select x.Stars).Average());
+                                for (var i = 1; i <= sumAvg; i++)
+                                {
+                                    <li class="starOn"></li>
+                                }
+                                for (var i = sumAvg; i < 5; i++)
+                                {
+                                    <li class="starOff"></li>
+                                }
+                            }
+                            else
+                            {
+                                <li>No rating yet</li>
+                            }
+                        }
+                    </ul>
                     <h3 class="title">@item.Manufacturer.Name @item.Name</h3>
                     <div class="price">
                         @item.Price€
