@@ -37,58 +37,61 @@
                 </th>
             </tr>
         </thead>
+        <tbody style="background-color: #eeeeee; opacity:0.9;">
+            @{ int rowNo = 0; }
+            @foreach (var item in Model)
+            {
+                @Html.HiddenFor(modelItem => item.ProductId)
+                @Html.HiddenFor(modelItem => item.RatingText)
+                <tr>
+                    <td>
+                        @(rowNo += 1)
+                    </td>
+                    @if (item.IsApproved == true)
+                    {
+                        <td>
+                            <span class="badge badge-pill badge-success">Approved</span>
+                        </td>
+                    }
+                    else
+                    {
+                        <td>
+                            <span class="badge badge-pill badge-danger">Pending</span>
+                        </td>
+                    }
+                    @if (item.IsEdited == true)
+                    {
+                        <td>
+                            <span class="badge badge-pill badge-danger">Edited</span>
+                        </td>
+                    }
+                    else
+                    {
+                        <td>
+                            <span class="badge badge-pill badge-success">No Edit</span>
+                        </td>
+                    }
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Products.Manufacturer.Name) @Html.DisplayFor(modelItem => item.Products.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ReviewCreated)
+                    </td>
 
-        @{ int rowNo = 0; }
-        @foreach (var item in Model)
-        {
-            @Html.HiddenFor(modelItem => item.ProductId)
-            @Html.HiddenFor(modelItem => item.RatingText)
-            <tr>
-                <td>
-                    @(rowNo += 1)
-                </td>
-                @if (item.IsApproved == true)
-                {
                     <td>
-                        <span class="badge badge-pill badge-success">Approved</span>
+                        @Html.DisplayFor(modelItem => item.Stars)
                     </td>
-                }
-                else
-                {
                     <td>
-                        <span class="badge badge-pill badge-danger">Pending</span>
+                        @Html.DisplayFor(modelItem => item.UserName)
                     </td>
-                }
-                @if (item.IsEdited == true)
-                {
                     <td>
-                        <span class="badge badge-pill badge-danger">Edited</span>
+                        @Html.ActionLink("Details", "RatingDetail", new { id = item.RatingId })
                     </td>
-                }
-                else
-                {
-                    <td>
-                        <span class="badge badge-pill badge-success">No Edit</span>
-                    </td>
-                }
-                <td>
-                    @Html.DisplayFor(modelItem => item.Products.Manufacturer.Name) @Html.DisplayFor(modelItem => item.Products.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ReviewCreated)
-                </td>
-
-                <td>
-                    @Html.DisplayFor(modelItem => item.Stars)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.UserName)
-                </td>
-                <td>
-                    @Html.ActionLink("Details", "RatingDetail", new { id = item.RatingId })
-                </td>
-            </tr>
-        }
-
+                </tr>
+            }
+        </tbody>
     </table>
-    </div>
+</div>
+<button type="button" class="btn btn-warning" onclick="location.href='@Url.Action("Index", "Admin")'">
+    Admin Panel
+</button>

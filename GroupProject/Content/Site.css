@@ -16,6 +16,8 @@ body {
     /*background-color: gainsboro;*/
     margin: 0;
     height: fit-content;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    color:black;
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -317,7 +319,7 @@ textarea {
 }
 
 .product-grid:hover .pic-1 {
-    opacity: 1
+    opacity: 1;
 }
 
 .product-grid .pic-2 {
@@ -615,12 +617,11 @@ textarea {
     }
 }
 
-
 .product-img{
     float:right;
     position: relative;
     top: 17px;
     border:outset;
     border-radius:15px;
-  
 }
+

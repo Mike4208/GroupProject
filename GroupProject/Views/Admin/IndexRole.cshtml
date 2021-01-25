@@ -12,42 +12,45 @@
         </h3>
     </div>
 </div>
-<table class="table table-bordered">
-    <tbody style="background-color: #eeeeee">
+
+<table class="table table-bordered;">
+
+    <thead class="thead-dark" style="background-color: #eeeeee; opacity:0.975;">
         <tr>
             <td>
                 <h4>
-                    <i>Existing User Roles:</i>
+                    <b>Existing User Roles:</b>
                 </h4>
             </td>
-            <td><h4><i>Description</i></h4></td>
+            <td><h4><b>Description</b></h4></td>
         </tr>
+    </thead>
+
+    <tbody style="background-color: #eeeeee; opacity:0.9;">
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @item.Name
+                </td>
+                <td>
+                    @if (item.Name == "Admin") 
+                    {
+                    @*@Html.ActionLink("Delete", "DeleteRole", new { id = item.Id })*@
+                        @: Has sole access to Admin panel
+                    }
+                    else if (item.Name == "Employee")
+                    {
+                        @: Only has access to product editing utilities
+                    }
+                    else if (item.Name == "User")
+                    {
+                        @: Has access to personal cart and can make orders
+                    }
+                </td>
+            </tr>
+        }
     </tbody>
-
-    @foreach (var item in Model)
-    {
-        <tr style="background-color: #eeeeee">
-            <td>
-                @item.Name
-            </td>
-            <td>
-                @if (item.Name == "Admin") 
-                {
-                @*@Html.ActionLink("Delete", "DeleteRole", new { id = item.Id })*@
-                    @: Has sole access to Admin panel
-                }
-                else if (item.Name == "Employee")
-                {
-                    @: Only has access to product editing utilities
-                }
-                else if (item.Name == "User")
-                {
-                    @: Has access to cart and can make orders
-                }
-            </td>
-        </tr>
-    }
-
 
 </table>
 @*<button type="button" class="btn btn-warning" onclick="location.href='@Url.Action("CreateRole", "Admin")'">

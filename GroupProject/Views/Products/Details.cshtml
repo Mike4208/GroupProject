@@ -103,7 +103,7 @@
                         </button>
                     }
 
-                    <button type="button" name="btnLink" class="btn btn-warning" id="btnLink">Reviews</button>
+                    <button type="button" name="btnLink" class="btn btn-warning" id="btnLink" data-toggle="modal" data-target="#Reviews">Reviews</button>
 
                     <button type="button" class="btn btn-warning" onclick="location.href='@Url.Action("Index")'">
                         Back
@@ -126,12 +126,12 @@
         @*------------------------------------ Reviews start here---- ----------------------------------------*@
         @* OM: TODO! Maybe move everything inside modal to a render action (child action) to simplify everything here *@ 
 
-        <div class="modal fade" id="ModalPopUp" role="dialog">
-            <div class="modal-dialog err-pop" style="">
+        <div class="modal fade" tabindex="-1" id="Reviews" role="dialog">
+            <div class="modal-dialog err-pop" role="document" style="">
                 <div class="modal-content">
                     <div class="modal-header">
                         Product Reviews
-                        <button id="DivClose" type="button" class="close" data-dismiss="modal">&times;</button>
+                        <button id="DivClose" type="button" class="close" data-dismiss="modal" aria-label="Close">&times;</button>
                     </div>
                     <div class="modal-body" style="text-align:center;">
                         <table class="table table-bordered" id="myTable">
@@ -267,13 +267,5 @@
 
     </div>
 </div>
-<script src="https://code.jquery.com/jquery-1.10.0.min.js"
-        integrity="sha256-2+LznWeWgL7AJ1ciaIG5rFP7GKemzzl+K75tRyTByOE="
-        crossorigin="anonymous"></script>
-<script>
-    $("#btnLink").click(function () {
-        $('#ModalPopUp').modal('show');
-    })
-</script>
 
 
