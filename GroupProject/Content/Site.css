@@ -1,4 +1,5 @@
 ﻿/* OM: TODO! Move whatever inline and in view css in this file */
+
 * {
     margin: 0;
     padding: 0;
@@ -13,7 +14,6 @@ body {
     padding-bottom: 20px;
     position: relative;
     padding-top: 0%;
-    /*background-color: gainsboro;*/
     margin: 0;
     height: fit-content;
     color: black;
@@ -52,14 +52,6 @@ textarea {
     border-radius: 10px;
 }
 
-.nav .active {
-    /*background-color: #2a3330;*/
-}
-
-.nav li a:active {
-    /*background-color: #4f625c !important;*/
-}
-
 .nav li a:hover {
     opacity: 0.8;
 }
@@ -71,27 +63,16 @@ textarea {
     border-radius: 10px;
 }
 
-    .Cart .active {
-        /*background-color: #2a3330;*/
-    }
 
-    .Cart:active {
-        /*background-color: #4f625c !important;*/
-    }
+.Cart:focus {
+    outline: none;
+}
 
-    .Cart:hover {
-        /* background-color: #617971;*/
-    }
-
-    .Cart:focus {
-        outline: none;
-    }
-
-    .Cart .nav-link {
-        pointer-events: none;
-        cursor: default;
-        text-decoration: none
-    }
+.Cart .nav-link {
+    pointer-events: none;
+    cursor: default;
+    text-decoration: none;
+}
 
 .searchbar{
     margin-top:21px;
@@ -126,6 +107,7 @@ textarea {
         transform:translateY(-220px;)
     }
 }
+
 /* Fix Navbar icons for smaller screens */
 
 @media only screen and (max-width: 991px) {
@@ -562,7 +544,6 @@ textarea {
     border: none;
     border-bottom: 1px solid #eee;
     position: relative;
-    /*padding-left: 50%;*/
 }
 
 #myTable td:before {
@@ -596,6 +577,7 @@ textarea {
         height: 250px;
     }
 }
+
 /*----------------------------------------- Sorting Text ---------------------------------------------------*/
 
 .hyperlink {
