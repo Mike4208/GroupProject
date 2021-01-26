@@ -244,6 +244,7 @@
     <Content Include="Content\style.css" />
     <Content Include="Content\versions.css" />
     <Content Include="Email\AccountConfirmation.html" />
+    <Content Include="Email\OrderCompleted.html" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\Flaticon.svg" />
     <Content Include="fonts\fontawesome-webfont.svg" />
@@ -256,6 +257,7 @@
     <Content Include="Images\laptop.jpg" />
     <Content Include="Images\login.png" />
     <Content Include="Images\logo-hosting.png" />
+    <Content Include="Images\logo.png" />
     <Content Include="Images\logoff.png" />
     <Content Include="Images\samsungs20.jpeg" />
     <Content Include="Images\shop.png" />
@@ -456,6 +458,7 @@
     <Content Include="Views\ShoppingCart\Cart.cshtml" />
     <Content Include="Views\Account\EmailSent.cshtml" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
+    <Content Include="Views\Checkout\OrderComplete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

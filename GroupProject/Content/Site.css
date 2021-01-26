@@ -265,27 +265,15 @@ textarea {
     font-family: Raleway, sans-serif;
     text-align: center;
     padding: 0 0 172px;
-    border: 1px solid rgba(0, 0, 0, .1);
+    border: 2px solid rgba(0, 0, 0, .1);
     overflow: hidden;
     position: relative;
     z-index: 1;
     border-radius: 20px;
-    height: 400px;
+    height: 420px;
     background-color: white;
 }
 
-.product-grid2 {
-    font-family: Raleway, sans-serif;
-    text-align: center;
-    padding: 0 0 172px;
-    border: 1px solid rgba(0, 0, 0, .1);
-    overflow: hidden;
-    position: relative;
-    z-index: 1;
-    height: 205px;
-    border-radius: 20px;
-    top: 10px;
-}
 
 .product-review {
     top: 20px;
@@ -297,9 +285,6 @@ textarea {
     top: 30px;
 }
 
-.product-grid2 #prodimg {
-    top: 130px;
-}
 
 .product-grid .product-image {
     position: relative;
@@ -308,11 +293,11 @@ textarea {
 }
 
     .product-grid .product-image a {
-        display: block
+        display: block;
     }
 
     .product-grid .product-image img {
-        width: 75%;
+        width:75%;
         position: center;
         max-height: 230px;
     }
@@ -326,17 +311,6 @@ textarea {
     opacity: 0.5;
 }
 
-/*.product-grid .pic-2 {
-    opacity: 0;
-    position: absolute;
-    top: 0;
-    left: 10%;
-    transition: all .3s ease-out 0s
-}
-
-.product-grid:hover .pic-2 {
-    opacity: 1
-}*/
 
 .product-grid .social {
     width: 150px;
@@ -452,7 +426,7 @@ textarea {
     right: 0;
     bottom: 10px;
     z-index: 1;
-    transition: all .3s
+    transition: all .3s;
 }
 
 .product-grid:hover .product-content {
@@ -645,3 +619,5 @@ textarea {
     border: outset;
     border-radius: 15px;
 }
+
+
