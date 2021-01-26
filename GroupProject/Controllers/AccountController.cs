@@ -82,7 +82,15 @@ namespace GroupProject.Controllers
             {
                 return View(model);
             }
-
+            var user1 = await UserManager.FindByNameAsync(model.UserName);
+            if (user1 != null)
+            {
+                if (!await UserManager.IsEmailConfirmedAsync(user1.Id))
+                {
+                    ModelState.AddModelError("", "You must have a confirmed email to log on.");
+                    return View();
+                }
+            }
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
             var result = await SignInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, shouldLockout: false);
