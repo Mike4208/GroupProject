@@ -28,7 +28,5 @@ namespace GroupProject.ViewModel
         [StringLength(5, MinimumLength = 5, ErrorMessage = "Invalid Postal Code")]
         public string PostalCode { get; set; }
         public string Email { get; set; }
-        public decimal TotalPrice { get; set; }
-
     }
 }
