@@ -58,9 +58,9 @@
     @if (ViewBag.IsAdminOrEmployee)
     {
         <p>
-            @Html.ActionLink("Edit Product Categories", "Index", "Categories", "", new { @class = "btn btn-success" })  &nbsp;
-            @Html.ActionLink("Edit Product Manufacturers", "Index", "Manufacturers", "", new { @class = "btn btn-success" }) &nbsp;
-            @Html.ActionLink("Create New Product", "Create", "Products", "", new { @class = "btn btn-success" })
+            @Html.ActionLink("Edit Product Categories", "Index", "Categories", "", new { @class = "btn btn-warning" })  &nbsp;
+            @Html.ActionLink("Edit Product Manufacturers", "Index", "Manufacturers", "", new { @class = "btn btn-warning" }) &nbsp;
+            @Html.ActionLink("Create New Product", "Create", "Products", "", new { @class = "btn btn-warning" })
         </p>}
 
     @using (Html.BeginForm("Index", "Products", FormMethod.Get))

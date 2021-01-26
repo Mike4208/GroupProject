@@ -118,8 +118,8 @@ namespace GroupProject.Controllers
 
                 bool IsSendEmail = SendEmail.EmailSend(model.Email, "Order Completed", body, true);
                 if (IsSendEmail)
-                    return RedirectToAction("OrderComplete", "Checkout");
-                return View(id);
+                    return View(id);
+                return View("Error");
             }
             else
                 return View("Error");
