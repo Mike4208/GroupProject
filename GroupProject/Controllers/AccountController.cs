@@ -165,13 +165,8 @@ namespace GroupProject.Controllers
             // If we got this far, something failed, redisplay form
             return View(model);
         }
-        
-        [AllowAnonymous]
-        public ActionResult EmailSent1()
-        {
-            return View();
-        }
 
+        //
         // GET: /Account/ConfirmEmail
         [AllowAnonymous]
         public async Task<ActionResult> ConfirmEmail(string userId, string code)
