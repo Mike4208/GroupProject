@@ -1,0 +1,183 @@
+﻿@{
+    Layout = "";
+}
+<head>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=VT323" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Anton" />
+    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    <style>
+        html,
+        body {
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+
+        #mount {
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #333333;
+            overflow: hidden;
+        }
+
+        h1,
+        input {
+          
+            font: 200 8em/1 Anton;
+            text-align: center;
+        }
+
+       
+
+        .char {
+            display: block;
+            float: left;
+            animation: infinite forwards cw;
+            transform-origin: 50% 50%;
+            z-index: 1;
+        }
+
+            .char:nth-child(2n) {
+                animation-name: ccw;
+            }
+
+        @@keyframes cw {
+            0% {
+                transform: scale(1);
+                position: relative;
+            }
+
+            4% {
+                transform: scale(3) rotate(10deg);
+                text-shadow: 0 0 10px #000;
+                color: white;
+                z-index: 2;
+                position: relative;
+            }
+
+            8% {
+                transform: scale(1);
+                text-shadow: 0 0 0 transparent;
+                color: green;
+                position: relative;
+            }
+        }
+
+        @@keyframes ccw {
+            0% {
+                transform: scale(1);
+                position: relative;
+            }
+
+            4% {
+                transform: scale(3) rotate(-10deg);
+                text-shadow: 0 0 10px #000;
+                color: white;
+                z-index: 2;
+                position: relative;
+            }
+
+            8% {
+                transform: scale(1);
+                text-shadow: 0 0 0 transparent;
+                color: green;
+                position: relative;
+            }
+        }
+
+     
+
+        @@keyframes pulse {
+            0% {
+                opacity: 0.4;
+            }
+
+            50% {
+                opacity: 0.8;
+            }
+
+            100% {
+                opacity: 0.4;
+            }
+        }
+    </style>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mithril/1.1.6/mithril.js"></script>
+
+</head>
+
+<body>
+    <div id="mount"></div>
+
+
+    <script>
+        const rate = 0.20,
+            defaultText = "Welcome to e-Buy...!";
+        let del = 0;
+
+        m.mount(document.getElementById("mount"), {
+            oninit: (vnode) => {
+                vnode.state.text = defaultText;
+            },
+            view: (vnode) => [
+                m("p", ""),
+                vnode.state.edit ?
+                    m("input", {
+                        oncreate: (inputVnode) => {
+                            vnode.state.input = inputVnode;
+                            inputVnode.dom.focus();
+                            inputVnode.dom.select();
+                        },
+                        onblur: () => {
+                            vnode.state.edit = false;
+                        },
+                        onkeydown: (e) => {
+                            if (e.keyCode === 13) {
+                                vnode.state.edit = false;
+                                return;
+                            }
+                        },
+                        oninput: m.withAttr("value", (value) => {
+                            vnode.state.text = value;
+                        }),
+                        value: vnode.state.text
+                    }) :
+                    m("h1", {
+                        onclick: () => {
+                            vnode.state.edit = true;
+                            if (vnode.state.input) {
+                                vnode.state.input.dom.focus();
+                            }
+                        }
+                    },
+                        vnode.state.text
+                            .split("")
+                            .map((char, idx, arr) => {
+                                ++del; // not using idx to skip space
+
+                                if (char === " ") {
+                                    char = " "; // nbsp
+                                    --del;
+                                }
+
+                                return m("span.char", {
+                                    style: {
+                                        animationDelay: `${del * rate}s`,
+                                        animationDuration: `${arr.length * rate * 1.6}s`
+                                    }
+                                }, char);
+                            })
+                    )
+            ]
+        })
+    </script>
+    <script>
+        $(document).ready(function(){
+      setTimeout(function() {
+       window.location.href = '@Url.Action("Index", "Home")'
+      }, 4800);
+    });
+    </script>
+</body>

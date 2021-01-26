@@ -1,0 +1,20 @@
+﻿@{
+    ViewBag.Title = "Order Completed";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Thank you for your order!</h2>
+<p>We'll redirect you back to the page in just a second</p>
+
+@Html.Hidden("RedirectTo", Url.Action("Index", "Home"))
+
+<script>
+    const delay = ms => new Promise(res => setTimeout(res, ms));
+
+    const WaitAndRedirect = async () => {
+        await delay(6000);
+        var urlToReturnTo = document.getElementById("RedirectTo").value;
+        location.href = urlToReturnTo;
+    };
+    WaitAndRedirect();
+</script>

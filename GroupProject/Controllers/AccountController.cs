@@ -167,6 +167,13 @@ namespace GroupProject.Controllers
         }
 
         //
+        // GET: /Account/EmailSent
+        [AllowAnonymous]
+        public ActionResult EmailSent()
+        {
+            return View();
+        }
+
         // GET: /Account/ConfirmEmail
         [AllowAnonymous]
         public async Task<ActionResult> ConfirmEmail(string userId, string code)
@@ -177,14 +184,6 @@ namespace GroupProject.Controllers
             }
             var result = await UserManager.ConfirmEmailAsync(userId, code);
             return View(result.Succeeded ? "ConfirmEmail" : "Error");
-        }
-
-        //
-        // GET: /Account/EmailSent
-        [AllowAnonymous]
-        public ActionResult EmailSent()
-        {
-            return View();
         }
 
         //
