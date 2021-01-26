@@ -99,6 +99,12 @@ namespace GroupProject.Controllers
         public ActionResult DeleteUserConfirmed(string id)
         {
             var userid = context.Users.Where(x => x.Id == id).Single();
+            // OM: Delete user's cart too
+            var username = context.Users.Where(y => y.Id == id).Single().UserName;
+            foreach (var item in context.Carts.Where(x => x.CartID == username))
+            {
+                context.Carts.Remove(item);
+            }
             context.Users.Remove(userid);
             context.SaveChanges();
             return RedirectToAction("UserList");
