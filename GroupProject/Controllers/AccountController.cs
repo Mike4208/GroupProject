@@ -157,8 +157,6 @@ namespace GroupProject.Controllers
                     bool IsSendEmail = SendEmail.EmailSend(model.Email, "Confirm your account", body, true);
                     if (IsSendEmail)
                         return RedirectToAction("EmailSent", "Account");
-
-                    //return RedirectToAction("Index", "Home");
                 }
                 AddErrors(result);
             }
@@ -216,8 +214,6 @@ namespace GroupProject.Controllers
 
             base.Dispose(disposing);
         }
-
-
 
         #region Helpers
         // Used for XSRF protection when adding external logins
