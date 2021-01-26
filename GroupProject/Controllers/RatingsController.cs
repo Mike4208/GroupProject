@@ -121,6 +121,15 @@ namespace GroupProject.Controllers
         [Authorize(Roles = "User")]
         public async Task<ActionResult> Edit(int? id)
         {
+            ViewBag.Stars = new List<SelectListItem>()
+                    {
+                        new SelectListItem() {Text="1", Value = "1" },
+                        new SelectListItem() {Text="2", Value = "2" },
+                        new SelectListItem() {Text="3", Value = "3" },
+                        new SelectListItem() {Text="4", Value = "4" },
+                        new SelectListItem() {Text="5", Value = "5" }
+                    };
+            
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             // OM: only allow user who made the review to edit the review

@@ -270,7 +270,7 @@ textarea {
     position: relative;
     z-index: 1;
     border-radius: 20px;
-    height: 400px;
+    height: 420px !important;
     background-color: white;
 }
 
