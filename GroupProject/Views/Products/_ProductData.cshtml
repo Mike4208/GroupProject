@@ -69,8 +69,8 @@
             <form>
                 <div class="row d-flex justify-content-center">
                     @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, null, new { @class = "form-control col-sm", @placeholder = "Type here" })&nbsp;
-                    @Html.DropDownList("SelectedCategory", null, "Category", new { @class = "form-control col-sm" })&nbsp;
-                    @Html.DropDownList("SelectedManufacturer", null, "Manufacturer", new { @class = "form-control col-sm" })&nbsp;
+                    @Html.DropDownList("SelectedCategory", null, "Category", new { @class = "form-control col-sm", onchange = "this.form.submit();" })&nbsp;
+                    @Html.DropDownList("SelectedManufacturer", null, "Manufacturer", new { @class = "form-control col-sm", onchange = "this.form.submit(); " })&nbsp;
                 </div>
                 <br />
                 <input type="submit" value="Search" class="btn btn-success btn-sm" />
@@ -88,7 +88,7 @@
         selectedManufacturer = ViewBag.CurrentManufacturer
     }, new { @class = "hyperlink" })
     @if (ViewBag.Descending)
-    {
+                    {
         @:(Currently Descending)
     }
     else
