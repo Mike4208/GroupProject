@@ -16,7 +16,7 @@
         <dt>@Html.DisplayNameFor(model => model.Email): </dt>
         <dd>@Model.Email</dd> @*OM: DisplayFor makes this appear as a hyperlink for some reason*@
         <dt>Password: </dt>
-        <dd>[ @Html.ActionLink("Change password", "ChangePassword") ]</dd>
+        <dd>[ @Html.ActionLink("Change password", "ChangePassword", null, new { @class = "hyperlink" }) ]</dd>
         <dt>@Html.DisplayNameFor(model => model.FirstName): </dt>
         <dd>@Html.DisplayFor(model => model.FirstName)</dd>
         <dt>@Html.DisplayNameFor(model => model.LastName): </dt>
