@@ -269,14 +269,17 @@
     <Content Include="Images\laptop.jpg" />
     <Content Include="Images\login.png" />
     <Content Include="Images\logo-hosting.png" />
+    <Content Include="Images\logo.png" />
     <Content Include="Images\logoff.png" />
     <Content Include="Images\samsungs20.jpeg" />
+    <Content Include="Images\sf.png" />
     <Content Include="Images\shop.png" />
     <Content Include="Images\shopp.jpg" />
     <Content Include="Images\StarFade.gif" />
     <Content Include="Images\StarGlow.gif" />
     <Content Include="Developer Notes\Instructions.txt" />
     <Content Include="Developer Notes\Todo list.txt" />
+    <Content Include="Images\tv.png" />
     <Content Include="Images\world-map.png" />
     <Content Include="MailTemplate\AccountConfirmation.html" />
     <Content Include="Scripts\loader.js" />
@@ -469,6 +472,8 @@
     <Content Include="Views\ShoppingCart\Cart.cshtml" />
     <Content Include="Views\Account\EmailSent.cshtml" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
+    <Content Include="Views\Checkout\OrderComplete.cshtml" />
+    <Content Include="Views\Home\StartPage.cshtml" />
     <Content Include="Views\Products\GetApiProducts.cshtml" />
   </ItemGroup>
   <ItemGroup>

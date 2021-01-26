@@ -14,6 +14,8 @@ using Microsoft.AspNet.Identity.Owin;
 using GroupProject.Data;
 using System.Data.Entity;
 using System.Data.SqlClient;
+using System.Collections;
+using System.Web.Helpers;
 
 namespace GroupProject.Controllers
 {
@@ -351,25 +353,55 @@ namespace GroupProject.Controllers
 
         //public ActionResult DrawChart()
         //{
-        //    var product = new List<Product>();
+        //    var orders = new List<Order>();
 
-        //    string connectionString = @"Data Source=(LocalDb)\MSSQLLocalDB;Initial Catalog=aspnet-GroupProject-20210106051819;Integrated Security=True";
+        //    string connectionString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=Ebuy;Integrated Security=True";
 
         //    using (SqlConnection con = new SqlConnection(connectionString))
         //    {
         //        con.Open();
 
-        //        using (SqlCommand command = new SqlCommand("SELECT Name, Price FROM Products", con))
+        //        using (SqlCommand command = new SqlCommand("SELECT AspNetUsers.UserName, (COUNT)Orders.ID FROM Orders INNER JOIN AspNetUsers ON Orders.ApplicationUser_Id = AspNetUsers.Id", con))
         //        using (SqlDataReader reader = command.ExecuteReader())
         //        {
         //            while (reader.Read())
         //            {
-        //                product.Add(new Product { Name = reader.GetString(0), Price = reader.GetDecimal(1) });
+        //                orders.Add(new Order { ID = reader.GetInt32(0), UserName = reader.GetString(1) });
         //            }
         //        }
         //    }
 
-        //    return View(product);
+        //    return View(orders);
         //}
+
+        public ActionResult ChartBar()
+        {
+            
+
+            ArrayList xValue = new ArrayList();
+            ArrayList yValue = new ArrayList();
+
+            var results = (from c in context.Users
+                           join o in context.Orders on c.UserName equals o.UserName
+                           group o by c.UserName into g
+                           select new
+                           {
+                               UserName = g.Key,
+                               Username = (from cust in context.Users
+                                          where cust.UserName == g.Key
+                                          select cust).ToList(),
+                               Count = g.Select(x => x.ID).Distinct().Count()
+                           }).OrderBy(y => y.Count);
+
+            results.ToList().ForEach(rs => xValue.Add(rs.UserName));
+            results.ToList().ForEach(rs => yValue.Add(rs.Count));
+
+            new Chart(width: 600, height: 400, theme: ChartTheme.Blue)
+            .AddTitle("Chart for Growth [Bar Chart]")
+                    .AddSeries("Default", chartType: "Bar", xValue: xValue, yValues: yValue)
+                    .Write("png");
+
+            return null;
+        }
     }
 }

@@ -165,9 +165,11 @@ namespace GroupProject.Controllers
             // If we got this far, something failed, redisplay form
             return View(model);
         }
-        
+
+        //
+        // GET: /Account/EmailSent
         [AllowAnonymous]
-        public ActionResult EmailSent1()
+        public ActionResult EmailSent()
         {
             return View();
         }
@@ -182,14 +184,6 @@ namespace GroupProject.Controllers
             }
             var result = await UserManager.ConfirmEmailAsync(userId, code);
             return View(result.Succeeded ? "ConfirmEmail" : "Error");
-        }
-
-        //
-        // GET: /Account/EmailSent
-        [AllowAnonymous]
-        public ActionResult EmailSent()
-        {
-            return View();
         }
 
         //
