@@ -40,8 +40,8 @@ namespace GroupProject.Controllers
             ViewBag.PageName = "Products";
 
             var products = db.Products.Include(p => p.Category).Include(p => p.Manufacturer); //OM: get all products
-            ViewBag.IsAdminOrEmployee = User.IsInRole("Admin") || User.IsInRole("Employee"); //OM: Used to check what to hide in View depending on role
-            ViewBag.IsUser = User.IsInRole("User");
+            ViewBag.IsAdminOrEmployee = User.IsInRole("Admin") || User.IsInRole("Employee"); //OM: Used to check what to hide things from employee/admin
+            ViewBag.IsUser = User.IsInRole("User"); // OM: to show only to user
 
             products = products.OrderBy(x => x.Name); // OM: initial order, pagedlist must have been ordered at least once
 
@@ -277,6 +277,11 @@ namespace GroupProject.Controllers
             db.SaveChanges();
             UpdateProductsHub.BroadcastData();
             return RedirectToAction("Index");
+        }
+
+        public ActionResult GetApiProducts()
+        {
+            return View();
         }
 
         protected override void Dispose(bool disposing)

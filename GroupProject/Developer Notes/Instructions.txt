@@ -1,4 +1,5 @@
-﻿(!) Paypal requires running visual studio as admin to work. dont ask
+﻿(!) Paypal requires running visual studio as admin to work. dont ask why we dont know
+(!!) Ok now it works even without running vs as admin..... dunno what to tell ya
 
 - Fake paypal account for fake payments:
 

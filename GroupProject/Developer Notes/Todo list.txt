@@ -9,7 +9,4 @@
 - make admin able to change other account's passwords
 
 
-
-- foorter needs work (check inspect)
-
-- font in forms is barely visible. (make it bold? or bigger?)
+- searchbar on navbar
