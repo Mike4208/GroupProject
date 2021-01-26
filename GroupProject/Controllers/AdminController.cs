@@ -99,6 +99,12 @@ namespace GroupProject.Controllers
         public ActionResult DeleteUserConfirmed(string id)
         {
             var userid = context.Users.Where(x => x.Id == id).Single();
+            // OM: Delete user's cart too
+            var username = context.Users.Where(y => y.Id == id).Single().UserName;
+            foreach (var item in context.Carts.Where(x => x.CartID == username))
+            {
+                context.Carts.Remove(item);
+            }
             context.Users.Remove(userid);
             context.SaveChanges();
             return RedirectToAction("UserList");
@@ -201,7 +207,7 @@ namespace GroupProject.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.UserName, Email = model.Email, Created = DateTime.Now, FirstName = model.FirstName, LastName = model.LastName };
+                var user = new ApplicationUser { UserName = model.UserName, Email = model.Email, Created = DateTime.Now, FirstName = model.FirstName, LastName = model.LastName, EmailConfirmed = true };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -297,9 +303,9 @@ namespace GroupProject.Controllers
 
 
         // --------------------- Orders Actions -----------------------------
-        public ActionResult OrderList()
+        public async Task<ActionResult> OrderList()
         {
-            var model = context.Orders;
+            var model = await context.Orders.OrderByDescending(x => x.OrderDate).ToListAsync();
             return View(model);
         }
 
@@ -307,7 +313,7 @@ namespace GroupProject.Controllers
 
         public async Task<ActionResult> RatingsList()
         {
-            var model = await context.Ratings.ToListAsync();
+            var model = await context.Ratings.OrderBy(x => x.IsApproved).ThenBy(y => y.IsEdited).ThenByDescending(z => z.ReviewCreated).ToListAsync();
             return View(model);
         }
 

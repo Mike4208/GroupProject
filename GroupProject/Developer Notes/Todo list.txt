@@ -9,9 +9,4 @@
 - make admin able to change other account's passwords
 
 
-
-- foorter needs work (check inspect)
-
-- font in forms is barely visible. (make it bold? or bigger?)
-
-- delete ratingviewmodel if nothing breaks after some tests
+- searchbar on navbar

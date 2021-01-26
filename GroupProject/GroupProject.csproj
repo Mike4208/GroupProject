@@ -244,6 +244,7 @@
     <Content Include="Content\style.css" />
     <Content Include="Content\versions.css" />
     <Content Include="Email\AccountConfirmation.html" />
+    <Content Include="Email\OrderCompleted.html" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\Flaticon.svg" />
     <Content Include="fonts\fontawesome-webfont.svg" />
@@ -385,7 +386,6 @@
     <Content Include="Scripts\umd\popper-utils.min.js" />
     <Content Include="Scripts\umd\popper.js" />
     <Content Include="Scripts\umd\popper.min.js" />
-    <Content Include="StarGlow.gif" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

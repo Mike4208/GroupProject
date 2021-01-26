@@ -5,10 +5,6 @@
     ViewBag.Title = "Browse Products";
 }
 
-@* OM: TODO! Tidy filter stuff, they're not very pretty in small screens, and their look is default, maybe spice it up.
-    also move search button a couple of pixels up to center it more. move select lists a couple of pixels down too
-    (With position:relative; top:5px; bottom:5px;) *@
-
 <link href="~/Content/Site.css" rel="stylesheet" />
 
 <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/pricing/">
@@ -58,9 +54,9 @@
     @if (ViewBag.IsAdminOrEmployee)
     {
         <p>
-            @Html.ActionLink("Edit Product Categories", "Index", "Categories", "", new { @class = "btn btn-success" })  &nbsp;
-            @Html.ActionLink("Edit Product Manufacturers", "Index", "Manufacturers", "", new { @class = "btn btn-success" }) &nbsp;
-            @Html.ActionLink("Create New Product", "Create", "Products", "", new { @class = "btn btn-success" })
+            @Html.ActionLink("Edit Product Categories", "Index", "Categories", "", new { @class = "btn btn-warning" })  &nbsp;
+            @Html.ActionLink("Edit Product Manufacturers", "Index", "Manufacturers", "", new { @class = "btn btn-warning" }) &nbsp;
+            @Html.ActionLink("Create New Product", "Create", "Products", "", new { @class = "btn btn-warning" })
         </p>}
 
     @using (Html.BeginForm("Index", "Products", FormMethod.Get))
@@ -69,8 +65,8 @@
             <form>
                 <div class="row d-flex justify-content-center">
                     @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, null, new { @class = "form-control col-sm", @placeholder = "Type here" })&nbsp;
-                    @Html.DropDownList("SelectedCategory", null, "Category", new { @class = "form-control col-sm" })&nbsp;
-                    @Html.DropDownList("SelectedManufacturer", null, "Manufacturer", new { @class = "form-control col-sm" })&nbsp;
+                    @Html.DropDownList("SelectedCategory", null, "Category", new { @class = "form-control col-sm", onchange = "this.form.submit();" })&nbsp;
+                    @Html.DropDownList("SelectedManufacturer", null, "Manufacturer", new { @class = "form-control col-sm", onchange = "this.form.submit(); " })&nbsp;
                 </div>
                 <br />
                 <input type="submit" value="Search" class="btn btn-success btn-sm" />
@@ -134,7 +130,7 @@ else
                         <span class="product-discount-label">-@Html.DisplayFor(Model => item.Discount)</span>
                     }
                 </div>
-                
+
                 <div class="product-content">
                     <ul class="rating">
 
@@ -176,4 +172,3 @@ else
 
     @Html.PagedListPager(Model, page => Url.Action("Index",
         new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter, selectedCategory = ViewBag.CurrentCategory, selectedManufacturer = ViewBag.CurrentManufacturer }))
-    @*</main>*@
