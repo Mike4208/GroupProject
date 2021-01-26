@@ -57,7 +57,7 @@
                                 </li>
                             }
                         }
-                        <li class="searchbar-li"><form class="searchbar-form">@Html.TextBox("SearchString", ViewBag.CurrentFilter as string, null, new { @class = "searchbar", @placeholder = "Search for Products" });</form></li>
+                        <li class="searchbar-li"><form>@Html.TextBox("SearchString", ViewBag.CurrentFilter as string, null, new { @class = "searchbar form-control", @placeholder = "Search for Products" });</form></li>
                     </ul>
 
                     @Html.Partial("_LoginPartial")
