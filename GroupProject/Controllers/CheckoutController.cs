@@ -1,9 +1,11 @@
 ﻿using GroupProject.Data;
+using GroupProject.Email;
 using GroupProject.Models;
 using GroupProject.ViewModel;
 using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -87,16 +89,45 @@ namespace GroupProject.Controllers
                 return View("Error");
 
             ViewBag.PageName = "Cart";
-
+           
             // Validate customer owns this order
             bool isValid = context.Orders.Any(
                 o => o.ID == id &&
                 o.UserName == User.Identity.Name);
 
+            var user = context.Users.Single(x => x.UserName == User.Identity.Name);
+            List<Order> order = context.Orders.ToList();/*First(o => o.UserName == User.Identity.Name);*/
+            OrderViewModel model = new OrderViewModel()
+            {
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Email = user.Email
+            };
+
             if (isValid)
-                return View(id);
+            {
+                string body = string.Empty;
+                using (StreamReader reader = new StreamReader(Server.MapPath("~/Email/OrderCompleted.html")))
+                {
+                    body = reader.ReadToEnd();
+                }
+                body = body.Replace("{LastName}", model.LastName);
+                body = body.Replace("{FirstName}", model.FirstName);
+                body = body.Replace("{Email}", model.Email);
+                body = body.Replace("{TotalPrice}", order[order.Count - 1].TotalPrice.ToString());
+
+                bool IsSendEmail = SendEmail.EmailSend(model.Email, "Order Completed", body, true);
+                if (IsSendEmail)
+                    return View(id);
+                return View("Error");
+            }
             else
                 return View("Error");
+        }
+
+        public ActionResult OrderComplete()
+        {
+            return View();
         }
     }
 }

@@ -244,6 +244,7 @@
     <Content Include="Content\style.css" />
     <Content Include="Content\versions.css" />
     <Content Include="Email\AccountConfirmation.html" />
+    <Content Include="Email\OrderCompleted.html" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\Flaticon.svg" />
     <Content Include="fonts\fontawesome-webfont.svg" />
