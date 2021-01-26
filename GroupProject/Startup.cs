@@ -37,7 +37,7 @@ namespace GroupProject
                 roleManager.Create(role);
 
                 //Here we create a Admin super user who will maintain the website                   
-                var user = new ApplicationUser() { UserName = "admin", Email = "admin@admin.com" };
+                var user = new ApplicationUser() { UserName = "admin", Email = "admin@admin.com", EmailConfirmed = true };
 
                 string userPWD = "admin123"; // Needs to be more than 6 characters. Check account controller for additions need on scafolding for this to work.
 
