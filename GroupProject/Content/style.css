@@ -1493,7 +1493,6 @@ a img.aligncenter {
     position: relative;
 	padding: 15px;
 	box-shadow: -1px 3px 30px rgba(0, 0, 0, 0.08);
-    cursor: pointer;
     display: block;
     z-index: 1;
 }
