@@ -142,11 +142,9 @@ namespace GroupProject.Controllers
                     // OM: Assign Role to User for whoever Registers
                     // OM: Finish registration and role assigning and then sign user in to get proper user functionalities tp work correctly (Authorization, cart)
                     await this.UserManager.AddToRoleAsync(user.Id, "User");
-                    //await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
 
                     string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code }, protocol: Request.Url.Scheme);
-                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href="" + callbackUrl + "">here</a>");
                     string body = string.Empty;
                     using (StreamReader reader = new StreamReader(Server.MapPath("~/Email/AccountConfirmation.html")))
                     {
@@ -176,10 +174,8 @@ namespace GroupProject.Controllers
         [AllowAnonymous]
         public async Task<ActionResult> ConfirmEmail(string userId, string code)
         {
-            if (userId == null || code == null)
-            {
+            if (userId == null || code == null || await UserManager.FindByIdAsync(userId) == null)
                 return View("Error");
-            }
             var result = await UserManager.ConfirmEmailAsync(userId, code);
             return View(result.Succeeded ? "ConfirmEmail" : "Error");
         }
