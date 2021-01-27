@@ -109,7 +109,7 @@
                         Back
                     </button>
 
-                    @if (User.IsInRole("Admin"))
+                    @if (User.IsInRole("Admin") || User.IsInRole("Employee"))
                     {
                         <button type="button" class="btn btn-warning" onclick="location.href='@Url.Action("Edit", new { id = Model.ID })'">
                             Edit
